@@ -1,14 +1,19 @@
 import Header from '../../common/header/Header';
 import CategoryFilter from '../categoryFilter/CategoryFilter';
 import RestaurantList from '../restaurant/RestaurantList';
-import React from 'react';
-import { CategoryContext } from '../../../context/CategoryContext';
-import { useContext } from 'react';
-import { RestaurantsContext } from '../../../context/RestaurantListContext';
+import React, { useEffect } from 'react';
+import { useRecoilState } from 'recoil';
+import { categoryState } from '../../../recoil/CategoryState';
+import { restaurantsState } from '../../../recoil/RestaurantListState';
+import { getRestaurant } from '../../../api/restaurant';
 
 const Main = () => {
-  const { category, setCategory } = useContext(CategoryContext);
-  const { restaurants } = useContext(RestaurantsContext);
+  const [category, setCategory] = useRecoilState(categoryState);
+  const [restaurants, setRestaurants] = useRecoilState(restaurantsState);
+
+  useEffect(() => {
+    getRestaurant(setRestaurants);
+  }, []);
 
   const filteredRestaurants =
     category === '전체'

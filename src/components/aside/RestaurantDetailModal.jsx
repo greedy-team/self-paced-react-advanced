@@ -1,12 +1,12 @@
 import Modal from '../common/modal/Modal';
 import styled from 'styled-components';
-import { ModalContext } from '../../context/ModalContext';
-import { SelectedRestaurantContext } from '../../context/SelectedRestaurantContext';
-import { useContext } from 'react';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
+import { detailModalState } from '../../recoil/ModalState';
+import { selectedRestaurantState } from '../../recoil/SelectedRestaurantState';
 
 const RestaurantDetailModal = () => {
-  const { selectedRestaurant } = useContext(SelectedRestaurantContext);
-  const { setDetailModal } = useContext(ModalContext);
+  const selectedRestaurant = useRecoilValue(selectedRestaurantState);
+  const setDetailModal = useSetRecoilState(detailModalState);
 
   return (
     <Modal

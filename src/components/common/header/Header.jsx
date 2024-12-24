@@ -1,10 +1,10 @@
 import styled from 'styled-components';
 import addButton from '../../../assets/button/add-button.png';
-import { ModalContext } from '../../../context/ModalContext';
-import { useContext } from 'react';
+import { useSetRecoilState } from 'recoil';
+import { addModalState } from '../../../recoil/ModalState';
 
 const Header = () => {
-  const { setAddModal } = useContext(ModalContext);
+  const setAddModal = useSetRecoilState(addModalState);
 
   return (
     <HeaderContainer>
