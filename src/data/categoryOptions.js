@@ -1,0 +1,11 @@
+const categoryOptions = [
+    { value: "", label: "선택해주세요" },
+    { value: "한식", label: "한식" },
+    { value: "중식", label: "중식" },
+    { value: "일식", label: "일식" },
+    { value: "양식", label: "양식" },
+    { value: "아시안", label: "아시안" },
+    { value: "기타", label: "기타" }
+];
+
+export default categoryOptions;
