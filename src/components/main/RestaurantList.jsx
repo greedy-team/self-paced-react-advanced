@@ -1,17 +1,25 @@
-import styles from "/src/styles/RestaurantList.module.css";
-import RestaurantListItem from "./RestaurantListItem.jsx";
-import { useRestaurantContext } from "../../context/RestaurantContext.jsx";
+import styled from 'styled-components';
+import RestaurantListItem from './RestaurantListItem.jsx';
+import { useRestaurantContext } from '../../context/RestaurantContext.jsx';
 
-export default function RestaurantList() {
+const RestaurantListContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  padding: 0 16px;
+  margin: 16px 0;
+`;
+
+const RestaurantList = () => {
   const { restaurants, selectedCategory } = useRestaurantContext();
 
-  const filteredRestaurants = selectedCategory === "all"
-    ? restaurants
-    : restaurants.filter(restaurant => restaurant.category === selectedCategory);
+  const filteredRestaurants =
+    selectedCategory === 'all'
+      ? restaurants
+      : restaurants.filter((restaurant) => restaurant.category === selectedCategory);
 
   return (
-    <section className={`${styles["restaurant-list-container"]}`}>
-      <ul className={`${styles["restaurant-list"]}`}>
+    <RestaurantListContainer>
+      <ul>
         {filteredRestaurants.map((restaurant) => (
           <RestaurantListItem
             key={restaurant.id}
@@ -22,6 +30,8 @@ export default function RestaurantList() {
           />
         ))}
       </ul>
-    </section>
+    </RestaurantListContainer>
   );
-}
+};
+
+export default RestaurantList;

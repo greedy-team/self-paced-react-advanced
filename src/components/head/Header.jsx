@@ -1,15 +1,47 @@
-import styles from "/src/styles/Header.module.css";
-import { useRestaurantContext } from "../../context/RestaurantContext.jsx";
+import styled from 'styled-components';
+import { useRestaurantContext } from '../../context/RestaurantContext.jsx';
 
-export default function Header() {
-    const { setModalState } = useRestaurantContext();
+const HeaderContainer = styled.header`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 64px;
 
-    return (
-        <header className={`${styles["gnb"]}`}>
-            <h1 className={`${styles["gnb__title"]} text-title`}>점심 뭐 먹지</h1>
-            <button type="button" className={`${styles["gnb__button"]}`} aria-label="음식점 추가" onClick={() => setModalState('add')}>
-                <img src="/assets/images/button/add-button.png" alt="음식점 추가" />
-            </button>
-        </header>
-    );
+  padding: 0 16px;
+
+  background-color: var(--primary-color);
+`;
+
+const Title = styled.h1`
+  color: #fcfcfd;
+
+  font-size: 20px;
+  line-height: 24px;
+  font-weight: 600;
+`;
+
+const Button = styled.button`
+  height: 40px;
+
+  border: none;
+  border-radius: 8px;
+  background: transparent;
+
+  font-size: 24px;
+  cursor: pointer;
+`;
+
+function Header() {
+  const { setModalState } = useRestaurantContext();
+
+  return (
+    <HeaderContainer>
+      <Title>점심 뭐 먹지</Title>
+      <Button type="button" aria-label="음식점 추가" onClick={() => setModalState('add')}>
+        <img src="/assets/images/button/add-button.png" alt="음식점 추가" />
+      </Button>
+    </HeaderContainer>
+  );
 }
+
+export default Header;

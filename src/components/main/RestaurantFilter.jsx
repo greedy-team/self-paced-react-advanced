@@ -1,20 +1,43 @@
-import styles from "/src/styles/RestaurantFilter.module.css"
-import FilteredCategoryOptions from "../category/FilteredCategoryOptions";
-import { useRestaurantContext } from "../../context/RestaurantContext.jsx";
+import styled from 'styled-components';
+import FilteredCategoryOptions from '../category/FilteredCategoryOptions';
+import { useRestaurantContext } from '../../context/RestaurantContext.jsx';
 
-export default function RestaurantFilter() {
-    const { setSelectedCategory } = useRestaurantContext();
+const FilterContainer = styled.section`
+  display: flex;
+  justify-content: space-between;
+  padding: 0 16px;
+  margin-top: 24px;
+`;
 
-    const handleChange = (event) => {
-        setSelectedCategory(event.target.value);
-    }
+const Select = styled.select`
+  height: 44px;
+  min-width: 125px;
+  border: 1px solid #d0d5dd;
+  border-radius: 8px;
+  background: transparent;
+  font-size: 16px;
+  padding: 8px;
+`;
 
-    return (
-        <section className={`${styles["restaurant-filter-container"]}`}>
-            <select name="category" id="category-filter" className={`${styles["restaurant-filter"]}`}
-                aria-label="음식점 카테고리 필터" onChange={handleChange}>
-                <FilteredCategoryOptions excludedCategories={"선택해 주세요"} />
-            </select>
-        </section>
-    );
-}
+const RestaurantFilter = () => {
+  const { setSelectedCategory } = useRestaurantContext();
+
+  const handleChange = (event) => {
+    setSelectedCategory(event.target.value);
+  };
+
+  return (
+    <FilterContainer>
+      <Select
+        name="category"
+        id="category-filter"
+        aria-label="음식점 카테고리 필터"
+        onChange={handleChange}
+      >
+        <FilteredCategoryOptions excludedCategories={'선택해 주세요'} />
+      </Select>
+    </FilterContainer>
+  );
+};
+
+export default RestaurantFilter;
