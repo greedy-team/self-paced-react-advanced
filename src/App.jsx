@@ -1,19 +1,3 @@
-
-import './App.css'
-
-function App() {
-  return (
-    <>
-        Code It..
-    </>
-  )
-}
-
-export default App
-
-
-/*
-
 const RESTAURANT_URL = "http://localhost:3000/restaurants";
 
 import { useState, useEffect } from "react";
@@ -117,5 +101,3 @@ function App() {
 }
 
 export default App;
-
-*/
