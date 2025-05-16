@@ -1,18 +1,17 @@
-import styles from "./Gnb.module.css";
+import { GnbContainer, GnbTitle, GnbButton, GnbIcon } from "./Gnb.styled";
 
 function Gnb({ onAddInfoClick }) {
   return (
-    <header className={styles["gnb"]}>
-      <h1 className={styles["gnb__title"]}>점심 뭐 먹지</h1>
-      <button
+    <GnbContainer>
+      <GnbTitle>점심 뭐 먹지</GnbTitle>
+      <GnbButton
         type="button"
-        className={styles["gnb__button"]}
         onClick={onAddInfoClick}
         aria-label="음식점 추가"
       >
-        <img src="/templates/add-button.png" alt="음식점 추가" />
-      </button>
-    </header>
+        <GnbIcon src="/templates/add-button.png" alt="음식점 추가" />
+      </GnbButton>
+    </GnbContainer>
   );
 }
 
