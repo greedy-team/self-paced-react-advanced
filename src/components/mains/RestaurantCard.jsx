@@ -1,24 +1,31 @@
-import styles from "./RestaurantList.module.css";
+import {
+  CardContainer,
+  CategoryWrapper,
+  CategoryIcon,
+  InfoWrapper,
+  RestaurantName,
+  RestaurantDescription,
+} from "./RestaurantCard.styled";
+import { TextSubtitle, TextBody } from "../../styles/typography";
 
 function RestaurantCard({ restaurant, categoryIcons, onClick }) {
   return (
-    <li className={styles["restaurant"]} onClick={() => onClick(restaurant)}>
-      <div className={styles["restaurant__category"]}>
-        <img
+    <CardContainer onClick={() => onClick(restaurant)}>
+      <CategoryWrapper>
+        <CategoryIcon
           src={categoryIcons[restaurant.category]}
           alt={restaurant.category}
-          className={styles["category-icon"]}
         />
-      </div>
-      <div className={styles["restaurant__info"]}>
-        <h3 className={`${styles["restaurant__name"]} text-subtitle`}>
-          {restaurant.name}
-        </h3>
-        <p className={`${styles["restaurant__description"]} text-body`}>
-          {restaurant.description}
-        </p>
-      </div>
-    </li>
+      </CategoryWrapper>
+      <InfoWrapper>
+        <RestaurantName>
+          <TextSubtitle as="span">{restaurant.name}</TextSubtitle>
+        </RestaurantName>
+        <RestaurantDescription>
+          <TextBody as="span">{restaurant.description}</TextBody>
+        </RestaurantDescription>
+      </InfoWrapper>
+    </CardContainer>
   );
 }
 

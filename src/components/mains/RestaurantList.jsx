@@ -1,10 +1,10 @@
-import styles from "./RestaurantList.module.css";
+import { ListContainer, RestaurantListWrapper } from "./RestaurantList.styled";
 import RestaurantCard from "./RestaurantCard";
 
 function RestaurantList({ restaurants, categoryIcons, onRestaurantClick }) {
   return (
-    <section className={styles["restaurant-list-container"]}>
-      <ul className={styles["restaurant-list"]}>
+    <ListContainer>
+      <RestaurantListWrapper>
         {restaurants.map((restaurant) => (
           <RestaurantCard
             key={restaurant.id}
@@ -13,8 +13,8 @@ function RestaurantList({ restaurants, categoryIcons, onRestaurantClick }) {
             onClick={onRestaurantClick}
           />
         ))}
-      </ul>
-    </section>
+      </RestaurantListWrapper>
+    </ListContainer>
   );
 }
 

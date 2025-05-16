@@ -1,4 +1,7 @@
-import styles from "./RestaurantCategoryFilter.module.css";
+import {
+  FilterContainer,
+  CategorySelect,
+} from "./RestaurantCategoryFilter.styled";
 
 function RestaurantCategoryFilter({
   selectedCategory,
@@ -12,11 +15,10 @@ function RestaurantCategoryFilter({
   };
 
   return (
-    <section className={styles["restaurant-filter-container"]}>
-      <select
+    <FilterContainer>
+      <CategorySelect
         name="category"
         id="category-filter"
-        className={styles["restaurant-filter"]}
         aria-label="음식점 카테고리 필터"
         value={selectedCategory}
         onChange={handleChange}
@@ -26,8 +28,8 @@ function RestaurantCategoryFilter({
             {category}
           </option>
         ))}
-      </select>
-    </section>
+      </CategorySelect>
+    </FilterContainer>
   );
 }
 
