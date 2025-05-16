@@ -1,8 +1,23 @@
 import { useState } from "react";
 import Modal from "../../modals/Modal";
-import styles from "./RestaurantModal.module.css";
+import {
+  AddModalTitle,
+  AddModalFormItem,
+  AddModalHelpText,
+  AddModalInput,
+  AddModalTextarea,
+  AddModalSelect,
+  AddModalButtonContainer,
+  AddModalSubmitButton,
+} from "./AddRestaurantModal.styled";
+import { TextCaption } from "../../styles/typography";
 
-function AddRestaurantModal({ isOpen, onClose, categoryOptions, onAddRestaurant }) {
+function AddRestaurantModal({
+  isOpen,
+  onClose,
+  categoryOptions,
+  onAddRestaurant,
+}) {
   if (!isOpen) return null;
 
   const [formData, setFormData] = useState({
@@ -13,10 +28,7 @@ function AddRestaurantModal({ isOpen, onClose, categoryOptions, onAddRestaurant 
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
+    setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
   const handleSubmit = (e) => {
@@ -32,17 +44,13 @@ function AddRestaurantModal({ isOpen, onClose, categoryOptions, onAddRestaurant 
 
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
-      <h2 className={`${styles["modal-title"]} ${styles["text-title"]}`}>
-        새로운 음식점
-      </h2>
+      <AddModalTitle>새로운 음식점</AddModalTitle>
       <form onSubmit={handleSubmit}>
-        <div
-          className={`${styles["form-item"]} ${styles["form-item--required"]}`}
-        >
-          <label htmlFor="category" className={styles["text-caption"]}>
+        <AddModalFormItem required>
+          <TextCaption as="label" htmlFor="category">
             카테고리
-          </label>
-          <select
+          </TextCaption>
+          <AddModalSelect
             name="category"
             id="category"
             required
@@ -54,49 +62,44 @@ function AddRestaurantModal({ isOpen, onClose, categoryOptions, onAddRestaurant 
                 {option.label}
               </option>
             ))}
-          </select>
-        </div>
+          </AddModalSelect>
+        </AddModalFormItem>
 
-        <div
-          className={`${styles["form-item"]} ${styles["form-item--required"]}`}
-        >
-          <label htmlFor="name" className={styles["text-caption"]}>
+        <AddModalFormItem required>
+          <TextCaption as="label" htmlFor="name">
             이름
-          </label>
-          <input
-            type="text"
+          </TextCaption>
+          <AddModalInput
             name="name"
             id="name"
             required
             value={formData.name}
             onChange={handleChange}
           />
-        </div>
+        </AddModalFormItem>
 
-        <div className={styles["form-item"]}>
-          <label htmlFor="description" className={styles["text-caption"]}>
+        <AddModalFormItem>
+          <TextCaption as="label" htmlFor="description">
             설명
-          </label>
-          <textarea
+          </TextCaption>
+          <AddModalTextarea
             name="description"
             id="description"
             cols="30"
             rows="5"
             value={formData.description}
             onChange={handleChange}
-          ></textarea>
-          <span className={`${styles["help-text"]} ${styles["text-caption"]}`}>
+          />
+          <AddModalHelpText>
             메뉴 등 추가 정보를 입력해 주세요.
-          </span>
-        </div>
+          </AddModalHelpText>
+        </AddModalFormItem>
 
-        <div className={styles["button-container"]}>
-          <button
-            className={`${styles["button"]} ${styles["button--primary"]} ${styles["text-caption"]}`}
-          >
-            추가하기
-          </button>
-        </div>
+        <AddModalButtonContainer>
+          <AddModalSubmitButton type="submit">
+            <TextCaption>추가하기</TextCaption>
+          </AddModalSubmitButton>
+        </AddModalButtonContainer>
       </form>
     </Modal>
   );
