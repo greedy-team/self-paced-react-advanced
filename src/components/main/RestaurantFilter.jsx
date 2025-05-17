@@ -9,7 +9,7 @@ const FilterContainer = styled.section`
   margin-top: 24px;
 `;
 
-const Select = styled.select`
+const SelectCategory = styled.select`
   height: 44px;
   min-width: 125px;
   border: 1px solid #d0d5dd;
@@ -28,14 +28,14 @@ const RestaurantFilter = () => {
 
   return (
     <FilterContainer>
-      <Select
+      <SelectCategory
         name="category"
         id="category-filter"
         aria-label="음식점 카테고리 필터"
         onChange={handleChange}
       >
         <FilteredCategoryOptions excludedCategories={'선택해 주세요'} />
-      </Select>
+      </SelectCategory>
     </FilterContainer>
   );
 };

@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 const ModalWrapper = styled.div`
-  display: ${({ isOpen }) => (isOpen ? 'block' : 'none')};
+  display: ${({ $isOpen }) => ($isOpen ? 'block' : 'none')};
 `;
 
 const ModalBackdrop = styled.div`
@@ -43,9 +43,9 @@ const Button = styled.button`
   font-weight: 600;
   cursor: pointer;
   
-  background: ${({ isPrimary }) => (isPrimary ? 'var(--primary-color)' : 'transparent')};
-  color: ${({ isPrimary }) => (isPrimary ? 'var(--grey-100)' : 'var(--grey-300)')};
-  border: ${({ isPrimary }) => (!isPrimary ? '1px solid var(--grey-300)' : 'none')};
+  background: ${({ $isPrimary }) => ($isPrimary ? 'var(--primary-color)' : 'transparent')};
+  color: ${({ $isPrimary }) => ($isPrimary ? 'var(--grey-100)' : 'var(--grey-300)')};
+  border: ${({ $isPrimary }) => (!$isPrimary ? '1px solid var(--grey-300)' : 'none')};
 
   &:last-child {
     margin-right: 0;
@@ -54,7 +54,7 @@ const Button = styled.button`
 
 function Modal({ title, children, onClose, onSubmit, isButtonOpen = true }) {
   return (
-    <ModalWrapper isOpen={true}>
+    <ModalWrapper $isOpen={true}>
       <ModalBackdrop onClick={onClose} />
       <ModalContainer>
         {title && <ModalTitle>{title}</ModalTitle>}
@@ -65,7 +65,7 @@ function Modal({ title, children, onClose, onSubmit, isButtonOpen = true }) {
               <Button
                 type={onSubmit ? 'submit' : 'button'}
                 onClick={!onSubmit ? onClose : undefined}
-                isPrimary={true}
+                $isPrimary={true}
               >
                 {onSubmit ? '추가하기' : '닫기'}
               </Button>
