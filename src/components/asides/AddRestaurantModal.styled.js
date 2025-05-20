@@ -9,14 +9,19 @@ export const AddModalFormItem = styled.div`
   display: flex;
   flex-direction: column;
   margin-bottom: 36px;
+`;
 
-  ${(props) =>
-    props.required &&
+export const AddModalLabel = styled(TextCaption).attrs({ as: "label" })`
+  display: block;
+  margin-bottom: 6px;
+
+  ${({ required }) =>
+    required &&
     `
-    label::after {
-      padding-left: 4px;
+    &::after {
+      content: '*';
       color: var(--primary-color);
-      content: "*";
+      padding-left: 4px;
     }
   `}
 `;

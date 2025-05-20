@@ -9,8 +9,8 @@ import {
   AddModalSelect,
   AddModalButtonContainer,
   AddModalSubmitButton,
+  AddModalLabel,
 } from "./AddRestaurantModal.styled";
-import { TextCaption } from "../../styles/typography";
 
 function AddRestaurantModal({
   isOpen,
@@ -46,10 +46,8 @@ function AddRestaurantModal({
     <Modal isOpen={isOpen} onClose={onClose}>
       <AddModalTitle>새로운 음식점</AddModalTitle>
       <form onSubmit={handleSubmit}>
-        <AddModalFormItem required>
-          <TextCaption as="label" htmlFor="category">
-            카테고리
-          </TextCaption>
+        <AddModalFormItem>
+          <AddModalLabel htmlFor="category" required>카테고리</AddModalLabel>
           <AddModalSelect
             name="category"
             id="category"
@@ -65,10 +63,8 @@ function AddRestaurantModal({
           </AddModalSelect>
         </AddModalFormItem>
 
-        <AddModalFormItem required>
-          <TextCaption as="label" htmlFor="name">
-            이름
-          </TextCaption>
+        <AddModalFormItem>
+          <AddModalLabel htmlFor="name" required>이름</AddModalLabel>
           <AddModalInput
             name="name"
             id="name"
@@ -79,9 +75,7 @@ function AddRestaurantModal({
         </AddModalFormItem>
 
         <AddModalFormItem>
-          <TextCaption as="label" htmlFor="description">
-            설명
-          </TextCaption>
+          <AddModalLabel htmlFor="description">설명</AddModalLabel>
           <AddModalTextarea
             name="description"
             id="description"
@@ -97,7 +91,7 @@ function AddRestaurantModal({
 
         <AddModalButtonContainer>
           <AddModalSubmitButton type="submit">
-            <TextCaption>추가하기</TextCaption>
+            <AddModalLabel as="span">추가하기</AddModalLabel>
           </AddModalSubmitButton>
         </AddModalButtonContainer>
       </form>
