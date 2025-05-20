@@ -5,8 +5,8 @@ import {
   RestaurantInfoDescription,
   InfoModalButtonContainer,
   InfoModalCloseButton,
+  CloseButtonText,
 } from "./RestaurantInfoModal.styled";
-import { TextBody, TextCaption } from "../../styles/typography";
 
 function RestaurantInfoModal({ isOpen, onClose, restaurant }) {
   if (!isOpen) return null;
@@ -16,12 +16,12 @@ function RestaurantInfoModal({ isOpen, onClose, restaurant }) {
       <InfoModalTitle>{restaurant.name}</InfoModalTitle>
       <RestaurantInfo>
         <RestaurantInfoDescription>
-          <TextBody>{restaurant.description}</TextBody>
+          {restaurant.description}
         </RestaurantInfoDescription>
       </RestaurantInfo>
       <InfoModalButtonContainer>
         <InfoModalCloseButton onClick={onClose}>
-          <TextCaption>닫기</TextCaption>
+          <CloseButtonText>닫기</CloseButtonText>
         </InfoModalCloseButton>
       </InfoModalButtonContainer>
     </Modal>
