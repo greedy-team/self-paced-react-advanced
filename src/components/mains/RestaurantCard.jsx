@@ -6,7 +6,6 @@ import {
   RestaurantName,
   RestaurantDescription,
 } from "./RestaurantCard.styled";
-import { TextSubtitle, TextBody } from "../../styles/typography";
 
 function RestaurantCard({ restaurant, categoryIcons, onClick }) {
   return (
@@ -18,12 +17,8 @@ function RestaurantCard({ restaurant, categoryIcons, onClick }) {
         />
       </CategoryWrapper>
       <InfoWrapper>
-        <RestaurantName>
-          <TextSubtitle as="span">{restaurant.name}</TextSubtitle>
-        </RestaurantName>
-        <RestaurantDescription>
-          <TextBody as="span">{restaurant.description}</TextBody>
-        </RestaurantDescription>
+        <RestaurantName>{restaurant.name}</RestaurantName>
+        <RestaurantDescription>{restaurant.description}</RestaurantDescription>
       </InfoWrapper>
     </CardContainer>
   );

@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { TextSubtitle, TextBody } from "../../styles/typography";
 
 export const CardContainer = styled.li`
   display: flex;
@@ -32,11 +33,11 @@ export const InfoWrapper = styled.div`
   justify-content: flex-start;
 `;
 
-export const RestaurantName = styled.div`
+export const RestaurantName = styled(TextSubtitle).attrs({ as: "span" })`
   margin: 0;
 `;
 
-export const RestaurantDescription = styled.p`
+export const RestaurantDescription = styled(TextBody).attrs({ as: "span" })`
   padding-top: 8px;
   overflow: hidden;
   text-overflow: ellipsis;
