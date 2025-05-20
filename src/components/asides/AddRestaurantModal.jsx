@@ -1,5 +1,5 @@
 import { useState } from "react";
-import Modal from "../../modals/Modal";
+import Modal from "../modals/Modal";
 import {
   AddModalTitle,
   AddModalFormItem,
@@ -47,7 +47,9 @@ function AddRestaurantModal({
       <AddModalTitle>새로운 음식점</AddModalTitle>
       <form onSubmit={handleSubmit}>
         <AddModalFormItem>
-          <AddModalLabel htmlFor="category" required>카테고리</AddModalLabel>
+          <AddModalLabel htmlFor="category" required>
+            카테고리
+          </AddModalLabel>
           <AddModalSelect
             name="category"
             id="category"
@@ -64,7 +66,9 @@ function AddRestaurantModal({
         </AddModalFormItem>
 
         <AddModalFormItem>
-          <AddModalLabel htmlFor="name" required>이름</AddModalLabel>
+          <AddModalLabel htmlFor="name" required>
+            이름
+          </AddModalLabel>
           <AddModalInput
             name="name"
             id="name"
