@@ -1,6 +1,7 @@
 import Modal from './modal/Modal.jsx';
 import styled from 'styled-components';
 import { useRestaurantContext } from '../../context/RestaurantContext.jsx';
+import { useModalContext } from '../../context/ModalContext.jsx';
 
 const RestaurantInfo = styled.div`
   margin-bottom: 24px;
@@ -16,7 +17,8 @@ const Description = styled.p`
 `;
 
 export default function RestaurantDetailModal() {
-  const { restaurantItem, setModalState } = useRestaurantContext();
+  const { setModalState } = useModalContext();
+  const { restaurantItem } = useRestaurantContext();
 
   return (
     <Modal title={restaurantItem.name} onClose={() => setModalState('list')} isButtonOpen>

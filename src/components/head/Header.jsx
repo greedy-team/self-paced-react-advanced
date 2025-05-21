@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { useRestaurantContext } from '../../context/RestaurantContext.jsx';
+import { useModalContext } from '../../context/ModalContext.jsx';
 
 const HeaderContainer = styled.header`
   display: flex;
@@ -28,7 +28,7 @@ const Button = styled.button`
 `;
 
 function Header() {
-  const { setModalState } = useRestaurantContext();
+  const { setModalState } = useModalContext();
 
   return (
     <HeaderContainer>

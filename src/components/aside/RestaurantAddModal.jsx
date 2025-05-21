@@ -2,6 +2,7 @@ import Modal from './modal/Modal.jsx';
 import styled from 'styled-components';
 import RestaurantCategory from '../category/FilteredCategoryOptions';
 import { useRestaurantContext } from '../../context/RestaurantContext.jsx';
+import { useModalContext } from '../../context/ModalContext.jsx';
 
 const CATEGORY_MAP = {
   korean: '한식',
@@ -62,7 +63,8 @@ const Select = styled.select`
 `;
 
 export default function RestaurantAddModal() {
-  const { setModalState, getRestaurants } = useRestaurantContext();
+  const { setModalState } = useModalContext();
+  const { getRestaurants } = useRestaurantContext();
 
   const handleSubmit = async (e) => {
     e.preventDefault();

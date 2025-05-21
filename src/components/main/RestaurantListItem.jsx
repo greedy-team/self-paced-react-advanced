@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { useRestaurantContext } from '../../context/RestaurantContext.jsx';
+import { useModalContext } from '../../context/ModalContext.jsx';
 
 const RestaurantItem = styled.li`
   display: flex;
@@ -50,7 +51,8 @@ const RestaurantDescription = styled.p`
 `;
 
 function RestaurantListItem({ categoryIcon, categoryAlt, name, description }) {
-  const { setRestaurantItem, setModalState } = useRestaurantContext();
+  const { setModalState } = useModalContext();
+  const { setRestaurantItem } = useRestaurantContext();
 
   const handleClick = () => {
     setRestaurantItem({ name, description });
