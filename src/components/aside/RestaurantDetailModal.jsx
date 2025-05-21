@@ -13,10 +13,6 @@ const Description = styled.p`
   text-overflow: ellipsis;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
-
-  font-size: 16px;
-  line-height: 24px;
-  font-weight: 400;
 `;
 
 export default function RestaurantDetailModal() {

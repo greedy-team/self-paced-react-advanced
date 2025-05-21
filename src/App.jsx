@@ -1,4 +1,4 @@
-import "./App.css";
+import GlobalStyle from "./styles/Globalstyle.jsx";
 import Header from "./components/head/Header.jsx";
 import RestaurantList from "./components/main/RestaurantList.jsx";
 import RestaurantFilter from "./components/main/RestaurantFilter.jsx";
@@ -29,6 +29,7 @@ function RestaurantContainer() {
 function App() {
   return (
     <RestaurantProvider>
+      <GlobalStyle />
       <Header />
       <RestaurantContainer />
       <ModalContainer />

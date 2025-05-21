@@ -38,10 +38,6 @@ const RestaurantInfo = styled.div`
 
 const RestaurantName = styled.h3`
   margin: 0;
-
-  font-size: 18px;
-  line-height: 28px;
-  font-weight: 600;
 `;
 
 const RestaurantDescription = styled.p`
@@ -51,10 +47,6 @@ const RestaurantDescription = styled.p`
   text-overflow: ellipsis;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
-
-  font-size: 16px;
-  line-height: 24px;
-  font-weight: 400;
 `;
 
 function RestaurantListItem({ categoryIcon, categoryAlt, name, description }) {
