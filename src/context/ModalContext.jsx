@@ -6,14 +6,14 @@ export function ModalProvider({ children }) {
     const [modalState, setModalState] = useState('list'); // detail, add, list 3가지로 관리
 
     return (
-        <ModalProvider.Provider
+        <ModalContext.Provider
             value={{
                 modalState,
                 setModalState
             }}
         >
             {children}
-        </ModalProvider.Provider>
+        </ModalContext.Provider>
     );
 }
 
