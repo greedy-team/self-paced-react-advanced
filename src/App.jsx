@@ -11,23 +11,19 @@ function ModalContainer() {
   const { modalState } = useModalContext();
 
   return (
-    <RestaurantProvider>
-      <aside>
-        {modalState === 'detail' && <RestaurantDetailModal />}
-        {modalState === 'add' && <RestaurantAddModal />}
-      </aside>
-    </RestaurantProvider>
+    <aside>
+      {modalState === 'detail' && <RestaurantDetailModal />}
+      {modalState === 'add' && <RestaurantAddModal />}
+    </aside>
   );
 }
 
 function RestaurantContainer() {
   return (
-    <RestaurantProvider>
-      <main>
-        <RestaurantFilter />
-        <RestaurantList />
-      </main>
-    </RestaurantProvider>
+    <main>
+      <RestaurantFilter />
+      <RestaurantList />
+    </main>
   );
 }
 
@@ -36,8 +32,10 @@ function App() {
     <ModalProvider>
       <GlobalStyle />
       <Header />
-      <RestaurantContainer />
-      <ModalContainer />
+      <RestaurantProvider>
+        <RestaurantContainer />
+        <ModalContainer />
+      </RestaurantProvider>
     </ModalProvider>
   );
 }
