@@ -28,13 +28,13 @@ function AddRestaurantModal({ categoryOptions }) {
 
   if (!isAddModalOpen) return null;
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
+  const handleChange = (event) => {
+    const { name, value } = event.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const handleSubmit = (event) => {
+    event.preventDefault();
     handleAddRestaurant(formData);
     setFormData({
       category: categoryOptions[0]?.value || "",

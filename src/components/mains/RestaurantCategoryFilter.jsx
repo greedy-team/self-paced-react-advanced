@@ -9,7 +9,7 @@ function RestaurantCategoryFilter() {
   const { selectedCategory, setSelectedCategory, restaurants } =
     useContext(RestaurantContext);
 
-  const categories = ["전체", ...new Set(restaurants.map((r) => r.category))];
+  const categories = ["전체", ...new Set(restaurants.map((restaurant) => restaurant.category))];
 
   const handleChange = (event) => {
     setSelectedCategory(event.target.value);

@@ -11,7 +11,7 @@ function RestaurantList({ categoryIcons }) {
   const filteredRestaurants =
     selectedCategory === "전체"
       ? restaurants
-      : restaurants.filter((r) => r.category === selectedCategory);
+      : restaurants.filter((restaurant) => restaurant.category === selectedCategory);
 
   const handleClick = (restaurant) => {
     setSelectedRestaurant(restaurant);

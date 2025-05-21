@@ -11,9 +11,9 @@ function RestaurantProvider({ children }) {
 
   useEffect(() => {
     fetch(RESTAURANT_URL)
-      .then((res) => res.json())
+      .then((restaurant) => restaurant.json())
       .then(setRestaurants)
-      .catch((err) => console.error("데이터 에러:", err));
+      .catch((error) => console.error("데이터 에러:", errorr));
   }, []);
 
   const handleAddRestaurant = async (restaurant) => {
@@ -26,8 +26,8 @@ function RestaurantProvider({ children }) {
       const created = await response.json();
       setRestaurants((prev) => [...prev, created]);
       setOpenModal(null);
-    } catch (err) {
-      console.error("POST 실패:", err);
+    } catch (error) {
+      console.error("POST 실패:", error);
     }
   };
 
