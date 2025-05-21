@@ -1,5 +1,7 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import Modal from "../modals/Modal";
+import ModalTypes from "../../constants/modalTypes";
+import RestaurantContext from "../../contexts/RestaurantContext";
 import {
   AddModalTitle,
   AddModalFormItem,
@@ -12,19 +14,19 @@ import {
   AddModalLabel,
 } from "./AddRestaurantModal.styled";
 
-function AddRestaurantModal({
-  isOpen,
-  onClose,
-  categoryOptions,
-  onAddRestaurant,
-}) {
-  if (!isOpen) return null;
+function AddRestaurantModal({ categoryOptions }) {
+  const { openModal, setOpenModal, handleAddRestaurant } =
+    useContext(RestaurantContext);
+
+  const isAddModalOpen = openModal === ModalTypes.ADD;
 
   const [formData, setFormData] = useState({
     category: categoryOptions[0]?.value || "",
     name: "",
     description: "",
   });
+
+  if (!isAddModalOpen) return null;
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -33,17 +35,17 @@ function AddRestaurantModal({
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    onAddRestaurant(formData);
+    handleAddRestaurant(formData);
     setFormData({
       category: categoryOptions[0]?.value || "",
       name: "",
       description: "",
     });
-    onClose();
+    setOpenModal(null);
   };
 
   return (
-    <Modal isOpen={isOpen} onClose={onClose}>
+    <Modal isOpen={isAddModalOpen} onClose={() => setOpenModal(null)}>
       <AddModalTitle>새로운 음식점</AddModalTitle>
       <form onSubmit={handleSubmit}>
         <AddModalFormItem>

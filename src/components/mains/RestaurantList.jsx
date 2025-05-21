@@ -1,16 +1,32 @@
+import { useContext } from "react";
 import { ListContainer, RestaurantListWrapper } from "./RestaurantList.styled";
 import RestaurantCard from "./RestaurantCard";
+import RestaurantContext from "../../contexts/RestaurantContext";
+import ModalTypes from "../../constants/modalTypes";
 
-function RestaurantList({ restaurants, categoryIcons, onRestaurantClick }) {
+function RestaurantList({ categoryIcons }) {
+  const { restaurants, selectedCategory, setSelectedRestaurant, setOpenModal } =
+    useContext(RestaurantContext);
+
+  const filteredRestaurants =
+    selectedCategory === "전체"
+      ? restaurants
+      : restaurants.filter((r) => r.category === selectedCategory);
+
+  const handleClick = (restaurant) => {
+    setSelectedRestaurant(restaurant);
+    setOpenModal(ModalTypes.INFO);
+  };
+
   return (
     <ListContainer>
       <RestaurantListWrapper>
-        {restaurants.map((restaurant) => (
+        {filteredRestaurants.map((restaurant) => (
           <RestaurantCard
             key={restaurant.id}
             restaurant={restaurant}
             categoryIcons={categoryIcons}
-            onClick={onRestaurantClick}
+            onClick={handleClick}
           />
         ))}
       </RestaurantListWrapper>

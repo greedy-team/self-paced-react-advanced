@@ -1,13 +1,14 @@
+import { useContext } from "react";
 import {
   FilterContainer,
   CategorySelect,
 } from "./RestaurantCategoryFilter.styled";
+import RestaurantContext from "../../contexts/RestaurantContext";
 
-function RestaurantCategoryFilter({
-  selectedCategory,
-  setSelectedCategory,
-  restaurants,
-}) {
+function RestaurantCategoryFilter() {
+  const { selectedCategory, setSelectedCategory, restaurants } =
+    useContext(RestaurantContext);
+
   const categories = ["전체", ...new Set(restaurants.map((r) => r.category))];
 
   const handleChange = (event) => {
