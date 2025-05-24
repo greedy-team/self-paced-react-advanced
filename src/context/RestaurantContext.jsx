@@ -8,7 +8,6 @@ export function RestaurantProvider({ children }) {
     name: "",
     description: "",
   });
-  const [selectedCategory, setSelectedCategory] = useState("all");
 
   const getRestaurants = async () => {
     try {
@@ -31,8 +30,6 @@ export function RestaurantProvider({ children }) {
         setRestaurants,
         restaurantItem,
         setRestaurantItem,
-        selectedCategory,
-        setSelectedCategory,
         getRestaurants,
       }}
     >

@@ -62,7 +62,7 @@ const Select = styled.select`
   color: var(--grey-300);
 `;
 
-export default function RestaurantAddModal() {
+function RestaurantAddModal() {
   const { setModalState } = useModalContext();
   const { getRestaurants } = useRestaurantContext();
 
@@ -138,3 +138,5 @@ export default function RestaurantAddModal() {
     </Modal>
   );
 }
+
+export default RestaurantAddModal;

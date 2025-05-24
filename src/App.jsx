@@ -6,6 +6,7 @@ import RestaurantDetailModal from "./components/aside/RestaurantDetailModal.jsx"
 import RestaurantAddModal from "./components/aside/RestaurantAddModal.jsx";
 import { RestaurantProvider } from "./context/RestaurantContext.jsx";
 import { ModalProvider, useModalContext } from "./context/ModalContext.jsx";
+import { CategoryProvider } from "./context/CategoryContext.jsx";
 
 function ModalContainer() {
   const { modalState } = useModalContext();
@@ -33,7 +34,9 @@ function App() {
       <GlobalStyle />
       <Header />
       <RestaurantProvider>
-        <RestaurantContainer />
+        <CategoryProvider>
+          <RestaurantContainer />
+        </CategoryProvider>
         <ModalContainer />
       </RestaurantProvider>
     </ModalProvider>

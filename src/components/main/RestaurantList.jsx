@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import RestaurantListItem from "./RestaurantListItem.jsx";
 import { useRestaurantContext } from "../../context/RestaurantContext.jsx";
+import { useCategoryContext } from "../../context/CategoryContext.jsx";
 
 const RestaurantListContainer = styled.div`
   display: flex;
@@ -10,7 +11,8 @@ const RestaurantListContainer = styled.div`
 `;
 
 const RestaurantList = () => {
-  const { restaurants, selectedCategory } = useRestaurantContext();
+  const { restaurants } = useRestaurantContext();
+  const { selectedCategory } = useCategoryContext();
 
   const filteredRestaurants =
     selectedCategory === "all"
