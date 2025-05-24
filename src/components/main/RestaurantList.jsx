@@ -36,7 +36,7 @@ const RestaurantList = () => {
       getRestaurants(); // 레스토랑 데이터 갱신
       setModalState("null"); // modalState를 초기화
     }
-  }, [modalState, getRestaurants, setModalState]);
+  }, [modalState]);
 
   const filteredRestaurants =
     selectedCategory === "all"

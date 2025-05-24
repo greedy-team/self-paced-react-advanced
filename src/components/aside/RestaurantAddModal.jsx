@@ -64,7 +64,6 @@ const Select = styled.select`
 
 function RestaurantAddModal() {
   const { setModalState } = useModalContext();
-  const { getRestaurants } = useRestaurantContext();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -104,9 +103,6 @@ function RestaurantAddModal() {
     } catch (error) {
       console.error("실패:", error);
     }
-
-    getRestaurants();
-    setModalState("null");
   };
 
   return (
