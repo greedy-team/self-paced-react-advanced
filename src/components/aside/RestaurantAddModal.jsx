@@ -100,6 +100,7 @@ function RestaurantAddModal() {
 
       const data = await response.json();
       console.log("새로운 음식점이 추가되었습니다:", data);
+      setModalState("add-success");
     } catch (error) {
       console.error("실패:", error);
     }

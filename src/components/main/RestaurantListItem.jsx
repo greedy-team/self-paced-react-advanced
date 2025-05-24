@@ -50,8 +50,13 @@ const RestaurantDescription = styled.p`
   -webkit-box-orient: vertical;
 `;
 
-function RestaurantListItem({ categoryIcon, categoryAlt, name, description }) {
-  const { setModalState } = useModalContext();
+function RestaurantListItem({
+  categoryIcon,
+  categoryAlt,
+  name,
+  description,
+  setModalState,
+}) {
   const { setRestaurantItem } = useRestaurantContext();
 
   const handleClick = () => {
