@@ -105,13 +105,13 @@ export default function RestaurantAddModal() {
     }
 
     getRestaurants();
-    setModalState("list");
+    setModalState("null");
   };
 
   return (
     <Modal
       title="새로운 음식점"
-      onClose={() => setModalState("list")}
+      onClose={() => setModalState("null")}
       onSubmit={handleSubmit}
     >
       <FormItem>
