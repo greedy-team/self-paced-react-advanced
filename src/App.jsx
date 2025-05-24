@@ -12,8 +12,8 @@ function ModalContainer() {
 
   return (
     <aside>
-      {modalState === 'detail' && <RestaurantDetailModal />}
-      {modalState === 'add' && <RestaurantAddModal />}
+      {modalState === "detail" && <RestaurantDetailModal />}
+      {modalState === "add" && <RestaurantAddModal />}
     </aside>
   );
 }

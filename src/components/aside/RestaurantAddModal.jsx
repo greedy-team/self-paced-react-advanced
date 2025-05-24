@@ -1,16 +1,16 @@
-import Modal from './modal/Modal.jsx';
-import styled from 'styled-components';
-import RestaurantCategory from '../category/FilteredCategoryOptions';
-import { useRestaurantContext } from '../../context/RestaurantContext.jsx';
-import { useModalContext } from '../../context/ModalContext.jsx';
+import Modal from "./modal/Modal.jsx";
+import styled from "styled-components";
+import RestaurantCategory from "../category/FilteredCategoryOptions";
+import { useRestaurantContext } from "../../context/RestaurantContext.jsx";
+import { useModalContext } from "../../context/ModalContext.jsx";
 
 const CATEGORY_MAP = {
-  korean: '한식',
-  chinese: '중식',
-  japanese: '일식',
-  western: '양식',
-  asian: '아시안',
-  etc: '기타',
+  korean: "한식",
+  chinese: "중식",
+  japanese: "일식",
+  western: "양식",
+  asian: "아시안",
+  etc: "기타",
 };
 
 const FormItem = styled.div`
@@ -24,7 +24,7 @@ const Label = styled.label`
   font-size: 14px;
 
   &::after {
-    content: ${({ required }) => (required ? "'*'" : 'none')};
+    content: ${({ required }) => (required ? "'*'" : "none")};
     padding-left: 4px;
     color: var(--primary-color);
   }
@@ -40,7 +40,7 @@ const Input = styled.input`
   border: 1px solid var(--grey-200);
   border-radius: 8px;
   font-size: 16px;
-  height: ${({ type }) => (type === 'text' ? '44px' : 'auto')};
+  height: ${({ type }) => (type === "text" ? "44px" : "auto")};
 `;
 
 const TextArea = styled.textarea`
@@ -86,41 +86,47 @@ export default function RestaurantAddModal() {
     };
 
     try {
-      const response = await fetch('http://localhost:3000/restaurants', {
-        method: 'POST',
+      const response = await fetch("http://localhost:3000/restaurants", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify(newRestaurant),
       });
 
       if (!response.ok) {
-        throw new Error('서버 응답 오류');
+        throw new Error("서버 응답 오류");
       }
 
       const data = await response.json();
-      console.log('새로운 음식점이 추가되었습니다:', data);
+      console.log("새로운 음식점이 추가되었습니다:", data);
     } catch (error) {
-      console.error('실패:', error);
+      console.error("실패:", error);
     }
 
     getRestaurants();
-    setModalState('list');
+    setModalState("list");
   };
 
   return (
-    <Modal title="새로운 음식점" onClose={() => setModalState('list')} onSubmit={handleSubmit}>
+    <Modal
+      title="새로운 음식점"
+      onClose={() => setModalState("list")}
+      onSubmit={handleSubmit}
+    >
       <FormItem>
         <Label htmlFor="category" required>
           카테고리
         </Label>
         <Select name="category" id="category" required>
-          <RestaurantCategory excludedCategories={'전체'} />
+          <RestaurantCategory excludedCategories={"전체"} />
         </Select>
       </FormItem>
 
       <FormItem>
-        <Label htmlFor="name" required>이름</Label>
+        <Label htmlFor="name" required>
+          이름
+        </Label>
         <Input type="text" name="name" id="name" required />
       </FormItem>
 
