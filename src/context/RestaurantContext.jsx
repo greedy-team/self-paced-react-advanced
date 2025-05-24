@@ -3,7 +3,6 @@ import { createContext, useContext, useState } from "react";
 const RestaurantContext = createContext();
 
 export function RestaurantProvider({ children }) {
-  const [restaurants, setRestaurants] = useState([]);
   const [restaurantItem, setRestaurantItem] = useState({
     name: "",
     description: "",
@@ -12,8 +11,6 @@ export function RestaurantProvider({ children }) {
   return (
     <RestaurantContext.Provider
       value={{
-        restaurants,
-        setRestaurants,
         restaurantItem,
         setRestaurantItem,
       }}
