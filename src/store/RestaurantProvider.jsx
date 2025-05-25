@@ -6,7 +6,7 @@ export const RestaurantProvider = ({ children }) => {
     const [category, setCategory] = useState('전체');
 
     useEffect(() => {
-        const fetchRestaurants = async () => {
+      const fetchRestaurants = async () => {
           try {
             const response = await fetch("http://localhost:3000/restaurants");
             const restaurantData = await response.json();

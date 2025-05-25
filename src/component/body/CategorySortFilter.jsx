@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import { useRestaurantContext } from '../../hooks/useRestaurantContext';
 
 const FilterContainer = styled.section`
   display: flex;
