@@ -9,11 +9,21 @@ function RestaurantProvider({ children }) {
   const [selectedRestaurant, setSelectedRestaurant] = useState(null);
   const [restaurants, setRestaurants] = useState([]);
 
+  const handleGetRestaurant = async () => {
+    try {
+      const response = await fetch(RESTAURANT_URL, {
+        method: "GET",
+        headers: { "Content-Type": "application/json" },
+      });
+      const data = await response.json();
+      setRestaurants(data);
+    } catch (error) {
+      console.error("GET 실패:", error);
+    }
+  };
+
   useEffect(() => {
-    fetch(RESTAURANT_URL)
-      .then((restaurant) => restaurant.json())
-      .then(setRestaurants)
-      .catch((error) => console.error("데이터 에러:", error));
+    handleGetRestaurant();
   }, []);
 
   const handleAddRestaurant = async (restaurant) => {
@@ -43,6 +53,7 @@ function RestaurantProvider({ children }) {
         restaurants,
         setRestaurants,
         handleAddRestaurant,
+        handleGetRestaurant
       }}
     >
       {children}
