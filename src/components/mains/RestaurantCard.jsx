@@ -1,3 +1,4 @@
+import categoryIcons from "../../data/categoryIcons";
 import {
   CardContainer,
   CategoryWrapper,
@@ -7,7 +8,8 @@ import {
   RestaurantDescription,
 } from "./RestaurantCard.styled";
 
-function RestaurantCard({ restaurant, categoryIcons, onClick }) {
+function RestaurantCard({ restaurant, onClick }) {
+
   return (
     <CardContainer onClick={() => onClick(restaurant)}>
       <CategoryWrapper>

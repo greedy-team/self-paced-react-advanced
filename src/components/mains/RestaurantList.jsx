@@ -4,7 +4,7 @@ import RestaurantCard from "./RestaurantCard";
 import RestaurantContext from "../../contexts/RestaurantContext";
 import ModalTypes from "../../constants/modalTypes";
 
-function RestaurantList({ categoryIcons }) {
+function RestaurantList() {
   const { restaurants, selectedCategory, setSelectedRestaurant, setOpenModal } =
     useContext(RestaurantContext);
 
@@ -25,7 +25,6 @@ function RestaurantList({ categoryIcons }) {
           <RestaurantCard
             key={restaurant.id}
             restaurant={restaurant}
-            categoryIcons={categoryIcons}
             onClick={handleClick}
           />
         ))}

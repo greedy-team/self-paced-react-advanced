@@ -15,7 +15,7 @@ function App() {
       <Gnb />
       <main>
         <RestaurantCategoryFilter />
-        <RestaurantList categoryIcons={categoryIcons} />
+        <RestaurantList />
       </main>
       <aside>
         <RestaurantInfoModal />
