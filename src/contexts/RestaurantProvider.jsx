@@ -13,7 +13,7 @@ function RestaurantProvider({ children }) {
     fetch(RESTAURANT_URL)
       .then((restaurant) => restaurant.json())
       .then(setRestaurants)
-      .catch((error) => console.error("데이터 에러:", errorr));
+      .catch((error) => console.error("데이터 에러:", error));
   }, []);
 
   const handleAddRestaurant = async (restaurant) => {
