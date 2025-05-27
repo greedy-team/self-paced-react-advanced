@@ -4,6 +4,8 @@ import { Typography } from '../../styles/GlobalStyle';
 import insertImgSrc from '../utils/insertImgSrc';
 import Modal from './Modal';
 import Button from '../Button';
+import { useRestaurantContext } from '../../hooks/useRestaurantContext';
+import { useModalStateContext } from '../../hooks/useModalStateContext';
 
 const FormItem = styled.div`
   display: flex;
@@ -46,28 +48,11 @@ const initForm = {
   imgSrc: null,
 };
 
-const AddRestaurantModal = ({ isOpen, setIsAddModalOpen }) => {
+const AddRestaurantModal = () => {
+  const { isAddModalOpen, setIsAddModalOpen } = useModalStateContext();
+  const { addRestaurant } = useRestaurantContext();
   const [form, setForm] = useState(initForm);
   const [loading, setLoading] = useState(false);
-
-  const postNewRestaurant = async () => {
-    try {
-      await fetch("http://localhost:3000/restaurants", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(form),
-      });
-
-      setForm(initForm);
-      setIsAddModalOpen(false);
-      setLoading(false);
-    } catch (error) {
-      console.error('레스토랑 추가 실패:', error);
-      alert("레스토랑 추가에 실패했습니다.");
-    }
-  }
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -86,11 +71,18 @@ const AddRestaurantModal = ({ isOpen, setIsAddModalOpen }) => {
     }
     setLoading(true);
 
-    postNewRestaurant();
-  }
+    try {
+      await addRestaurant(form);
+      setForm(initForm);
+    } catch (error) {
+      alert("레스토랑 추가에 실패했습니다.");
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
-    <Modal isOpen={isOpen} onClose={() => setIsAddModalOpen(false)}>
+    <Modal isOpen={isAddModalOpen} onClose={() => setIsAddModalOpen(false)}>
       <Typography.Title margin="0 0 36px 0">
         새로운 음식점
       </Typography.Title>

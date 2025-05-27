@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { Typography } from '../styles/GlobalStyle';
+import { useModalStateContext } from '../hooks/useModalStateContext';
 
 const HeaderContainer = styled.header`
   display: flex;
@@ -26,7 +27,9 @@ const AddButtonImage = styled.img`
   object-fit: contain;
 `;
 
-const Header = ({ setIsAddModalOpen }) => {
+const Header = () => {
+  const { setIsAddModalOpen } = useModalStateContext();
+
   return (
     <HeaderContainer>
       <Typography.Title color="#fcfcfd">점심 뭐 먹지</Typography.Title>

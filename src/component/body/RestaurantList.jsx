@@ -1,6 +1,10 @@
 import styled from 'styled-components';
 import { Typography } from '../../styles/GlobalStyle';
 import insertImgSrc from '../utils/insertImgSrc';
+import { useRestaurantContext } from '../../hooks/useRestaurantContext';
+import { useState } from 'react';
+import { useSelectedRestaurantContext } from '../../hooks/useSelectedRestaurantContext';
+import { useModalStateContext } from '../../hooks/useModalStateContext';
 
 const RestaurantListContainer = styled.section`
   display: flex;
@@ -60,16 +64,24 @@ const RestaurantDescription = styled.p`
   -webkit-box-orient: vertical;
 `;
 
-const RestaurantListComponent = ({ restaurants, setIsModalOpen, setSelectedRestaurant }) => {
-  const handleRestaurantClick = (restaurant) => {
+const RestaurantListComponent = ({ category }) => {
+  const { restaurants } = useRestaurantContext();
+  const { setSelectedRestaurant } = useSelectedRestaurantContext();
+  const { setIsModalOpen } = useModalStateContext();
+
+  const filteredRestaurants = category === '전체'
+  ? restaurants
+  : restaurants.filter(restaurant => restaurant.category === category);
+
+  const handleRestaurantClick = (restaurantId) => {
     setIsModalOpen(true);
-    setSelectedRestaurant(restaurant);
+    setSelectedRestaurant(restaurantId);
   };
 
   return (
     <RestaurantListContainer>
       <RestaurantList>
-        {restaurants.map((restaurant) => (
+        {filteredRestaurants.map((restaurant) => (
           <RestaurantItem 
             key={restaurant.id} 
             onClick={() => handleRestaurantClick(restaurant.id)}
