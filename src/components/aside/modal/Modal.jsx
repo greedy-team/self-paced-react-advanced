@@ -3,7 +3,7 @@ import styled from 'styled-components';
 const SEMI_TRANSPARENT_BLACK = 'rgba(0, 0, 0, 0.35)';
 
 const ModalWrapper = styled.div`
-  display: block;
+  display: ${({ $isOpen }) => ($isOpen ? 'block' : 'none')};
 `;
 
 const ModalBackdrop = styled.div`
@@ -33,9 +33,9 @@ const ModalTitle = styled.h2`
   font-weight: 600;
 `;
 
-const Modal = ({ children, title, onClose }) => {
+const Modal = ({ children, title, onClose, isOpen }) => {
   return (
-    <ModalWrapper>
+    <ModalWrapper $isOpen={isOpen}>
       <ModalBackdrop onClick={onClose} />
       <ModalContainer>
         <ModalTitle>{title}</ModalTitle>

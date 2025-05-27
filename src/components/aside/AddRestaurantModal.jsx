@@ -1,7 +1,13 @@
 import styled from 'styled-components';
 import { selectableCategories } from '../../constant/constant';
 import Modal from './modal/Modal';
-import { addNewRestaurant } from '../../api/api';
+import { getRestaurants, addNewRestaurant } from '../../api/api';
+import { useContext } from 'react';
+import { SetRestaurantsContext } from '../../contexts/RestaurantContext';
+import {
+  RestaurantAddModalActionContext,
+  RestaurantAddModalValueContext,
+} from '../../contexts/ModalContext';
 
 const AddRestaurantForm = styled.form``;
 
@@ -75,13 +81,12 @@ const SubmitButton = styled.button`
   color: ${({ theme }) => theme.colors.grey100};
 `;
 
-const AddRestaurantModal = ({
-  onUpdateRestaurants,
-  onCloseAddRestaurantModal,
-}) => {
-  const handleAddRestaurantModalClose = () => {
-    onCloseAddRestaurantModal();
-  };
+const AddRestaurantModal = () => {
+  const { closeRestaurantAddModal } = useContext(
+    RestaurantAddModalActionContext
+  );
+  const isRestaurantAddModalOpen = useContext(RestaurantAddModalValueContext);
+  const setRestaurants = useContext(SetRestaurantsContext);
 
   const handleFormSubmit = async (e) => {
     e.preventDefault();
@@ -92,12 +97,17 @@ const AddRestaurantModal = ({
       description: e.target.description.value,
     };
     await addNewRestaurant(newRestaurant);
-    onUpdateRestaurants();
-    handleAddRestaurantModalClose();
+    const data = await getRestaurants();
+    setRestaurants(data);
+    closeRestaurantAddModal();
   };
 
   return (
-    <Modal title="새로운 음식점" onClose={handleAddRestaurantModalClose}>
+    <Modal
+      title="새로운 음식점"
+      onClose={closeRestaurantAddModal}
+      isOpen={isRestaurantAddModalOpen}
+    >
       <AddRestaurantForm onSubmit={handleFormSubmit}>
         <FormItem>
           <Label htmlFor="category" $required>

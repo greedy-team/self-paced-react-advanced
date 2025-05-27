@@ -1,5 +1,7 @@
 import styled from 'styled-components';
 import { categories } from '../../constant/constant';
+import { useContext } from 'react';
+import { SelectedCategoryContext } from '../../contexts/RestaurantContext';
 
 const RestaurantFilterContainer = styled.section`
   display: flex;
@@ -20,7 +22,10 @@ const RestaurantFilter = styled.select`
   font-size: 16px;
 `;
 
-const CategoryFilter = ({ selectedCategory, onChangeCategory }) => {
+const CategoryFilter = () => {
+  const { selectedCategory, setSelectedCategory } = useContext(
+    SelectedCategoryContext
+  );
   return (
     <RestaurantFilterContainer>
       <RestaurantFilter
@@ -28,7 +33,7 @@ const CategoryFilter = ({ selectedCategory, onChangeCategory }) => {
         id="category-filter"
         value={selectedCategory}
         aria-label="음식점 카테고리 필터"
-        onChange={(e) => onChangeCategory(e.target.value)}
+        onChange={(e) => setSelectedCategory(e.target.value)}
       >
         {categories.map((category) => (
           <option key={category} value={category}>

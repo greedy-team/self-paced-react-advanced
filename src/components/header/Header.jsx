@@ -1,5 +1,7 @@
 import addButton from '../../assets/add-button.png';
 import styled from 'styled-components';
+import { useContext } from 'react';
+import { RestaurantAddModalActionContext } from '../../contexts/ModalContext';
 
 const NEAR_WHITE = '#fcfcfd';
 
@@ -35,17 +37,17 @@ const AddRestaurantImg = styled.img`
   object-fit: contain;
 `;
 
-const Header = ({ setIsRestaurantAddModalOpen }) => {
-  const onAddButtonClick = () => {
-    setIsRestaurantAddModalOpen(true);
-  };
+const Header = () => {
+  const { openRestaurantAddModal } = useContext(
+    RestaurantAddModalActionContext
+  );
   return (
     <HeaderContainer>
       <Title>점심 뭐 먹지</Title>
       <AddRestaurantButton
         type="button"
         aria-label="음식점 추가"
-        onClick={onAddButtonClick}
+        onClick={openRestaurantAddModal}
       >
         <AddRestaurantImg src={addButton} alt="음식점 추가" />
       </AddRestaurantButton>
