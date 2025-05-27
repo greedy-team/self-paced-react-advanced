@@ -1,5 +1,7 @@
 import styled from "styled-components";
 import { selectedCategories } from "../../data/data";
+import { useContext } from "react";
+import { AppContext } from "../../contexts/AppContext";
 
 const RestaurantListContainer = styled.section`
   display: flex;
@@ -63,7 +65,18 @@ const RestaurantDescription = styled.p`
   -webkit-box-orient: vertical;
 `;
 
-function RestaurantList({ restaurants, onRestaurantClick }) {
+function RestaurantList({ restaurants }) {
+  const { setClickedRestaurantInfo, setModalTypeToOpen } =
+    useContext(AppContext);
+
+  const handleClickedRestaurantInfo = (name, description) => {
+    const restaurant = {
+      name,
+      description,
+    };
+    setClickedRestaurantInfo(restaurant);
+    setModalTypeToOpen("detail");
+  };
   return (
     <RestaurantListContainer>
       <ul>
@@ -75,7 +88,10 @@ function RestaurantList({ restaurants, onRestaurantClick }) {
             <Restaurant
               key={restaurant.id}
               onClick={() =>
-                onRestaurantClick(restaurant.name, restaurant.description)
+                handleClickedRestaurantInfo(
+                  restaurant.name,
+                  restaurant.description
+                )
               }
             >
               <RestaurantCategory>

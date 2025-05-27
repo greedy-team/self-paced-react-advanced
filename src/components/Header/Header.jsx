@@ -1,4 +1,6 @@
 import styled from "styled-components";
+import { AppContext } from "../../contexts/AppContext";
+import { useContext } from "react";
 
 const Gnb = styled.header`
   display: flex;
@@ -32,7 +34,10 @@ const GnbButton = styled.button`
   }
 `;
 
-function Header({ openAddRestaurantModal }) {
+function Header() {
+  const { setModalTypeToOpen } = useContext(AppContext);
+  const openAddRestaurantModal = () => setModalTypeToOpen("add");
+
   return (
     <Gnb>
       <GnbTitle>점심 뭐 먹지</GnbTitle>

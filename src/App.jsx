@@ -3,34 +3,21 @@ import Header from "./components/Header/Header";
 import MainContent from "./components/Main/MainContent";
 import AddRestaurantModal from "./components/Aside/AddRestaurantModal";
 import RestaurantDetailModal from "./components/Aside/RestaurantDetailModal";
-import { useState, useEffect } from "react";
+import { useContext, useEffect } from "react";
+import { AppContext } from "./contexts/AppContext";
 
 function App() {
-  const MODAL_TYPES = {
-    ADD: "add",
-    DETAIL: "detail",
-  };
+  const { modalTypeToOpen, setRestaurants } = useContext(AppContext);
 
-  const [modalTypeToOpen, setModalTypeToOpen] = useState(null);
-  const handleCloseModal = () => setModalTypeToOpen(null);
-
-  const [clickedRestaurantInfo, setClickedRestaurantInfo] = useState(null);
-  const handleClickedRestaurantInfo = (name, description) => {
-    const restaurant = {
-      name,
-      description,
+  useEffect(() => {
+    const fetchRestaurants = async () => {
+      const response = await fetch("http://localhost:3000/restaurants");
+      const data = await response.json();
+      setRestaurants(data);
     };
-    setClickedRestaurantInfo(restaurant);
-    setModalTypeToOpen(MODAL_TYPES.DETAIL);
-  };
 
-  const [restaurants, setRestaurants] = useState([]);
-
-  const fetchRestaurants = async () => {
-    const response = await fetch("http://localhost:3000/restaurants");
-    const data = await response.json();
-    setRestaurants(data);
-  };
+    fetchRestaurants();
+  }, []);
 
   const addNewRestaurant = async (restaurant) => {
     const response = await fetch("http://localhost:3000/restaurants", {
@@ -42,39 +29,22 @@ function App() {
     return newRestaurant;
   };
 
-  useEffect(() => {
-    fetchRestaurants();
-  }, []);
-
   const handleUpdatedRestaurants = async (restaurant) => {
     const newRestaurant = await addNewRestaurant(restaurant);
     setRestaurants((prev) => [...prev, newRestaurant]);
   };
+
   return (
     <>
-      <Header
-        openAddRestaurantModal={() => setModalTypeToOpen(MODAL_TYPES.ADD)}
-      />
+      <Header />
       <main>
-        <MainContent
-          onClickedDetailModal={handleClickedRestaurantInfo}
-          restaurants={restaurants}
-        />
+        <MainContent />
       </main>
       <aside>
         {modalTypeToOpen === "add" && (
-          <AddRestaurantModal
-            onSubmitRestaurant={handleUpdatedRestaurants}
-            onCloseModal={handleCloseModal}
-          />
+          <AddRestaurantModal onSubmitRestaurant={handleUpdatedRestaurants} />
         )}
-        {modalTypeToOpen === "detail" && (
-          <RestaurantDetailModal
-            restaurantName={clickedRestaurantInfo.name}
-            restaurantDescription={clickedRestaurantInfo.description}
-            onCloseModal={handleCloseModal}
-          />
-        )}
+        {modalTypeToOpen === "detail" && <RestaurantDetailModal />}
       </aside>
     </>
   );
