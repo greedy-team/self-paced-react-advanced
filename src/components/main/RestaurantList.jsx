@@ -1,6 +1,8 @@
-import styled from 'styled-components';
-import RestaurantListItem from './RestaurantListItem.jsx';
-import { useRestaurantContext } from '../../context/RestaurantContext.jsx';
+import styled from "styled-components";
+import RestaurantListItem from "./RestaurantListItem.jsx";
+import { useCategoryContext } from "../../context/CategoryContext.jsx";
+import { useModalContext } from "../../context/ModalContext.jsx";
+import { useEffect, useState } from "react";
 
 const RestaurantListContainer = styled.div`
   display: flex;
@@ -10,12 +12,37 @@ const RestaurantListContainer = styled.div`
 `;
 
 const RestaurantList = () => {
-  const { restaurants, selectedCategory } = useRestaurantContext();
+  const { modalState, setModalState } = useModalContext();
+  const { selectedCategory } = useCategoryContext();
+  const [filteredRestaurants, setFilteredRestaurants] = useState([]);
 
-  const filteredRestaurants =
-    selectedCategory === 'all'
-      ? restaurants
-      : restaurants.filter((restaurant) => restaurant.category === selectedCategory);
+  const getRestaurants = async () => {
+    try {
+      const response = await fetch("http://localhost:3000/restaurants");
+      const data = await response.json();
+      const filtered =
+        selectedCategory === "all"
+          ? data
+          : data.filter(
+              (restaurant) => restaurant.category === selectedCategory
+            );
+
+      setFilteredRestaurants(filtered);
+    } catch (err) {
+      console.error("레스토랑 데이터를 불러오는 데 실패했습니다:", err);
+    }
+  };
+
+  useEffect(() => {
+    getRestaurants(); // 컴포넌트가 처음 렌더링될 때 데이터 가져오기
+  }, [selectedCategory]); // 선택된 카테고리가 변경될 때 데이터 갱신
+
+  useEffect(() => {
+    if (modalState === "add-success") {
+      getRestaurants(); // 레스토랑 데이터 갱신
+      setModalState("null"); // modalState 초기화
+    }
+  }, [modalState]);
 
   return (
     <RestaurantListContainer>
@@ -27,6 +54,7 @@ const RestaurantList = () => {
             categoryAlt={restaurant.alt}
             name={restaurant.name}
             description={restaurant.description}
+            setModalState={setModalState}
           />
         ))}
       </ul>

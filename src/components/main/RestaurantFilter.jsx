@@ -1,6 +1,6 @@
-import styled from 'styled-components';
-import FilteredCategoryOptions from '../category/FilteredCategoryOptions';
-import { useRestaurantContext } from '../../context/RestaurantContext.jsx';
+import styled from "styled-components";
+import FilteredCategoryOptions from "../category/FilteredCategoryOptions";
+import { useCategoryContext } from "../../context/CategoryContext.jsx";
 
 const FilterContainer = styled.section`
   display: flex;
@@ -20,7 +20,7 @@ const SelectCategory = styled.select`
 `;
 
 const RestaurantFilter = () => {
-  const { setSelectedCategory } = useRestaurantContext();
+  const { setSelectedCategory } = useCategoryContext();
 
   const handleChange = (event) => {
     setSelectedCategory(event.target.value);
@@ -34,7 +34,7 @@ const RestaurantFilter = () => {
         aria-label="음식점 카테고리 필터"
         onChange={handleChange}
       >
-        <FilteredCategoryOptions excludedCategories={'선택해 주세요'} />
+        <FilteredCategoryOptions excludedCategories={"선택해 주세요"} />
       </SelectCategory>
     </FilterContainer>
   );

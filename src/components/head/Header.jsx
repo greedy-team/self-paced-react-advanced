@@ -1,5 +1,5 @@
-import styled from 'styled-components';
-import { useRestaurantContext } from '../../context/RestaurantContext.jsx';
+import styled from "styled-components";
+import { useModalContext } from "../../context/ModalContext.jsx";
 
 const HeaderContainer = styled.header`
   display: flex;
@@ -14,10 +14,6 @@ const HeaderContainer = styled.header`
 
 const Title = styled.h1`
   color: #fcfcfd;
-
-  font-size: 20px;
-  line-height: 24px;
-  font-weight: 600;
 `;
 
 const Button = styled.button`
@@ -32,12 +28,16 @@ const Button = styled.button`
 `;
 
 function Header() {
-  const { setModalState } = useRestaurantContext();
+  const { setModalState } = useModalContext();
 
   return (
     <HeaderContainer>
       <Title>점심 뭐 먹지</Title>
-      <Button type="button" aria-label="음식점 추가" onClick={() => setModalState('add')}>
+      <Button
+        type="button"
+        aria-label="음식점 추가"
+        onClick={() => setModalState("add")}
+      >
         <img src="/assets/images/button/add-button.png" alt="음식점 추가" />
       </Button>
     </HeaderContainer>

@@ -1,18 +1,20 @@
-import "./App.css";
+import GlobalStyle from "./styles/Globalstyle.jsx";
 import Header from "./components/head/Header.jsx";
 import RestaurantList from "./components/main/RestaurantList.jsx";
 import RestaurantFilter from "./components/main/RestaurantFilter.jsx";
 import RestaurantDetailModal from "./components/aside/RestaurantDetailModal.jsx";
 import RestaurantAddModal from "./components/aside/RestaurantAddModal.jsx";
-import { RestaurantProvider, useRestaurantContext } from "./context/RestaurantContext.jsx";
+import { RestaurantProvider } from "./context/RestaurantContext.jsx";
+import { ModalProvider, useModalContext } from "./context/ModalContext.jsx";
+import { CategoryProvider } from "./context/CategoryContext.jsx";
 
 function ModalContainer() {
-  const { modalState } = useRestaurantContext();
+  const { modalState } = useModalContext();
 
   return (
     <aside>
-      {modalState === 'detail' && <RestaurantDetailModal />}
-      {modalState === 'add' && <RestaurantAddModal />}
+      {modalState === "detail" && <RestaurantDetailModal />}
+      {modalState === "add" && <RestaurantAddModal />}
     </aside>
   );
 }
@@ -28,11 +30,16 @@ function RestaurantContainer() {
 
 function App() {
   return (
-    <RestaurantProvider>
+    <ModalProvider>
+      <GlobalStyle />
       <Header />
-      <RestaurantContainer />
-      <ModalContainer />
-    </RestaurantProvider>
+      <RestaurantProvider>
+        <CategoryProvider>
+          <RestaurantContainer />
+        </CategoryProvider>
+        <ModalContainer />
+      </RestaurantProvider>
+    </ModalProvider>
   );
 }
 
