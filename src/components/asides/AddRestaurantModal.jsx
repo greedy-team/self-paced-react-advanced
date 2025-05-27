@@ -1,5 +1,7 @@
-import { useState } from "react";
-import Modal from "../../modals/Modal";
+import { useState, useContext } from "react";
+import Modal from "../modals/Modal";
+import ModalTypes from "../../constants/modalTypes";
+import RestaurantContext from "../../contexts/RestaurantContext";
 import {
   AddModalTitle,
   AddModalFormItem,
@@ -12,13 +14,11 @@ import {
   AddModalLabel,
 } from "./AddRestaurantModal.styled";
 
-function AddRestaurantModal({
-  isOpen,
-  onClose,
-  categoryOptions,
-  onAddRestaurant,
-}) {
-  if (!isOpen) return null;
+function AddRestaurantModal({ categoryOptions }) {
+  const { openModal, setOpenModal, handleAddRestaurant } =
+    useContext(RestaurantContext);
+
+  const isAddModalOpen = openModal === ModalTypes.ADD;
 
   const [formData, setFormData] = useState({
     category: categoryOptions[0]?.value || "",
@@ -26,28 +26,32 @@ function AddRestaurantModal({
     description: "",
   });
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
+  if (!isAddModalOpen) return null;
+
+  const handleChange = (event) => {
+    const { name, value } = event.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    onAddRestaurant(formData);
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    handleAddRestaurant(formData);
     setFormData({
       category: categoryOptions[0]?.value || "",
       name: "",
       description: "",
     });
-    onClose();
+    setOpenModal(null);
   };
 
   return (
-    <Modal isOpen={isOpen} onClose={onClose}>
+    <Modal isOpen={isAddModalOpen} onClose={() => setOpenModal(null)}>
       <AddModalTitle>새로운 음식점</AddModalTitle>
       <form onSubmit={handleSubmit}>
         <AddModalFormItem>
-          <AddModalLabel htmlFor="category" required>카테고리</AddModalLabel>
+          <AddModalLabel htmlFor="category" required>
+            카테고리
+          </AddModalLabel>
           <AddModalSelect
             name="category"
             id="category"
@@ -64,7 +68,9 @@ function AddRestaurantModal({
         </AddModalFormItem>
 
         <AddModalFormItem>
-          <AddModalLabel htmlFor="name" required>이름</AddModalLabel>
+          <AddModalLabel htmlFor="name" required>
+            이름
+          </AddModalLabel>
           <AddModalInput
             name="name"
             id="name"

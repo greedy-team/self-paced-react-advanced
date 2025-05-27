@@ -4,7 +4,7 @@ const Modal = ({ isOpen, onClose, children }) => {
   return (
     <ModalWrapper $isOpen={isOpen}>
       <ModalBackdrop onClick={onClose} />
-      <ModalContainer onClick={(e) => e.stopPropagation()}>
+      <ModalContainer onClick={(event) => event.stopPropagation()}>
         {children}
       </ModalContainer>
     </ModalWrapper>
