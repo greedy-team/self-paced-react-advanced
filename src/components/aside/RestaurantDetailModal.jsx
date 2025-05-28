@@ -23,7 +23,7 @@ function RestaurantDetailModal() {
   return (
     <Modal
       title={restaurantItem.name}
-      onClose={() => setModalState("null")}
+      onClose={() => setModalState(null)}
       isButtonOpen
     >
       <RestaurantInfo>

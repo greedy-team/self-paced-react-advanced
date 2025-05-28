@@ -4,7 +4,7 @@ const ModalContext = createContext();
 
 export function ModalProvider({ children }) {
   // detail, add, add-success, null 4가지로 관리
-  const [modalState, setModalState] = useState("null");
+  const [modalState, setModalState] = useState(null);
 
   return (
     <ModalContext.Provider

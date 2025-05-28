@@ -1,7 +1,6 @@
 import Modal from "./modal/Modal.jsx";
 import styled from "styled-components";
 import RestaurantCategory from "../category/FilteredCategoryOptions";
-import { useRestaurantContext } from "../../context/RestaurantContext.jsx";
 import { useModalContext } from "../../context/ModalContext.jsx";
 
 const CATEGORY_MAP = {

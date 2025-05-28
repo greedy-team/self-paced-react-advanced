@@ -1,6 +1,5 @@
 import styled from "styled-components";
 import { useRestaurantContext } from "../../context/RestaurantContext.jsx";
-import { useModalContext } from "../../context/ModalContext.jsx";
 
 const RestaurantItem = styled.li`
   display: flex;

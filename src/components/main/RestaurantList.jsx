@@ -34,13 +34,13 @@ const RestaurantList = () => {
   };
 
   useEffect(() => {
-    getRestaurants(); // 컴포넌트가 처음 렌더링될 때 데이터 가져오기
-  }, [selectedCategory]); // 선택된 카테고리가 변경될 때 데이터 갱신
+    getRestaurants();
+  }, [selectedCategory]);
 
   useEffect(() => {
     if (modalState === "add-success") {
-      getRestaurants(); // 레스토랑 데이터 갱신
-      setModalState("null"); // modalState 초기화
+      getRestaurants();
+      setModalState(null);
     }
   }, [modalState]);
 
