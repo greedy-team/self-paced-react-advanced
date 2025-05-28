@@ -1,7 +1,6 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import RestaurantContext from "./RestaurantContext";
-
-const RESTAURANT_URL = "http://localhost:3000/restaurants";
+import { fetchRestaurants, createRestaurant } from "../api/restaurantsApi";
 
 function RestaurantProvider({ children }) {
   const [openModal, setOpenModal] = useState(null);
@@ -9,51 +8,45 @@ function RestaurantProvider({ children }) {
   const [selectedRestaurant, setSelectedRestaurant] = useState(null);
   const [restaurants, setRestaurants] = useState([]);
 
-  const handleGetRestaurant = async () => {
+  const getRestaurants = useCallback(async () => {
     try {
-      const response = await fetch(RESTAURANT_URL, {
-        method: "GET",
-        headers: { "Content-Type": "application/json" },
-      });
-      const data = await response.json();
+      const data = await fetchRestaurants();
       setRestaurants(data);
-    } catch (error) {
-      console.error("GET 실패:", error);
+    } catch (err) {
+      console.error("GET 실패:", err);
     }
-  };
-
-  useEffect(() => {
-    handleGetRestaurant();
   }, []);
 
-  const handleAddRestaurant = async (restaurant) => {
+  const addRestaurant = useCallback(async (newItem) => {
     try {
-      const response = await fetch(RESTAURANT_URL, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(restaurant),
-      });
-      const created = await response.json();
+      const created = await createRestaurant(newItem);
       setRestaurants((prev) => [...prev, created]);
-      setOpenModal(null);
-    } catch (error) {
-      console.error("POST 실패:", error);
+    } catch (err) {
+      console.error("POST 실패:", err);
     }
-  };
+  }, []);
+
+  useEffect(() => {
+    getRestaurants();
+  }, [getRestaurants]);
 
   return (
     <RestaurantContext.Provider
       value={{
+        // ui
         openModal,
         setOpenModal,
         selectedCategory,
         setSelectedCategory,
         selectedRestaurant,
         setSelectedRestaurant,
+
+        //data
         restaurants,
-        setRestaurants,
-        handleAddRestaurant,
-        handleGetRestaurant
+
+        // api
+        getRestaurants,
+        addRestaurant,
       }}
     >
       {children}

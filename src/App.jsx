@@ -5,9 +5,7 @@ import RestaurantCategoryFilter from "./components/mains/RestaurantCategoryFilte
 import RestaurantList from "./components/mains/RestaurantList";
 import RestaurantInfoModal from "./components/asides/RestaurantInfoModal";
 import AddRestaurantModal from "./components/asides/AddRestaurantModal";
-import categoryIcons from "./data/categoryIcons";
 import categoryOptions from "./data/categoryOptions";
-import ModalTypes from "./constants/modalTypes";
 
 function App() {
   return (

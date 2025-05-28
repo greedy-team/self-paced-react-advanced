@@ -15,7 +15,7 @@ import {
 } from "./AddRestaurantModal.styled";
 
 function AddRestaurantModal({ categoryOptions }) {
-  const { openModal, setOpenModal, handleAddRestaurant } =
+  const { openModal, setOpenModal, addRestaurant } =
     useContext(RestaurantContext);
 
   const isAddModalOpen = openModal === ModalTypes.ADD;
@@ -35,7 +35,7 @@ function AddRestaurantModal({ categoryOptions }) {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    handleAddRestaurant(formData);
+    addRestaurant(formData);
     setFormData({
       category: categoryOptions[0]?.value || "",
       name: "",
