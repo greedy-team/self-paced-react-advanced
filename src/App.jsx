@@ -1,7 +1,6 @@
 import "./App.css";
 import { useSetRecoilState } from "recoil";
 import { restaurantState } from "./atoms/restaurantState";
-import RestaurantProvider from "./contexts/RestaurantProvider";
 import Gnb from "./components/headers/Gnb";
 import RestaurantCategoryFilter from "./components/mains/RestaurantCategoryFilter";
 import RestaurantList from "./components/mains/RestaurantList";
@@ -19,7 +18,7 @@ function App() {
   }, [setRestaurants]);
 
   return (
-    <RestaurantProvider>
+    <>
       <Gnb />
       <main>
         <RestaurantCategoryFilter />
@@ -29,7 +28,7 @@ function App() {
         <RestaurantInfoModal />
         <AddRestaurantModal categoryOptions={categoryOptions} />
       </aside>
-    </RestaurantProvider>
+    </>
   );
 }
 
