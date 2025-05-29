@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import { Typography } from '../styles/GlobalStyle';
-import { useModalStateContext } from '../hooks/useModalStateContext';
+import { AddModalState } from '../store/atoms';
+import { useSetRecoilState } from 'recoil';
 
 const HeaderContainer = styled.header`
   display: flex;
@@ -28,7 +29,7 @@ const AddButtonImage = styled.img`
 `;
 
 const Header = () => {
-  const { setIsAddModalOpen } = useModalStateContext();
+  const setIsAddModalOpen = useSetRecoilState(AddModalState);
 
   return (
     <HeaderContainer>

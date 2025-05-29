@@ -1,10 +1,9 @@
 import styled from 'styled-components';
 import { Typography } from '../../styles/GlobalStyle';
 import insertImgSrc from '../utils/insertImgSrc';
-import { useRestaurantContext } from '../../hooks/useRestaurantContext';
-import { useState } from 'react';
-import { useSelectedRestaurantContext } from '../../hooks/useSelectedRestaurantContext';
-import { useModalStateContext } from '../../hooks/useModalStateContext';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
+import { InfoModalState, SelectedRestaurantState } from '../../store/atoms';
+import { SelectedRestaurantSelector } from '../../store/selector';
 
 const RestaurantListContainer = styled.section`
   display: flex;
@@ -55,7 +54,7 @@ const RestaurantInfo = styled.div`
   justify-content: flex-start;
 `;
 
-const RestaurantDescription = styled.p`
+const RestaurantDescription = styled.div`
   display: -webkit-box;
   padding-top: 8px;
   overflow: hidden;
@@ -64,14 +63,10 @@ const RestaurantDescription = styled.p`
   -webkit-box-orient: vertical;
 `;
 
-const RestaurantListComponent = ({ category }) => {
-  const { restaurants } = useRestaurantContext();
-  const { setSelectedRestaurant } = useSelectedRestaurantContext();
-  const { setIsModalOpen } = useModalStateContext();
-
-  const filteredRestaurants = category === '전체'
-  ? restaurants
-  : restaurants.filter(restaurant => restaurant.category === category);
+const RestaurantListComponent = () => {
+  const setSelectedRestaurant = useSetRecoilState(SelectedRestaurantState);
+  const setIsModalOpen = useSetRecoilState(InfoModalState);
+  const filteredRestaurants = useRecoilValue(SelectedRestaurantSelector);
 
   const handleRestaurantClick = (restaurantId) => {
     setIsModalOpen(true);

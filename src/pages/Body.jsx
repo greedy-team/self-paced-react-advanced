@@ -1,14 +1,26 @@
-import { useState } from 'react';
 import CategorySortFilter from '../component/body/CategorySortFilter';
 import RestaurantList from '../component/body/RestaurantList';
+import { useSetRecoilState } from 'recoil';
+import { useEffect } from "react";
+import { restaurantsState } from '../store/atoms';
+import { fetchRestaurants } from '../apis/apis';
 
 const Body = () => {
-  const [category, setCategory] = useState('전체');
+  const setRestaurants = useSetRecoilState(restaurantsState);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const data = await fetchRestaurants();
+      setRestaurants(data);
+    };
+
+    fetchData();
+  }, []);
 
   return (
     <>
-      <CategorySortFilter category={category} setCategory={setCategory} />
-      <RestaurantList category={category} />
+      <CategorySortFilter />
+      <RestaurantList />
     </>
   );
 };

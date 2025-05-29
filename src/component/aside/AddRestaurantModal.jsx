@@ -4,8 +4,9 @@ import { Typography } from '../../styles/GlobalStyle';
 import insertImgSrc from '../utils/insertImgSrc';
 import Modal from './Modal';
 import Button from '../Button';
-import { useRestaurantContext } from '../../hooks/useRestaurantContext';
-import { useModalStateContext } from '../../hooks/useModalStateContext';
+import { useRecoilState } from 'recoil';
+import { AddModalState, restaurantsState } from '../../store/atoms';
+import { addRestaurant } from '../../apis/apis';
 
 const FormItem = styled.div`
   display: flex;
@@ -49,8 +50,8 @@ const initForm = {
 };
 
 const AddRestaurantModal = () => {
-  const { isAddModalOpen, setIsAddModalOpen } = useModalStateContext();
-  const { addRestaurant } = useRestaurantContext();
+  const [isAddModalOpen, setIsAddModalOpen] = useRecoilState(AddModalState);
+  const [restaurants, setRestaurants] = useRecoilState(restaurantsState);
   const [form, setForm] = useState(initForm);
   const [loading, setLoading] = useState(false);
 
@@ -73,7 +74,9 @@ const AddRestaurantModal = () => {
 
     try {
       await addRestaurant(form);
+      setRestaurants([...restaurants, form]);
       setForm(initForm);
+      setIsAddModalOpen(false);
     } catch (error) {
       alert("레스토랑 추가에 실패했습니다.");
     } finally {

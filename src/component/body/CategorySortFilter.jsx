@@ -1,4 +1,6 @@
+import { useRecoilState } from 'recoil';
 import styled from 'styled-components';
+import { CategoryState } from '../../store/atoms';
 
 const FilterContainer = styled.section`
   display: flex;
@@ -17,7 +19,9 @@ const CategorySelect = styled.select`
   font-size: 16px;
 `;
 
-const CategorySortFilter = ({ category, setCategory }) => {
+const CategorySortFilter = () => {
+  const [category, setCategory] = useRecoilState(CategoryState);
+
   const handleChange = (e) => {
     setCategory(e.target.value);
   };
