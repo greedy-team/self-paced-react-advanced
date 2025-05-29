@@ -1,14 +1,20 @@
-import { ListContainer, RestaurantListWrapper } from "./RestaurantList.styled";
+import { useRecoilValue, useSetRecoilState } from "recoil";
 import RestaurantCard from "./RestaurantCard";
 import ModalTypes from "../../constants/modalTypes";
-import { useRecoilValue } from "recoil";
-import { filteredRestaurantState } from "../../atoms/restaurantState";
+import {
+  openModalState,
+  filteredRestaurantState,
+  selectedRestaurantState,
+} from "../../atoms/restaurantState";
+import { ListContainer, RestaurantListWrapper } from "./RestaurantList.styled";
 
 function RestaurantList() {
   const filteredRestaurants = useRecoilValue(filteredRestaurantState);
+  const selectedRestaurant = useSetRecoilState(selectedRestaurantState);
+  const setOpenModal = useSetRecoilState(openModalState);
 
   const handleClick = (restaurant) => {
-    setSelectedRestaurant(restaurant);
+    selectedRestaurant(restaurant);
     setOpenModal(ModalTypes.INFO);
   };
 
@@ -19,7 +25,7 @@ function RestaurantList() {
           <RestaurantCard
             key={restaurant.id}
             restaurant={restaurant}
-            onClick={handleClick}
+            onClick={() => handleClick(restaurant)}
           />
         ))}
       </RestaurantListWrapper>

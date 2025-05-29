@@ -1,16 +1,15 @@
 import { useRecoilValue, useRecoilState } from "recoil";
 import {
-  FilterContainer,
-  CategorySelect,
-} from "./RestaurantCategoryFilter.styled";
-import {
   restaurantState,
   selectedCategoryState,
 } from "../../atoms/restaurantState";
+import {
+  FilterContainer,
+  CategorySelect,
+} from "./RestaurantCategoryFilter.styled";
 
 function RestaurantCategoryFilter() {
   const restaurants = useRecoilValue(restaurantState);
-
   const [selectedCategory, setSelectedCategory] = useRecoilState(
     selectedCategoryState
   );

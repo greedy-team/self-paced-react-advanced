@@ -1,10 +1,10 @@
-import { useContext } from "react";
-import RestaurantContext from "../../contexts/RestaurantContext";
+import { useSetRecoilState } from "recoil";
 import ModalTypes from "../../constants/modalTypes";
+import { openModalState } from "../../atoms/restaurantState";
 import { GnbContainer, GnbTitle, GnbButton, GnbIcon } from "./Gnb.styled";
 
 function Gnb() {
-  const { setOpenModal } = useContext(RestaurantContext);
+  const setOpenModal = useSetRecoilState(openModalState);
 
   return (
     <GnbContainer>
