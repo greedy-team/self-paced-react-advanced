@@ -1,7 +1,8 @@
-import { useState, useContext } from "react";
+import { useState } from "react";
+import { useRecoilValue, useSetRecoilState } from "recoil";
 import Modal from "../modals/Modal";
 import ModalTypes from "../../constants/modalTypes";
-import RestaurantContext from "../../contexts/RestaurantContext";
+import { openModalState, useAddRestaurant } from "../../atoms/restaurantState";
 import {
   AddModalTitle,
   AddModalFormItem,
@@ -15,8 +16,9 @@ import {
 } from "./AddRestaurantModal.styled";
 
 function AddRestaurantModal({ categoryOptions }) {
-  const { openModal, setOpenModal, addRestaurant } =
-    useContext(RestaurantContext);
+  const openModal = useRecoilValue(openModalState);
+  const setOpenModal = useSetRecoilState(openModalState);
+  const addRestaurant = useAddRestaurant();
 
   const isAddModalOpen = openModal === ModalTypes.ADD;
 
@@ -28,10 +30,8 @@ function AddRestaurantModal({ categoryOptions }) {
 
   if (!isAddModalOpen) return null;
 
-  const handleChange = (event) => {
-    const { name, value } = event.target;
+  const handleChange = ({ target: { name, value } }) =>
     setFormData((prev) => ({ ...prev, [name]: value }));
-  };
 
   const handleSubmit = (event) => {
     event.preventDefault();
