@@ -1,15 +1,24 @@
-import { useContext } from "react";
+import { useRecoilValue, useRecoilState } from "recoil";
 import {
   FilterContainer,
   CategorySelect,
 } from "./RestaurantCategoryFilter.styled";
-import RestaurantContext from "../../contexts/RestaurantContext";
+import {
+  restaurantState,
+  selectedCategoryState,
+} from "../../atoms/restaurantState";
 
 function RestaurantCategoryFilter() {
-  const { selectedCategory, setSelectedCategory, restaurants } =
-    useContext(RestaurantContext);
+  const restaurants = useRecoilValue(restaurantState);
 
-  const categories = ["전체", ...new Set(restaurants.map((restaurant) => restaurant.category))];
+  const [selectedCategory, setSelectedCategory] = useRecoilState(
+    selectedCategoryState
+  );
+
+  const categories = [
+    "전체",
+    ...new Set(restaurants.map((restaurant) => restaurant.category)),
+  ];
 
   const handleChange = (event) => {
     setSelectedCategory(event.target.value);
