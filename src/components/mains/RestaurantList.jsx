@@ -1,17 +1,11 @@
-import { useContext } from "react";
 import { ListContainer, RestaurantListWrapper } from "./RestaurantList.styled";
 import RestaurantCard from "./RestaurantCard";
-import RestaurantContext from "../../contexts/RestaurantContext";
 import ModalTypes from "../../constants/modalTypes";
+import { useRecoilValue } from "recoil";
+import { filteredRestaurantState } from "../../atoms/restaurantState";
 
 function RestaurantList() {
-  const { restaurants, selectedCategory, setSelectedRestaurant, setOpenModal } =
-    useContext(RestaurantContext);
-
-  const filteredRestaurants =
-    selectedCategory === "전체"
-      ? restaurants
-      : restaurants.filter((restaurant) => restaurant.category === selectedCategory);
+  const filteredRestaurants = useRecoilValue(filteredRestaurantState);
 
   const handleClick = (restaurant) => {
     setSelectedRestaurant(restaurant);
