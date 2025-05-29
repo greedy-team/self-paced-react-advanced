@@ -1,12 +1,14 @@
 import { useState, useEffect, useCallback } from "react";
 import RestaurantContext from "./RestaurantContext";
 import { fetchRestaurants, createRestaurant } from "../api/restaurantsApi";
+import { restaurantState } from "../atoms/restaurantState";
+import { useSetRecoilState } from "recoil";
 
 function RestaurantProvider({ children }) {
   const [openModal, setOpenModal] = useState(null);
-  const [selectedCategory, setSelectedCategory] = useState("전체");
   const [selectedRestaurant, setSelectedRestaurant] = useState(null);
-  const [restaurants, setRestaurants] = useState([]);
+
+  const setRestaurants = useSetRecoilState(restaurantState);
 
   const getRestaurants = useCallback(async () => {
     try {
@@ -36,13 +38,8 @@ function RestaurantProvider({ children }) {
         // ui
         openModal,
         setOpenModal,
-        selectedCategory,
-        setSelectedCategory,
         selectedRestaurant,
         setSelectedRestaurant,
-
-        //data
-        restaurants,
 
         // api
         getRestaurants,
