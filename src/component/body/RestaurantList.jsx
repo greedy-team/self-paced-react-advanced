@@ -2,8 +2,10 @@ import styled from 'styled-components';
 import { Typography } from '../../styles/GlobalStyle';
 import insertImgSrc from '../utils/insertImgSrc';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
-import { InfoModalState, SelectedRestaurantState } from '../../store/atoms';
+import { InfoModalState, restaurantsState, SelectedRestaurantState } from '../../store/atoms';
 import { SelectedRestaurantSelector } from '../../store/selector';
+import { useEffect } from 'react';
+import { fetchRestaurants } from '../../apis/apis';
 
 const RestaurantListContainer = styled.section`
   display: flex;
@@ -67,6 +69,16 @@ const RestaurantListComponent = () => {
   const setSelectedRestaurant = useSetRecoilState(SelectedRestaurantState);
   const setIsModalOpen = useSetRecoilState(InfoModalState);
   const filteredRestaurants = useRecoilValue(SelectedRestaurantSelector);
+  const setRestaurants = useSetRecoilState(restaurantsState);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const data = await fetchRestaurants();
+      setRestaurants(data);
+    };
+
+    fetchData();
+  }, []);
 
   const handleRestaurantClick = (restaurantId) => {
     setIsModalOpen(true);
