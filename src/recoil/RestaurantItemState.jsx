@@ -1,7 +1,7 @@
 import { atom } from "recoil";
 
-export const restaurantState = atom({
-  key: "restaurantState",
+export const restaurantItemState = atom({
+  key: "restaurantItemState",
   default: {
     name: "",
     description: "",

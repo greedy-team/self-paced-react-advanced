@@ -1,7 +1,7 @@
 import Modal from "./modal/Modal.jsx";
 import styled from "styled-components";
 import { useRecoilValue, useSetRecoilState } from "recoil";
-import { restaurantState } from "../../recoil/RestaurantState.jsx";
+import { restaurantItemState } from "../../recoil/RestaurantItemState.jsx";
 import { modalState } from "../../recoil/ModalState.jsx";
 
 const RestaurantInfo = styled.div`
@@ -19,7 +19,7 @@ const Description = styled.p`
 
 function RestaurantDetailModal() {
   const setModalStateValue = useSetRecoilState(modalState);
-  const restaurantItem = useRecoilValue(restaurantState);
+  const restaurantItem = useRecoilValue(restaurantItemState);
 
   return (
     <Modal
