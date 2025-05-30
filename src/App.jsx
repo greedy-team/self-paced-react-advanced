@@ -7,6 +7,7 @@ import RestaurantAddModal from "./components/aside/RestaurantAddModal.jsx";
 import { RecoilRoot } from "recoil";
 import { useRecoilValue } from "recoil";
 import { modalState } from "./recoil/ModalState.jsx";
+import { Suspense } from "react";
 
 function ModalContainer() {
   const modalStateValue = useRecoilValue(modalState);
@@ -33,7 +34,9 @@ function App() {
     <RecoilRoot>
       <GlobalStyle />
       <Header />
-      <RestaurantContainer />
+      <Suspense fallback={<div>Restaurant List Loading...</div>}>
+        <RestaurantContainer />
+      </Suspense>
       <ModalContainer />
     </RecoilRoot>
   );

@@ -2,8 +2,8 @@ import styled from "styled-components";
 import RestaurantListItem from "./RestaurantListItem.jsx";
 import { useRecoilValue, useRecoilState } from "recoil";
 import { modalState } from "../../recoil/ModalState.jsx";
-import { categoryState } from "../../recoil/CategoryState.jsx";
-import { useEffect, useState } from "react";
+import { filteredRestaurantSelector } from "../../recoil/FilteredRestaurantSelector";
+import { useEffect } from "react";
 
 const RestaurantListContainer = styled.div`
   display: flex;
@@ -13,34 +13,11 @@ const RestaurantListContainer = styled.div`
 `;
 
 const RestaurantList = () => {
+  const restaurants = useRecoilValue(filteredRestaurantSelector);
   const [modalStateValue, setModalStateValue] = useRecoilState(modalState);
-  const selectedCategory = useRecoilValue(categoryState);
-  const [filteredRestaurants, setFilteredRestaurants] = useState([]);
-
-  const getRestaurants = async () => {
-    try {
-      const response = await fetch("http://localhost:3000/restaurants");
-      const data = await response.json();
-      const filtered =
-        selectedCategory === "all"
-          ? data
-          : data.filter(
-              (restaurant) => restaurant.category === selectedCategory
-            );
-
-      setFilteredRestaurants(filtered);
-    } catch (err) {
-      console.error("레스토랑 데이터를 불러오는 데 실패했습니다:", err);
-    }
-  };
-
-  useEffect(() => {
-    getRestaurants();
-  }, [selectedCategory]);
 
   useEffect(() => {
     if (modalStateValue === "add-success") {
-      getRestaurants();
       setModalStateValue(null);
     }
   }, [modalStateValue]);
@@ -48,7 +25,7 @@ const RestaurantList = () => {
   return (
     <RestaurantListContainer>
       <ul>
-        {filteredRestaurants.map((restaurant) => (
+        {restaurants.map((restaurant) => (
           <RestaurantListItem
             key={restaurant.id}
             categoryIcon={restaurant.icon}
