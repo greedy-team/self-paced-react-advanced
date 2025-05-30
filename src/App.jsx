@@ -4,17 +4,17 @@ import RestaurantList from "./components/main/RestaurantList.jsx";
 import RestaurantFilter from "./components/main/RestaurantFilter.jsx";
 import RestaurantDetailModal from "./components/aside/RestaurantDetailModal.jsx";
 import RestaurantAddModal from "./components/aside/RestaurantAddModal.jsx";
-import { RestaurantProvider } from "./context/RestaurantContext.jsx";
-import { ModalProvider, useModalContext } from "./context/ModalContext.jsx";
-import { CategoryProvider } from "./context/CategoryContext.jsx";
+import { RecoilRoot } from "recoil";
+import { useRecoilValue } from "recoil";
+import { modalState } from "./recoil/ModalState.jsx";
 
 function ModalContainer() {
-  const { modalState } = useModalContext();
+  const modalStateValue = useRecoilValue(modalState);
 
   return (
     <aside>
-      {modalState === "detail" && <RestaurantDetailModal />}
-      {modalState === "add" && <RestaurantAddModal />}
+      {modalStateValue === "detail" && <RestaurantDetailModal />}
+      {modalStateValue === "add" && <RestaurantAddModal />}
     </aside>
   );
 }
@@ -30,16 +30,12 @@ function RestaurantContainer() {
 
 function App() {
   return (
-    <ModalProvider>
+    <RecoilRoot>
       <GlobalStyle />
       <Header />
-      <RestaurantProvider>
-        <CategoryProvider>
-          <RestaurantContainer />
-        </CategoryProvider>
-        <ModalContainer />
-      </RestaurantProvider>
-    </ModalProvider>
+      <RestaurantContainer />
+      <ModalContainer />
+    </RecoilRoot>
   );
 }
 

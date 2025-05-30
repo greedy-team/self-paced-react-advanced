@@ -1,7 +1,8 @@
 import styled from "styled-components";
 import RestaurantListItem from "./RestaurantListItem.jsx";
-import { useCategoryContext } from "../../context/CategoryContext.jsx";
-import { useModalContext } from "../../context/ModalContext.jsx";
+import { useRecoilValue, useRecoilState } from "recoil";
+import { modalState } from "../../recoil/ModalState.jsx";
+import { categoryState } from "../../recoil/CategoryState.jsx";
 import { useEffect, useState } from "react";
 
 const RestaurantListContainer = styled.div`
@@ -12,8 +13,8 @@ const RestaurantListContainer = styled.div`
 `;
 
 const RestaurantList = () => {
-  const { modalState, setModalState } = useModalContext();
-  const { selectedCategory } = useCategoryContext();
+  const [modalStateValue, setModalStateValue] = useRecoilState(modalState);
+  const selectedCategory = useRecoilValue(categoryState);
   const [filteredRestaurants, setFilteredRestaurants] = useState([]);
 
   const getRestaurants = async () => {
@@ -38,11 +39,11 @@ const RestaurantList = () => {
   }, [selectedCategory]);
 
   useEffect(() => {
-    if (modalState === "add-success") {
+    if (modalStateValue === "add-success") {
       getRestaurants();
-      setModalState(null);
+      setModalStateValue(null);
     }
-  }, [modalState]);
+  }, [modalStateValue]);
 
   return (
     <RestaurantListContainer>
@@ -54,7 +55,7 @@ const RestaurantList = () => {
             categoryAlt={restaurant.alt}
             name={restaurant.name}
             description={restaurant.description}
-            setModalState={setModalState}
+            setModalStateValue={setModalStateValue}
           />
         ))}
       </ul>

@@ -1,5 +1,6 @@
 import styled from "styled-components";
-import { useModalContext } from "../../context/ModalContext.jsx";
+import { useSetRecoilState } from "recoil";
+import { modalState } from "../../recoil/ModalState.jsx";
 
 const HeaderContainer = styled.header`
   display: flex;
@@ -28,7 +29,7 @@ const Button = styled.button`
 `;
 
 function Header() {
-  const { setModalState } = useModalContext();
+  const setModalStateValue = useSetRecoilState(modalState);
 
   return (
     <HeaderContainer>
@@ -36,7 +37,7 @@ function Header() {
       <Button
         type="button"
         aria-label="음식점 추가"
-        onClick={() => setModalState("add")}
+        onClick={() => setModalStateValue("add")}
       >
         <img src="/assets/images/button/add-button.png" alt="음식점 추가" />
       </Button>
