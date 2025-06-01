@@ -1,8 +1,8 @@
 import { atom, selector, useRecoilCallback } from 'recoil';
 import { createRestaurant } from '../api/restaurantsApi';
 
-export const openModalState = atom({
-  key: 'openModalState',
+export const modalTypeState = atom({
+  key: 'modalTypeState',
   default: null,
 });
 

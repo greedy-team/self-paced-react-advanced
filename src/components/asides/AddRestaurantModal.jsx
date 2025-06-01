@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import Modal from "../modals/Modal";
 import ModalTypes from "../../constants/modalTypes";
-import { openModalState, useAddRestaurant } from "../../atoms/restaurantState";
+import { modalTypeState, useAddRestaurant } from "../../atoms/restaurantState";
 import {
   AddModalTitle,
   AddModalFormItem,
@@ -16,11 +16,11 @@ import {
 } from "./AddRestaurantModal.styled";
 
 function AddRestaurantModal({ categoryOptions }) {
-  const openModal = useRecoilValue(openModalState);
-  const setOpenModal = useSetRecoilState(openModalState);
+  const modalType = useRecoilValue(modalTypeState);
+  const setModalType = useSetRecoilState(modalTypeState);
   const addRestaurant = useAddRestaurant();
 
-  const isAddModalOpen = openModal === ModalTypes.ADD;
+  const isAddModalOpen = modalType === ModalTypes.ADD;
 
   const [addRestaurantData, setAddRestaurantData] = useState({
     category: categoryOptions[0]?.value || "",
@@ -41,7 +41,7 @@ function AddRestaurantModal({ categoryOptions }) {
       name: "",
       description: "",
     });
-    setOpenModal(null);
+    setModalType(null);
   };
 
   const handleCloseAndReset = () => {
@@ -50,7 +50,7 @@ function AddRestaurantModal({ categoryOptions }) {
       name: "",
       description: "",
     });
-    setOpenModal(null);
+    setModalType(null);
   };
 
   return (
