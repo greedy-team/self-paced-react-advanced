@@ -1,6 +1,6 @@
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import RestaurantCard from "./RestaurantCard";
-import ModalTypes from "../../constants/modalTypes";
+import MODAL_TYPES from "../../constants/modalTypes";
 import {
   openModalState,
   filteredRestaurantState,
@@ -15,7 +15,7 @@ function RestaurantList() {
 
   const handleClick = (restaurant) => {
     selectedRestaurant(restaurant);
-    setOpenModal(ModalTypes.INFO);
+    setOpenModal(MODAL_TYPES.INFO);
   };
 
   return (

@@ -1,5 +1,5 @@
 import { useRecoilValue, useSetRecoilState } from "recoil";
-import ModalTypes from "../../constants/modalTypes";
+import MODAL_TYPES from "../../constants/modalTypes";
 import Modal from "../modals/Modal";
 import {
   modalTypeState,
@@ -19,7 +19,7 @@ function RestaurantInfoModal() {
   const setModalType = useSetRecoilState(modalTypeState);
   const selectedRestaurant = useRecoilValue(selectedRestaurantState);
 
-  const isInfoModalOpen = modalType === ModalTypes.INFO;
+  const isInfoModalOpen = modalType === MODAL_TYPES.INFO;
 
   if (!isInfoModalOpen || !selectedRestaurant) return null;
 

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import Modal from "../modals/Modal";
-import ModalTypes from "../../constants/modalTypes";
+import MODAL_TYPES from "../../constants/modalTypes";
 import { modalTypeState, useAddRestaurant } from "../../atoms/restaurantState";
 import {
   AddModalTitle,
@@ -20,7 +20,7 @@ function AddRestaurantModal({ categoryOptions }) {
   const setModalType = useSetRecoilState(modalTypeState);
   const addRestaurant = useAddRestaurant();
 
-  const isAddModalOpen = modalType === ModalTypes.ADD;
+  const isAddModalOpen = modalType === MODAL_TYPES.ADD;
 
   const [addRestaurantData, setAddRestaurantData] = useState({
     category: categoryOptions[0]?.value || "",
