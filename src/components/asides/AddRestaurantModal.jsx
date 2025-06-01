@@ -44,8 +44,17 @@ function AddRestaurantModal({ categoryOptions }) {
     setOpenModal(null);
   };
 
+  const handleCloseAndReset = () => {
+    setAddRestaurantData({
+      category: categoryOptions[0]?.value || "",
+      name: "",
+      description: "",
+    });
+    setOpenModal(null);
+  };
+
   return (
-    <Modal isOpen={isAddModalOpen} onClose={() => setOpenModal(null)}>
+    <Modal isOpen={isAddModalOpen} onClose={handleCloseAndReset}>
       <AddModalTitle>새로운 음식점</AddModalTitle>
       <form onSubmit={handleSubmit}>
         <AddModalFormItem>
