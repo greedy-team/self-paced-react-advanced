@@ -22,7 +22,7 @@ function AddRestaurantModal({ categoryOptions }) {
 
   const isAddModalOpen = openModal === ModalTypes.ADD;
 
-  const [formData, setFormData] = useState({
+  const [addRestaurantData, setAddRestaurantData] = useState({
     category: categoryOptions[0]?.value || "",
     name: "",
     description: "",
@@ -31,12 +31,12 @@ function AddRestaurantModal({ categoryOptions }) {
   if (!isAddModalOpen) return null;
 
   const handleChange = ({ target: { name, value } }) =>
-    setFormData((prev) => ({ ...prev, [name]: value }));
+    setAddRestaurantData((prev) => ({ ...prev, [name]: value }));
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    addRestaurant(formData);
-    setFormData({
+    addRestaurant(addRestaurantData);
+    setAddRestaurantData({
       category: categoryOptions[0]?.value || "",
       name: "",
       description: "",
@@ -56,7 +56,7 @@ function AddRestaurantModal({ categoryOptions }) {
             name="category"
             id="category"
             required
-            value={formData.category}
+            value={addRestaurantData.category}
             onChange={handleChange}
           >
             {categoryOptions.map((option) => (
@@ -75,7 +75,7 @@ function AddRestaurantModal({ categoryOptions }) {
             name="name"
             id="name"
             required
-            value={formData.name}
+            value={addRestaurantData.name}
             onChange={handleChange}
           />
         </AddModalFormItem>
@@ -87,7 +87,7 @@ function AddRestaurantModal({ categoryOptions }) {
             id="description"
             cols="30"
             rows="5"
-            value={formData.description}
+            value={addRestaurantData.description}
             onChange={handleChange}
           />
           <AddModalHelpText>
