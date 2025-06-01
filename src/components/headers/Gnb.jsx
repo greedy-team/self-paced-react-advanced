@@ -1,10 +1,10 @@
 import { useSetRecoilState } from "recoil";
 import ModalTypes from "../../constants/modalTypes";
-import { openModalState } from "../../atoms/restaurantState";
+import { modalTypeState } from "../../atoms/restaurantState";
 import { GnbContainer, GnbTitle, GnbButton, GnbIcon } from "./Gnb.styled";
 
 function Gnb() {
-  const setOpenModal = useSetRecoilState(openModalState);
+  const setOpenModal = useSetRecoilState(modalTypeState);
 
   return (
     <GnbContainer>
