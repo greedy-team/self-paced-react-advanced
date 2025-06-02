@@ -2,8 +2,8 @@ import styled from 'styled-components';
 import { Typography } from '../../styles/GlobalStyle';
 import insertImgSrc from '../utils/insertImgSrc';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
-import { InfoModalState, restaurantsState, SelectedRestaurantState } from '../../store/atoms';
-import { SelectedRestaurantSelector } from '../../store/selector';
+import { infoModalState, restaurantsState, selectedRestaurantState } from '../../store/atoms';
+import { selectedRestaurantSelector } from '../../store/selector';
 import { useEffect } from 'react';
 import { fetchRestaurants } from '../../apis/apis';
 
@@ -66,9 +66,9 @@ const RestaurantDescription = styled.div`
 `;
 
 const RestaurantListComponent = () => {
-  const setSelectedRestaurant = useSetRecoilState(SelectedRestaurantState);
-  const setIsModalOpen = useSetRecoilState(InfoModalState);
-  const filteredRestaurants = useRecoilValue(SelectedRestaurantSelector);
+  const setSelectedRestaurant = useSetRecoilState(selectedRestaurantState);
+  const setIsModalOpen = useSetRecoilState(infoModalState);
+  const filteredRestaurants = useRecoilValue(selectedRestaurantSelector);
   const setRestaurants = useSetRecoilState(restaurantsState);
 
   useEffect(() => {

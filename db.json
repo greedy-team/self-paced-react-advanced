@@ -42,6 +42,13 @@
       "name": "asd",
       "description": "asd",
       "imgSrc": "/templates/category-korean.png"
+    },
+    {
+      "id": "3c1e",
+      "category": "양식",
+      "name": "123",
+      "description": "123",
+      "imgSrc": "/templates/category-western.png"
     }
   ]
 }

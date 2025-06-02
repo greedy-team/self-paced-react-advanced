@@ -5,7 +5,7 @@ import insertImgSrc from '../utils/insertImgSrc';
 import Modal from './Modal';
 import Button from '../Button';
 import { useRecoilState } from 'recoil';
-import { AddModalState, restaurantsState } from '../../store/atoms';
+import { addModalState, restaurantsState } from '../../store/atoms';
 import { addRestaurant } from '../../apis/apis';
 
 const FormItem = styled.div`
@@ -50,7 +50,7 @@ const initForm = {
 };
 
 const AddRestaurantModal = () => {
-  const [isAddModalOpen, setIsAddModalOpen] = useRecoilState(AddModalState);
+  const [isAddModalOpen, setIsAddModalOpen] = useRecoilState(addModalState);
   const [restaurants, setRestaurants] = useRecoilState(restaurantsState);
   const [form, setForm] = useState(initForm);
   const [loading, setLoading] = useState(false);

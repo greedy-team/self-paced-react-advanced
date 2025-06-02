@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { Typography } from '../styles/GlobalStyle';
-import { AddModalState } from '../store/atoms';
+import { addModalState } from '../store/atoms';
 import { useSetRecoilState } from 'recoil';
 
 const HeaderContainer = styled.header`
@@ -29,7 +29,7 @@ const AddButtonImage = styled.img`
 `;
 
 const Header = () => {
-  const setIsAddModalOpen = useSetRecoilState(AddModalState);
+  const setIsAddModalOpen = useSetRecoilState(addModalState);
 
   return (
     <HeaderContainer>

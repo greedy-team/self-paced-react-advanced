@@ -4,7 +4,7 @@ import { Typography } from '../../styles/GlobalStyle';
 import Modal from './Modal';
 import Button from '../Button';
 import { useRecoilState, useRecoilValue } from 'recoil';
-import { InfoModalState, restaurantsState, SelectedRestaurantState } from '../../store/atoms';
+import { infoModalState, restaurantsState, selectedRestaurantState } from '../../store/atoms';
 
 const RestaurantInfo = styled.div`
   margin-bottom: 24px;
@@ -15,9 +15,9 @@ const ButtonContainer = styled.div`
 `;
 
 const RestaurantInfoModal = () => {  
-  const [isModalOpen, setIsModalOpen] = useRecoilState(InfoModalState);
+  const [isModalOpen, setIsModalOpen] = useRecoilState(infoModalState);
   const restaurants = useRecoilValue(restaurantsState);
-  const selectedRestaurant = useRecoilValue(SelectedRestaurantState);
+  const selectedRestaurant = useRecoilValue(selectedRestaurantState);
 
   if (!isModalOpen) return null;
 

@@ -5,22 +5,22 @@ export const restaurantsState = atom({
   default: []
 });
 
-export const SelectedRestaurantState = atom({
+export const selectedRestaurantState = atom({
     key: 'SelectedRestaurantState',
     default: 0,
 });
 
-export const CategoryState = atom({
+export const categoryState = atom({
     key: 'CategoryState',
     default: '전체',
 })
 
-export const AddModalState = atom({
+export const addModalState = atom({
     key: 'AddModalState',
     default: false,
 });
 
-export const InfoModalState = atom({
+export const infoModalState = atom({
     key: 'InfoModalState',
     default: false,
 });

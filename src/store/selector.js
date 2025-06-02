@@ -1,11 +1,11 @@
 import { selector } from 'recoil';
-import { CategoryState, restaurantsState } from './atoms';
+import { categoryState, restaurantsState } from './atoms';
 
-export const SelectedRestaurantSelector = selector({
+export const selectedRestaurantSelector = selector({
   key: 'SelectedRestaurantSelector',
   get: ({ get }) => {
     const restaurants = get(restaurantsState);
-    const category = get(CategoryState);
+    const category = get(categoryState);
 
     const filteredRestaurants = category === '전체'
       ? restaurants
