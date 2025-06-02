@@ -3,7 +3,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 const ModalWrapper = styled.div`
-  display: ${({ isOpen }) => (isOpen ? 'block' : 'none')};
+  display: ${({ $isOpen }) => ($isOpen ? 'block' : 'none')};
 `;
 
 const ModalBackdrop = styled.div`
@@ -28,7 +28,7 @@ const Modal = ({ isOpen, onClose, children }) => {
   if (!isOpen) return null;
   
   return (
-    <ModalWrapper isOpen={isOpen}>
+    <ModalWrapper $isOpen={isOpen}>
       <ModalBackdrop onClick={onClose} />
       <ModalContainer>
         {children}

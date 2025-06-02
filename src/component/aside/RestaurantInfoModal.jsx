@@ -33,7 +33,7 @@ const RestaurantInfoModal = () => {
 
   return (
     <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
-      <Typography.Title margin="0 0 36px 0">
+      <Typography.Title $margin="0 0 36px 0">
         {restaurant.name}
       </Typography.Title>
       <RestaurantInfo>

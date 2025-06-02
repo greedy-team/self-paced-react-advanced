@@ -86,12 +86,12 @@ const AddRestaurantModal = () => {
 
   return (
     <Modal isOpen={isAddModalOpen} onClose={() => setIsAddModalOpen(false)}>
-      <Typography.Title margin="0 0 36px 0">
+      <Typography.Title $margin="0 0 36px 0">
         새로운 음식점
       </Typography.Title>
       <form>
         <FormItem>
-          <Typography.Caption htmlFor="category" color="var(--grey-400)" required>
+          <Typography.Caption htmlFor="category" $color="var(--grey-400)" required>
             카테고리
           </Typography.Caption>
           <Select
@@ -112,7 +112,7 @@ const AddRestaurantModal = () => {
         </FormItem>
 
         <FormItem>
-          <Typography.Caption htmlFor="name" color="var(--grey-400)" required>
+          <Typography.Caption htmlFor="name" $color="var(--grey-400)" required>
             이름
           </Typography.Caption>
           <Input
@@ -127,7 +127,7 @@ const AddRestaurantModal = () => {
         </FormItem>
 
         <FormItem>
-          <Typography.Caption htmlFor="description" color="var(--grey-400)">
+          <Typography.Caption htmlFor="description" $color="var(--grey-400)">
             설명
           </Typography.Caption>
           <TextArea
@@ -138,7 +138,7 @@ const AddRestaurantModal = () => {
             value={form.description}
             onChange={handleChange}
           />
-          <Typography.Caption color="var(--grey-300)">
+          <Typography.Caption $color="var(--grey-300)">
             메뉴 등 추가 정보를 입력해 주세요.
           </Typography.Caption>
         </FormItem>

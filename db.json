@@ -49,6 +49,13 @@
       "name": "123",
       "description": "123",
       "imgSrc": "/templates/category-western.png"
+    },
+    {
+      "id": "2079",
+      "category": "한식",
+      "name": "ㅁㄹㄴ",
+      "description": "ㄻㄴ",
+      "imgSrc": "/templates/category-korean.png"
     }
   ]
 }
