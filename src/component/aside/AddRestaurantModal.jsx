@@ -53,7 +53,7 @@ const AddRestaurantModal = () => {
   const [isAddModalOpen, setIsAddModalOpen] = useRecoilState(addModalState);
   const [restaurants, setRestaurants] = useRecoilState(restaurantsState);
   const [form, setForm] = useState(initForm);
-  const [loading, setLoading] = useState(false);
+  const [addingLoading, setAddingLoading] = useState(false);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -70,7 +70,7 @@ const AddRestaurantModal = () => {
       alert("레스토랑의 카테고리와 이름을 모두 입력해주세요!");
       return;
     }
-    setLoading(true);
+    setAddingLoading(true);
 
     try {
       await addRestaurant(form);
@@ -80,7 +80,7 @@ const AddRestaurantModal = () => {
     } catch (error) {
       alert("레스토랑 추가에 실패했습니다.");
     } finally {
-      setLoading(false);
+      setAddingLoading(false);
     }
   };
 
@@ -144,7 +144,7 @@ const AddRestaurantModal = () => {
         </FormItem>
         <Button
           onClick={handleUploadForm}
-          disabled={loading}
+          disabled={addingLoading}
         >
           추가하기
         </Button>
