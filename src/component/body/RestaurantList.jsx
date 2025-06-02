@@ -85,9 +85,9 @@ const RestaurantList = () => {
   return (
     <S.Container>
       <S.List>
-        {filteredRestaurants.map((restaurant) => (
+        {filteredRestaurants.map((restaurant, index) => (
           <S.Item 
-            key={restaurant.id} 
+            key={index} 
             onClick={() => handleRestaurantClick(restaurant.id)}
           >
             <S.CategoryIcon>
