@@ -4,9 +4,10 @@ import { Typography } from '../../styles/GlobalStyle';
 import insertImgSrc from '../utils/insertImgSrc';
 import Modal from './Modal';
 import Button from '../Button';
-import { useRecoilState } from 'recoil';
-import { addModalState, restaurantsState } from '../../store/atoms';
+import { useRecoilRefresher_UNSTABLE, useRecoilState } from 'recoil';
+import { addModalState } from '../../store/atoms';
 import { addRestaurant } from '../../apis/apis';
+import { restaurantSelector } from '../../store/selector';
 
 const FormItem = styled.div`
   display: flex;
@@ -51,9 +52,9 @@ const initForm = {
 
 const AddRestaurantModal = () => {
   const [isAddModalOpen, setIsAddModalOpen] = useRecoilState(addModalState);
-  const [restaurants, setRestaurants] = useRecoilState(restaurantsState);
   const [form, setForm] = useState(initForm);
   const [addingLoading, setAddingLoading] = useState(false);
+  const restaurantRefresh = useRecoilRefresher_UNSTABLE(restaurantSelector);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -74,7 +75,7 @@ const AddRestaurantModal = () => {
 
     try {
       await addRestaurant(form);
-      setRestaurants([...restaurants, form]);
+      restaurantRefresh();
       setForm(initForm);
       setIsAddModalOpen(false);
     } catch (error) {

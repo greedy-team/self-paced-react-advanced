@@ -1,10 +1,11 @@
 import { selector } from 'recoil';
-import { categoryState, restaurantsState } from './atoms';
+import { categoryState } from './atoms';
+import { fetchRestaurants } from '../apis/apis';
 
 export const selectedRestaurantSelector = selector({
-  key: 'SelectedRestaurantSelector',
+  key: 'selectedRestaurantSelector',
   get: ({ get }) => {
-    const restaurants = get(restaurantsState);
+    const restaurants = get(restaurantSelector);
     const category = get(categoryState);
 
     const filteredRestaurants = category === '전체'
@@ -12,5 +13,13 @@ export const selectedRestaurantSelector = selector({
       : restaurants.filter(restaurant => restaurant.category === category);
 
     return filteredRestaurants;
+  },
+});
+
+export const restaurantSelector = selector({
+  key: 'restaurantSelector',
+  get: async () => {
+    const restaurantData = await fetchRestaurants();
+    return restaurantData;
   },
 });

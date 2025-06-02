@@ -1,10 +1,5 @@
 import { atom } from 'recoil';
 
-export const restaurantsState = atom({
-  key: 'restaurantsState',
-  default: []
-});
-
 export const selectedRestaurantState = atom({
     key: 'SelectedRestaurantState',
     default: 0,
