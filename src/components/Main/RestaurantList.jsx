@@ -1,7 +1,11 @@
 import styled from "styled-components";
 import { selectedCategories } from "../../data/data";
-import { useContext } from "react";
-import { AppContext } from "../../contexts/AppContext";
+import { useRecoilValue, useSetRecoilState } from "recoil";
+import {
+  clickedRestaurantInfoState,
+  filteredRestaurantsState,
+  modalTypeState,
+} from "../../store/AppAtom";
 
 const RestaurantListContainer = styled.section`
   display: flex;
@@ -65,10 +69,12 @@ const RestaurantDescription = styled.p`
   -webkit-box-orient: vertical;
 `;
 
-function RestaurantList({ restaurants }) {
-  const { setClickedRestaurantInfo, setModalTypeToOpen } =
-    useContext(AppContext);
-
+function RestaurantList() {
+  const restaurants = useRecoilValue(filteredRestaurantsState);
+  const setModalTypeToOpen = useSetRecoilState(modalTypeState);
+  const setClickedRestaurantInfo = useSetRecoilState(
+    clickedRestaurantInfoState
+  );
   const handleClickedRestaurantInfo = (name, description) => {
     const restaurant = {
       name,
@@ -77,6 +83,7 @@ function RestaurantList({ restaurants }) {
     setClickedRestaurantInfo(restaurant);
     setModalTypeToOpen("detail");
   };
+
   return (
     <RestaurantListContainer>
       <ul>

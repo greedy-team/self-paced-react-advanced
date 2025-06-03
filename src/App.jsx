@@ -1,21 +1,30 @@
 import "./App.css";
 import Header from "./components/Header/Header";
-import MainContent from "./components/Main/MainContent";
+import CategoryFilter from "./components/Main/CategoryFilter";
+import RestaurantList from "./components/Main/RestaurantList";
 import AddRestaurantModal from "./components/Aside/AddRestaurantModal";
 import RestaurantDetailModal from "./components/Aside/RestaurantDetailModal";
-import { useContext, useEffect } from "react";
-import { AppContext } from "./contexts/AppContext";
+import { useEffect } from "react";
+import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
+import { modalTypeState, restaurantsState } from "./store/AppAtom";
 
 function App() {
-  const { modalTypeToOpen, setRestaurants } = useContext(AppContext);
+  const MODAL_TYPES = {
+    ADD: "add",
+    DETAIL: "detail",
+  };
+  Object.freeze(MODAL_TYPES);
+
+  const modalTypeToOpen = useRecoilValue(modalTypeState);
+  const setRestaurants = useSetRecoilState(restaurantsState);
+
+  const fetchRestaurants = async () => {
+    const response = await fetch("http://localhost:3000/restaurants");
+    const data = await response.json();
+    setRestaurants(data);
+  };
 
   useEffect(() => {
-    const fetchRestaurants = async () => {
-      const response = await fetch("http://localhost:3000/restaurants");
-      const data = await response.json();
-      setRestaurants(data);
-    };
-
     fetchRestaurants();
   }, []);
 
@@ -38,7 +47,8 @@ function App() {
     <>
       <Header />
       <main>
-        <MainContent />
+        <CategoryFilter />
+        <RestaurantList />
       </main>
       <aside>
         {modalTypeToOpen === "add" && (

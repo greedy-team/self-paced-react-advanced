@@ -1,6 +1,9 @@
 import styled from "styled-components";
-import { useContext } from "react";
-import { AppContext } from "../../contexts/AppContext";
+import { useRecoilValue, useSetRecoilState } from "recoil";
+import {
+  clickedRestaurantInfoState,
+  modalTypeState,
+} from "../../store/AppAtom";
 
 const ModalWrapper = styled.div`
   display: block;
@@ -74,7 +77,8 @@ const TextBody = styled.p`
 `;
 
 function RestaurantDetailModal() {
-  const { clickedRestaurantInfo, setModalTypeToOpen } = useContext(AppContext);
+  const clickedRestaurantInfo = useRecoilValue(clickedRestaurantInfoState);
+  const setModalTypeToOpen = useSetRecoilState(modalTypeState);
   const handleCloseModal = () => setModalTypeToOpen(null);
 
   return (
