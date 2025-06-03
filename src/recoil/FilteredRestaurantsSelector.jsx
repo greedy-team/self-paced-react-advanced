@@ -6,11 +6,18 @@ export const filteredRestaurantsSelector = selector({
   get: async ({ get }) => {
     const selectedCategory = get(categoryState);
 
-    const response = await fetch("http://localhost:3000/restaurants");
-    const data = await response.json();
+    try {
+      const response = await fetch("http://localhost:3000/restaurants");
+      if (!response.ok) {
+        throw new Error("잘못된 서버 URL입니다.");
+      }
+      const data = await response.json();
 
-    return selectedCategory === "all"
-      ? data
-      : data.filter((restaurant) => restaurant.category === selectedCategory);
+      return selectedCategory === "all"
+        ? data
+        : data.filter((restaurant) => restaurant.category === selectedCategory);
+    } catch (error) {
+      throw new Error("Fetching Error");
+    }
   },
 });
