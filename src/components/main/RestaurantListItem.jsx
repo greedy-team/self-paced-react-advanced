@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { useSetRecoilState } from "recoil";
-import { restaurantItemState } from "../../recoil/RestaurantItemState.jsx";
+import { selectedRestaurantItemState } from "../../recoil/SelectedRestaurantItemState.jsx";
 
 const RestaurantItem = styled.li`
   display: flex;
@@ -57,7 +57,7 @@ function RestaurantListItem({
   description,
   setModalStateValue,
 }) {
-  const setRestaurantItem = useSetRecoilState(restaurantItemState);
+  const setRestaurantItem = useSetRecoilState(selectedRestaurantItemState);
 
   const handleClick = () => {
     setRestaurantItem({ name, description });
