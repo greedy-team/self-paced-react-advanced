@@ -1,6 +1,6 @@
-const ModalTypes = Object.freeze({
+const MODAL_TYPES = Object.freeze({
     INFO: 'info',
     ADD: 'add',
 });
 
-export default ModalTypes;
+export default MODAL_TYPES;

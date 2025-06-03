@@ -1,21 +1,21 @@
-import { useContext } from "react";
-import { ListContainer, RestaurantListWrapper } from "./RestaurantList.styled";
+import { useRecoilValue, useSetRecoilState } from "recoil";
 import RestaurantCard from "./RestaurantCard";
-import RestaurantContext from "../../contexts/RestaurantContext";
-import ModalTypes from "../../constants/modalTypes";
+import MODAL_TYPES from "../../constants/modalTypes";
+import {
+  modalTypeState,
+  filteredRestaurantState,
+  selectedRestaurantState,
+} from "../../atoms/restaurantState";
+import { ListContainer, RestaurantListWrapper } from "./RestaurantList.styled";
 
 function RestaurantList() {
-  const { restaurants, selectedCategory, setSelectedRestaurant, setOpenModal } =
-    useContext(RestaurantContext);
-
-  const filteredRestaurants =
-    selectedCategory === "전체"
-      ? restaurants
-      : restaurants.filter((restaurant) => restaurant.category === selectedCategory);
+  const filteredRestaurants = useRecoilValue(filteredRestaurantState);
+  const selectedRestaurant = useSetRecoilState(selectedRestaurantState);
+  const setOpenModal = useSetRecoilState(modalTypeState);
 
   const handleClick = (restaurant) => {
-    setSelectedRestaurant(restaurant);
-    setOpenModal(ModalTypes.INFO);
+    selectedRestaurant(restaurant);
+    setOpenModal(MODAL_TYPES.INFO);
   };
 
   return (
@@ -25,7 +25,7 @@ function RestaurantList() {
           <RestaurantCard
             key={restaurant.id}
             restaurant={restaurant}
-            onClick={handleClick}
+            onClick={() => handleClick(restaurant)}
           />
         ))}
       </RestaurantListWrapper>

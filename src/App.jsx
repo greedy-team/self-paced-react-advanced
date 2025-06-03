@@ -1,17 +1,24 @@
 import "./App.css";
-import RestaurantProvider from "./contexts/RestaurantProvider";
+import { useSetRecoilState } from "recoil";
+import { restaurantState } from "./atoms/restaurantState";
 import Gnb from "./components/headers/Gnb";
 import RestaurantCategoryFilter from "./components/mains/RestaurantCategoryFilter";
 import RestaurantList from "./components/mains/RestaurantList";
 import RestaurantInfoModal from "./components/asides/RestaurantInfoModal";
 import AddRestaurantModal from "./components/asides/AddRestaurantModal";
-import categoryIcons from "./data/categoryIcons";
 import categoryOptions from "./data/categoryOptions";
-import ModalTypes from "./constants/modalTypes";
+import { useEffect } from "react";
+import { fetchRestaurants } from "./api/restaurantsApi";
 
 function App() {
+  const setRestaurants = useSetRecoilState(restaurantState);
+
+  useEffect(() => {
+    fetchRestaurants().then((data) => setRestaurants(data));
+  }, [setRestaurants]);
+
   return (
-    <RestaurantProvider>
+    <>
       <Gnb />
       <main>
         <RestaurantCategoryFilter />
@@ -21,7 +28,7 @@ function App() {
         <RestaurantInfoModal />
         <AddRestaurantModal categoryOptions={categoryOptions} />
       </aside>
-    </RestaurantProvider>
+    </>
   );
 }
 

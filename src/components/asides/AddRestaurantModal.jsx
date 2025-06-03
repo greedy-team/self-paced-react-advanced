@@ -1,7 +1,8 @@
-import { useState, useContext } from "react";
+import { useState } from "react";
+import { useRecoilValue, useSetRecoilState } from "recoil";
 import Modal from "../modals/Modal";
-import ModalTypes from "../../constants/modalTypes";
-import RestaurantContext from "../../contexts/RestaurantContext";
+import MODAL_TYPES from "../../constants/modalTypes";
+import { modalTypeState, useAddRestaurant } from "../../atoms/restaurantState";
 import {
   AddModalTitle,
   AddModalFormItem,
@@ -15,12 +16,13 @@ import {
 } from "./AddRestaurantModal.styled";
 
 function AddRestaurantModal({ categoryOptions }) {
-  const { openModal, setOpenModal, handleAddRestaurant } =
-    useContext(RestaurantContext);
+  const modalType = useRecoilValue(modalTypeState);
+  const setModalType = useSetRecoilState(modalTypeState);
+  const addRestaurant = useAddRestaurant();
 
-  const isAddModalOpen = openModal === ModalTypes.ADD;
+  const isAddModalOpen = modalType === MODAL_TYPES.ADD;
 
-  const [formData, setFormData] = useState({
+  const [restaurantForm, setRestaurantForm] = useState({
     category: categoryOptions[0]?.value || "",
     name: "",
     description: "",
@@ -28,24 +30,31 @@ function AddRestaurantModal({ categoryOptions }) {
 
   if (!isAddModalOpen) return null;
 
-  const handleChange = (event) => {
-    const { name, value } = event.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
-  };
+  const handleChange = ({ target: { name, value } }) =>
+    setRestaurantForm((prev) => ({ ...prev, [name]: value }));
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    handleAddRestaurant(formData);
-    setFormData({
+    addRestaurant(restaurantForm);
+    setRestaurantForm({
       category: categoryOptions[0]?.value || "",
       name: "",
       description: "",
     });
-    setOpenModal(null);
+    setModalType(null);
+  };
+
+  const handleCloseAndReset = () => {
+    setRestaurantForm({
+      category: categoryOptions[0]?.value || "",
+      name: "",
+      description: "",
+    });
+    setModalType(null);
   };
 
   return (
-    <Modal isOpen={isAddModalOpen} onClose={() => setOpenModal(null)}>
+    <Modal isOpen={isAddModalOpen} onClose={handleCloseAndReset}>
       <AddModalTitle>새로운 음식점</AddModalTitle>
       <form onSubmit={handleSubmit}>
         <AddModalFormItem>
@@ -56,7 +65,7 @@ function AddRestaurantModal({ categoryOptions }) {
             name="category"
             id="category"
             required
-            value={formData.category}
+            value={restaurantForm.category}
             onChange={handleChange}
           >
             {categoryOptions.map((option) => (
@@ -75,7 +84,7 @@ function AddRestaurantModal({ categoryOptions }) {
             name="name"
             id="name"
             required
-            value={formData.name}
+            value={restaurantForm.name}
             onChange={handleChange}
           />
         </AddModalFormItem>
@@ -87,7 +96,7 @@ function AddRestaurantModal({ categoryOptions }) {
             id="description"
             cols="30"
             rows="5"
-            value={formData.description}
+            value={restaurantForm.description}
             onChange={handleChange}
           />
           <AddModalHelpText>

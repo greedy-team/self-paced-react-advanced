@@ -1,7 +1,10 @@
-import { useContext } from "react";
-import RestaurantContext from "../../contexts/RestaurantContext";
-import ModalTypes from "../../constants/modalTypes";
+import { useRecoilValue, useSetRecoilState } from "recoil";
+import MODAL_TYPES from "../../constants/modalTypes";
 import Modal from "../modals/Modal";
+import {
+  modalTypeState,
+  selectedRestaurantState,
+} from "../../atoms/restaurantState";
 import {
   InfoModalTitle,
   RestaurantInfo,
@@ -12,14 +15,16 @@ import {
 } from "./RestaurantInfoModal.styled";
 
 function RestaurantInfoModal() {
-  const { openModal, setOpenModal, selectedRestaurant } =
-    useContext(RestaurantContext);
+  const modalType = useRecoilValue(modalTypeState);
+  const setModalType = useSetRecoilState(modalTypeState);
+  const selectedRestaurant = useRecoilValue(selectedRestaurantState);
 
-  const isOpen = openModal === ModalTypes.INFO;
-  if (!isOpen || !selectedRestaurant) return null;
+  const isInfoModalOpen = modalType === MODAL_TYPES.INFO;
+
+  if (!isInfoModalOpen) return null;
 
   return (
-    <Modal isOpen={isOpen} onClose={() => setOpenModal(null)}>
+    <Modal isOpen={isInfoModalOpen} onClose={() => setModalType(null)}>
       <InfoModalTitle>{selectedRestaurant.name}</InfoModalTitle>
       <RestaurantInfo>
         <RestaurantInfoDescription>
@@ -27,7 +32,7 @@ function RestaurantInfoModal() {
         </RestaurantInfoDescription>
       </RestaurantInfo>
       <InfoModalButtonContainer>
-        <InfoModalCloseButton onClick={() => setOpenModal(null)}>
+        <InfoModalCloseButton onClick={() => setModalType(null)}>
           <CloseButtonText>닫기</CloseButtonText>
         </InfoModalCloseButton>
       </InfoModalButtonContainer>
