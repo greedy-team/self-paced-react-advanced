@@ -44,10 +44,16 @@ const Select = styled.select`
 `;
 
 const initForm = {
+  id: "",
   category: "",
   name: "",
   description: "",
   imgSrc: null,
+};
+
+const generateId = () => {
+  const timestamp = Date.now();
+  return `${timestamp}`;
 };
 
 const AddRestaurantModal = () => {
@@ -73,8 +79,14 @@ const AddRestaurantModal = () => {
     }
     setAddingLoading(true);
 
+    const addForm = {
+      ...form,
+      id: generateId()
+    };
+    console.log(addForm);
+
     try {
-      await addRestaurant(form);
+      await addRestaurant(addForm);
       restaurantRefresh();
       setForm(initForm);
       setIsAddModalOpen(false);

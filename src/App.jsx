@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import "./App.css";
 import AddRestaurantModal from "./component/aside/AddRestaurantModal";
 import RestaurantInfoModal from "./component/aside/RestaurantInfoModal";
@@ -10,7 +11,9 @@ function App() {
     <RecoilRoot>
       <Header />
       <Body />
-      <RestaurantInfoModal />
+      <Suspense fallback={<div>Loading RestaurantInfoModal...</div>}>
+        <RestaurantInfoModal />
+      </Suspense>
       <AddRestaurantModal />
     </RecoilRoot>
   );
