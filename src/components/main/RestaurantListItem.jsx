@@ -52,13 +52,9 @@ const RestaurantDescription = styled.p`
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
 `;
-
 const RestaurantListItem = ({ restaurant, onRestaurantClick }) => {
-  const handleRestaurantClick = () => {
-    onRestaurantClick(restaurant);
-  };
   return (
-    <Restaurant onClick={handleRestaurantClick}>
+    <Restaurant onClick={onRestaurantClick}>
       <RestaurantCategory>
         <CategoryIcon
           src={categoryIcon[restaurant.category]}

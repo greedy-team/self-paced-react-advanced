@@ -1,11 +1,11 @@
 import styled from 'styled-components';
 import Modal from './modal/Modal';
-import { useContext } from 'react';
+import { useRecoilValue } from 'recoil';
 import {
-  SelectedRestaurantValueContext,
-  RestaurantDetailModalValueContext,
-  RestaurantDetailModalActionContext,
-} from '../../contexts/ModalContext';
+  isRestaurantDetailModalOpenState,
+  selectedRestaurantState,
+} from '../../store/atoms';
+import { useRestaurantDetailModalAction } from '../../hooks/modalAction';
 
 const RestaurantInfo = styled.div`
   margin-bottom: 24px;
@@ -37,21 +37,15 @@ const CloseButton = styled.button`
 `;
 
 const RestaurantDetailModal = () => {
-  const isRestaurantDetailModalOpen = useContext(
-    RestaurantDetailModalValueContext
+  const isRestaurantDetailModalOpen = useRecoilValue(
+    isRestaurantDetailModalOpenState
   );
-  const { closeRestaurantDetailModal } = useContext(
-    RestaurantDetailModalActionContext
-  );
-  const selectedRestaurant = useContext(SelectedRestaurantValueContext);
-
-  const handleRestaurantDetailModalClose = () => {
-    closeRestaurantDetailModal();
-  };
+  const selectedRestaurant = useRecoilValue(selectedRestaurantState);
+  const { closeRestaurantDetailModal } = useRestaurantDetailModalAction();
   return (
     <Modal
       title={selectedRestaurant?.name}
-      onClose={handleRestaurantDetailModalClose}
+      onClose={closeRestaurantDetailModal}
       isOpen={isRestaurantDetailModalOpen}
     >
       <RestaurantInfo>
@@ -60,7 +54,7 @@ const RestaurantDetailModal = () => {
         </RestaurantDescription>
       </RestaurantInfo>
       <CloseButtonContainer>
-        <CloseButton type="button" onClick={handleRestaurantDetailModalClose}>
+        <CloseButton type="button" onClick={closeRestaurantDetailModal}>
           닫기
         </CloseButton>
       </CloseButtonContainer>

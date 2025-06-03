@@ -1,7 +1,6 @@
 import addButton from '../../assets/add-button.png';
 import styled from 'styled-components';
-import { useContext } from 'react';
-import { RestaurantAddModalActionContext } from '../../contexts/ModalContext';
+import { useRestaurantAddModalAction } from '../../hooks/modalAction';
 
 const NEAR_WHITE = '#fcfcfd';
 
@@ -38,9 +37,7 @@ const AddRestaurantImg = styled.img`
 `;
 
 const Header = () => {
-  const { openRestaurantAddModal } = useContext(
-    RestaurantAddModalActionContext
-  );
+  const { openRestaurantAddModal } = useRestaurantAddModalAction();
   return (
     <HeaderContainer>
       <Title>점심 뭐 먹지</Title>

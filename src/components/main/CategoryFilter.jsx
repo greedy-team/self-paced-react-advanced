@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { categories } from '../../constant/constant';
-import { useContext } from 'react';
-import { SelectedCategoryContext } from '../../contexts/RestaurantContext';
+import { useRecoilState } from 'recoil';
+import { selectedCategoryState } from '../../store/atoms';
 
 const RestaurantFilterContainer = styled.section`
   display: flex;
@@ -23,8 +23,8 @@ const RestaurantFilter = styled.select`
 `;
 
 const CategoryFilter = () => {
-  const { selectedCategory, setSelectedCategory } = useContext(
-    SelectedCategoryContext
+  const [selectedCategory, setSelectedCategory] = useRecoilState(
+    selectedCategoryState
   );
   return (
     <RestaurantFilterContainer>

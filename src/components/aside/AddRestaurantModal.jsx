@@ -2,12 +2,12 @@ import styled from 'styled-components';
 import { selectableCategories } from '../../constant/constant';
 import Modal from './modal/Modal';
 import { getRestaurants, addNewRestaurant } from '../../api/api';
-import { useContext } from 'react';
-import { SetRestaurantsContext } from '../../contexts/RestaurantContext';
+import { useSetRecoilState, useRecoilValue } from 'recoil';
 import {
-  RestaurantAddModalActionContext,
-  RestaurantAddModalValueContext,
-} from '../../contexts/ModalContext';
+  restaurantsState,
+  isRestaurantAddModalOpenState,
+} from '../../store/atoms';
+import { useRestaurantAddModalAction } from '../../hooks/modalAction';
 
 const AddRestaurantForm = styled.form``;
 
@@ -82,11 +82,11 @@ const SubmitButton = styled.button`
 `;
 
 const AddRestaurantModal = () => {
-  const { closeRestaurantAddModal } = useContext(
-    RestaurantAddModalActionContext
+  const { closeRestaurantAddModal } = useRestaurantAddModalAction();
+  const isRestaurantAddModalOpen = useRecoilValue(
+    isRestaurantAddModalOpenState
   );
-  const isRestaurantAddModalOpen = useContext(RestaurantAddModalValueContext);
-  const setRestaurants = useContext(SetRestaurantsContext);
+  const setRestaurants = useSetRecoilState(restaurantsState);
 
   const handleFormSubmit = async (e) => {
     e.preventDefault();

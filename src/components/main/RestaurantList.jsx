@@ -1,13 +1,8 @@
 import RestaurantListItem from './RestaurantListItem';
 import styled from 'styled-components';
-import { useContext, useMemo, useEffect } from 'react';
-import {
-  SetRestaurantsContext,
-  RestaurantsContext,
-  SelectedCategoryContext,
-} from '../../contexts/RestaurantContext';
-import { RestaurantDetailModalActionContext } from '../../contexts/ModalContext';
-import { getRestaurants } from '../../api/api';
+import { useRecoilValue } from 'recoil';
+import { filteredRestaurantsSelector } from '../../store/selectors';
+import { useRestaurantDetailModalAction } from '../../hooks/modalAction';
 
 const RestaurantListContainer = styled.section`
   display: flex;
@@ -22,32 +17,9 @@ const RestaurantListItemContainer = styled.ul`
 `;
 
 const RestaurantList = () => {
-  const restaurants = useContext(RestaurantsContext);
-  const setRestaurants = useContext(SetRestaurantsContext);
-  const { selectedCategory } = useContext(SelectedCategoryContext);
-  const { openRestaurantDetailModal } = useContext(
-    RestaurantDetailModalActionContext
-  );
+  const filteredRestaurants = useRecoilValue(filteredRestaurantsSelector);
+  const { openRestaurantDetailModal } = useRestaurantDetailModalAction();
 
-  useEffect(() => {
-    const updateRestaurants = async () => {
-      const data = await getRestaurants();
-      setRestaurants(data);
-    };
-    updateRestaurants();
-  }, []);
-
-  const filteredRestaurants = useMemo(() => {
-    return selectedCategory === '전체'
-      ? restaurants
-      : restaurants.filter(
-          (restaurant) => restaurant.category === selectedCategory
-        );
-  }, [selectedCategory, restaurants]);
-
-  const onRestaurantClick = (restaurant) => {
-    openRestaurantDetailModal(restaurant);
-  };
   return (
     <RestaurantListContainer>
       <RestaurantListItemContainer>
@@ -55,7 +27,7 @@ const RestaurantList = () => {
           <RestaurantListItem
             key={restaurant.id}
             restaurant={restaurant}
-            onRestaurantClick={onRestaurantClick}
+            onRestaurantClick={() => openRestaurantDetailModal(restaurant)}
           />
         ))}
       </RestaurantListItemContainer>
