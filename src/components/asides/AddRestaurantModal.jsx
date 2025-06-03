@@ -22,7 +22,7 @@ function AddRestaurantModal({ categoryOptions }) {
 
   const isAddModalOpen = modalType === MODAL_TYPES.ADD;
 
-  const [addRestaurantData, setAddRestaurantData] = useState({
+  const [restaurantForm, setRestaurantForm] = useState({
     category: categoryOptions[0]?.value || "",
     name: "",
     description: "",
@@ -31,12 +31,12 @@ function AddRestaurantModal({ categoryOptions }) {
   if (!isAddModalOpen) return null;
 
   const handleChange = ({ target: { name, value } }) =>
-    setAddRestaurantData((prev) => ({ ...prev, [name]: value }));
+    setRestaurantForm((prev) => ({ ...prev, [name]: value }));
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    addRestaurant(addRestaurantData);
-    setAddRestaurantData({
+    addRestaurant(restaurantForm);
+    setRestaurantForm({
       category: categoryOptions[0]?.value || "",
       name: "",
       description: "",
@@ -45,7 +45,7 @@ function AddRestaurantModal({ categoryOptions }) {
   };
 
   const handleCloseAndReset = () => {
-    setAddRestaurantData({
+    setRestaurantForm({
       category: categoryOptions[0]?.value || "",
       name: "",
       description: "",
@@ -65,7 +65,7 @@ function AddRestaurantModal({ categoryOptions }) {
             name="category"
             id="category"
             required
-            value={addRestaurantData.category}
+            value={restaurantForm.category}
             onChange={handleChange}
           >
             {categoryOptions.map((option) => (
@@ -84,7 +84,7 @@ function AddRestaurantModal({ categoryOptions }) {
             name="name"
             id="name"
             required
-            value={addRestaurantData.name}
+            value={restaurantForm.name}
             onChange={handleChange}
           />
         </AddModalFormItem>
@@ -96,7 +96,7 @@ function AddRestaurantModal({ categoryOptions }) {
             id="description"
             cols="30"
             rows="5"
-            value={addRestaurantData.description}
+            value={restaurantForm.description}
             onChange={handleChange}
           />
           <AddModalHelpText>
