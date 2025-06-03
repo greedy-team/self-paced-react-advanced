@@ -21,7 +21,7 @@ function RestaurantInfoModal() {
 
   const isInfoModalOpen = modalType === MODAL_TYPES.INFO;
 
-  if (!isInfoModalOpen || !selectedRestaurant) return null;
+  if (!isInfoModalOpen) return null;
 
   return (
     <Modal isOpen={isInfoModalOpen} onClose={() => setModalType(null)}>
