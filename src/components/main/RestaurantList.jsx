@@ -2,7 +2,7 @@ import styled from "styled-components";
 import RestaurantListItem from "./RestaurantListItem.jsx";
 import { useRecoilValue, useRecoilState } from "recoil";
 import { modalState } from "../../recoil/ModalState.jsx";
-import { filteredRestaurantSelector } from "../../recoil/FilteredRestaurantSelector";
+import { filteredRestaurantsSelector } from "../../recoil/FilteredRestaurantsSelector.jsx";
 import { useEffect, useState } from "react";
 
 const RestaurantListContainer = styled.div`
@@ -19,21 +19,21 @@ const fetchRestaurants = async (setRestaurants) => {
       throw new Error("서버 응답 오류");
     }
     const data = await response.json();
-    setRestaurants(data); 
+    setRestaurants(data);
   } catch (error) {
     console.error("레스토랑 데이터를 가져오는 데 실패했습니다:", error);
   }
 };
 
 const RestaurantList = () => {
-  const filteredRestaurants = useRecoilValue(filteredRestaurantSelector);
+  const filteredRestaurants = useRecoilValue(filteredRestaurantsSelector);
   const [modalStateValue, setModalStateValue] = useRecoilState(modalState);
   const [restaurants, setRestaurants] = useState(filteredRestaurants);
 
   useEffect(() => {
     if (modalStateValue === "add-success") {
-      fetchRestaurants(setRestaurants); 
-      setModalStateValue(null); 
+      fetchRestaurants(setRestaurants);
+      setModalStateValue(null);
     }
   }, [modalStateValue]);
 

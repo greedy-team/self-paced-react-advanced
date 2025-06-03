@@ -1,7 +1,7 @@
 import { selector } from "recoil";
 import { categoryState } from "./CategoryState";
 
-export const filteredRestaurantSelector = selector({
+export const filteredRestaurantsSelector = selector({
   key: "filteredRestaurantSelector",
   get: async ({ get }) => {
     const selectedCategory = get(categoryState);
