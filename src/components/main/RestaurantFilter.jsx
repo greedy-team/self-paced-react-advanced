@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import FilteredCategoryOptions from "../category/FilteredCategoryOptions";
-import { useCategoryContext } from "../../context/CategoryContext.jsx";
+import { useSetRecoilState } from "recoil";
+import { categoryState } from "../../recoil/CategoryState.jsx";
 
 const FilterContainer = styled.section`
   display: flex;
@@ -20,7 +21,7 @@ const SelectCategory = styled.select`
 `;
 
 const RestaurantFilter = () => {
-  const { setSelectedCategory } = useCategoryContext();
+  const setSelectedCategory = useSetRecoilState(categoryState);
 
   const handleChange = (event) => {
     setSelectedCategory(event.target.value);

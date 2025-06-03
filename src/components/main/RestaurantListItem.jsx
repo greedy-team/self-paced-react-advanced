@@ -1,6 +1,6 @@
 import styled from "styled-components";
-import { useRestaurantContext } from "../../context/RestaurantContext.jsx";
-import { useModalContext } from "../../context/ModalContext.jsx";
+import { useSetRecoilState } from "recoil";
+import { selectedRestaurantItemState } from "../../recoil/SelectedRestaurantItemState.jsx";
 
 const RestaurantItem = styled.li`
   display: flex;
@@ -55,13 +55,13 @@ function RestaurantListItem({
   categoryAlt,
   name,
   description,
-  setModalState,
+  setModalStateValue,
 }) {
-  const { setRestaurantItem } = useRestaurantContext();
+  const setRestaurantItem = useSetRecoilState(selectedRestaurantItemState);
 
   const handleClick = () => {
     setRestaurantItem({ name, description });
-    setModalState("detail");
+    setModalStateValue("detail");
   };
 
   return (

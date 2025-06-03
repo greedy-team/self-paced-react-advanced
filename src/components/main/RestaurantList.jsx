@@ -1,8 +1,10 @@
 import styled from "styled-components";
 import RestaurantListItem from "./RestaurantListItem.jsx";
-import { useCategoryContext } from "../../context/CategoryContext.jsx";
-import { useModalContext } from "../../context/ModalContext.jsx";
+import { useRecoilValue, useRecoilState, useRecoilValueLoadable } from "recoil";
+import { modalState } from "../../recoil/ModalState.jsx";
+import { filteredRestaurantsSelector } from "../../recoil/FilteredRestaurantsSelector.jsx";
 import { useEffect, useState } from "react";
+import { useErrorBoundary } from "react-error-boundary";
 
 const RestaurantListContainer = styled.div`
   display: flex;
@@ -11,55 +13,64 @@ const RestaurantListContainer = styled.div`
   margin: 16px 0;
 `;
 
+const EmptyRestaurantList = styled.div`
+  padding: 20px;
+  margin: 20px;
+  border: 1px solid var(--grey-200);
+  border-radius: 8px;
+  text-align: center;
+`;
+
+const fetchRestaurants = async (setRestaurants) => {
+  const response = await fetch("http://localhost:3000/restaurants");
+  const data = await response.json();
+  setRestaurants(data);
+};
+
 const RestaurantList = () => {
-  const { modalState, setModalState } = useModalContext();
-  const { selectedCategory } = useCategoryContext();
-  const [filteredRestaurants, setFilteredRestaurants] = useState([]);
-
-  const getRestaurants = async () => {
-    try {
-      const response = await fetch("http://localhost:3000/restaurants");
-      const data = await response.json();
-      const filtered =
-        selectedCategory === "all"
-          ? data
-          : data.filter(
-              (restaurant) => restaurant.category === selectedCategory
-            );
-
-      setFilteredRestaurants(filtered);
-    } catch (err) {
-      console.error("레스토랑 데이터를 불러오는 데 실패했습니다:", err);
-    }
-  };
+  const filteredRestaurants = useRecoilValue(filteredRestaurantsSelector);
+  const [modalStateValue, setModalStateValue] = useRecoilState(modalState);
+  const setRestaurants = useState(filteredRestaurants);
+  const { showBoundary } = useErrorBoundary();
 
   useEffect(() => {
-    getRestaurants(); // 컴포넌트가 처음 렌더링될 때 데이터 가져오기
-  }, [selectedCategory]); // 선택된 카테고리가 변경될 때 데이터 갱신
-
-  useEffect(() => {
-    if (modalState === "add-success") {
-      getRestaurants(); // 레스토랑 데이터 갱신
-      setModalState("null"); // modalState 초기화
+    if (modalStateValue === "add-success") {
+      fetchRestaurants(setRestaurants).catch((error) => {
+        showBoundary(error);
+      });
+      setModalStateValue(null);
     }
-  }, [modalState]);
+  }, [modalStateValue]);
 
-  return (
-    <RestaurantListContainer>
-      <ul>
-        {filteredRestaurants.map((restaurant) => (
-          <RestaurantListItem
-            key={restaurant.id}
-            categoryIcon={restaurant.icon}
-            categoryAlt={restaurant.alt}
-            name={restaurant.name}
-            description={restaurant.description}
-            setModalState={setModalState}
-          />
-        ))}
-      </ul>
-    </RestaurantListContainer>
-  );
+  const restaurantsLoadable = useRecoilValueLoadable(filteredRestaurantsSelector);
+
+  switch (restaurantsLoadable.state) {
+    case "loading":
+      return <div>로딩 중...</div>;
+    case "hasError":
+      throw restaurantsLoadable.contents;
+    case "hasValue":
+      const restaurants = restaurantsLoadable.contents;
+      if (restaurants.length === 0) {
+        return <EmptyRestaurantList>해당 카테고리에 해당하는 레스토랑이 없습니다.</EmptyRestaurantList>;
+      }
+      return (
+        <RestaurantListContainer>
+          <ul>
+            {restaurants.map((restaurant) => (
+              <RestaurantListItem
+                key={restaurant.id}
+                categoryIcon={restaurant.icon}
+                categoryAlt={restaurant.alt}
+                name={restaurant.name}
+                description={restaurant.description}
+                setModalStateValue={setModalStateValue}
+              />
+            ))}
+          </ul>
+        </RestaurantListContainer>
+      );
+  }
 };
 
 export default RestaurantList;
