@@ -52,8 +52,7 @@ const initForm = {
 };
 
 const generateId = () => {
-  const timestamp = Date.now();
-  return `${timestamp}`;
+  return crypto.randomUUID();
 };
 
 const AddRestaurantModal = () => {
@@ -83,7 +82,6 @@ const AddRestaurantModal = () => {
       ...form,
       id: generateId()
     };
-    console.log(addForm);
 
     try {
       await addRestaurant(addForm);
