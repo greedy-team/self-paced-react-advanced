@@ -3,9 +3,9 @@ import styled from 'styled-components';
 import { Typography } from '../../styles/GlobalStyle';
 import Modal from './Modal';
 import Button from '../Button';
-import { useRestaurantContext } from '../../hooks/useRestaurantContext';
-import { useSelectedRestaurantContext } from '../../hooks/useSelectedRestaurantContext';
-import { useModalStateContext } from '../../hooks/useModalStateContext';
+import { useRecoilState, useRecoilValue } from 'recoil';
+import { infoModalState, selectedRestaurantState } from '../../store/atoms';
+import { restaurantSelector } from '../../store/selector';
 
 const RestaurantInfo = styled.div`
   margin-bottom: 24px;
@@ -16,30 +16,37 @@ const ButtonContainer = styled.div`
 `;
 
 const RestaurantInfoModal = () => {  
-  const { isModalOpen, setIsModalOpen } = useModalStateContext();
-  const { restaurants } = useRestaurantContext();
-  const { selectedRestaurant } = useSelectedRestaurantContext();
-  const restaurant = restaurants.find(restaurant => restaurant.id === selectedRestaurant);
+  const [isModalOpen, setIsModalOpen] = useRecoilState(infoModalState);
+  const restaurants = useRecoilValue(restaurantSelector);
+  const selectedRestaurant = useRecoilValue(selectedRestaurantState);
+
+  if (!isModalOpen) return null;
+
+  const restaurant = restaurants?.find(restaurant => restaurant.id === selectedRestaurant);
+
+  if (!restaurant) {
+    return (
+      <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
+        <div>데이터 불러오는중...</div>
+      </Modal>
+    );
+  }
 
   return (
     <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
-      {restaurant && (
-        <>
-          <Typography.Title margin="0 0 36px 0">
-            {restaurant.name}
-          </Typography.Title>
-          <RestaurantInfo>
-            <Typography.Body>
-              {restaurant.description}
-            </Typography.Body>
-          </RestaurantInfo>
-          <ButtonContainer>
-            <Button onClick={() => setIsModalOpen(false)}>
-              닫기
-            </Button>
-          </ButtonContainer>
-        </>
-      )}
+      <Typography.Title $margin="0 0 36px 0">
+        {restaurant.name}
+      </Typography.Title>
+      <RestaurantInfo>
+        <Typography.Body>
+          {restaurant.description}
+        </Typography.Body>
+      </RestaurantInfo>
+      <ButtonContainer>
+        <Button onClick={() => setIsModalOpen(false)}>
+          닫기
+        </Button>
+      </ButtonContainer>
     </Modal>
   );
 };

@@ -4,8 +4,10 @@ import { Typography } from '../../styles/GlobalStyle';
 import insertImgSrc from '../utils/insertImgSrc';
 import Modal from './Modal';
 import Button from '../Button';
-import { useRestaurantContext } from '../../hooks/useRestaurantContext';
-import { useModalStateContext } from '../../hooks/useModalStateContext';
+import { useRecoilRefresher_UNSTABLE, useRecoilState } from 'recoil';
+import { addModalState } from '../../store/atoms';
+import { addRestaurant } from '../../apis/apis';
+import { restaurantSelector } from '../../store/selector';
 
 const FormItem = styled.div`
   display: flex;
@@ -42,17 +44,22 @@ const Select = styled.select`
 `;
 
 const initForm = {
+  id: "",
   category: "",
   name: "",
   description: "",
   imgSrc: null,
 };
 
+const generateId = () => {
+  return crypto.randomUUID();
+};
+
 const AddRestaurantModal = () => {
-  const { isAddModalOpen, setIsAddModalOpen } = useModalStateContext();
-  const { addRestaurant } = useRestaurantContext();
+  const [isAddModalOpen, setIsAddModalOpen] = useRecoilState(addModalState);
   const [form, setForm] = useState(initForm);
-  const [loading, setLoading] = useState(false);
+  const [addingLoading, setAddingLoading] = useState(false);
+  const restaurantRefresh = useRecoilRefresher_UNSTABLE(restaurantSelector);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -69,26 +76,33 @@ const AddRestaurantModal = () => {
       alert("레스토랑의 카테고리와 이름을 모두 입력해주세요!");
       return;
     }
-    setLoading(true);
+    setAddingLoading(true);
+
+    const addForm = {
+      ...form,
+      id: generateId()
+    };
 
     try {
-      await addRestaurant(form);
+      await addRestaurant(addForm);
+      restaurantRefresh();
       setForm(initForm);
+      setIsAddModalOpen(false);
     } catch (error) {
       alert("레스토랑 추가에 실패했습니다.");
     } finally {
-      setLoading(false);
+      setAddingLoading(false);
     }
   };
 
   return (
     <Modal isOpen={isAddModalOpen} onClose={() => setIsAddModalOpen(false)}>
-      <Typography.Title margin="0 0 36px 0">
+      <Typography.Title $margin="0 0 36px 0">
         새로운 음식점
       </Typography.Title>
       <form>
         <FormItem>
-          <Typography.Caption htmlFor="category" color="var(--grey-400)" required>
+          <Typography.Caption htmlFor="category" $color="var(--grey-400)" required>
             카테고리
           </Typography.Caption>
           <Select
@@ -109,7 +123,7 @@ const AddRestaurantModal = () => {
         </FormItem>
 
         <FormItem>
-          <Typography.Caption htmlFor="name" color="var(--grey-400)" required>
+          <Typography.Caption htmlFor="name" $color="var(--grey-400)" required>
             이름
           </Typography.Caption>
           <Input
@@ -124,7 +138,7 @@ const AddRestaurantModal = () => {
         </FormItem>
 
         <FormItem>
-          <Typography.Caption htmlFor="description" color="var(--grey-400)">
+          <Typography.Caption htmlFor="description" $color="var(--grey-400)">
             설명
           </Typography.Caption>
           <TextArea
@@ -135,13 +149,13 @@ const AddRestaurantModal = () => {
             value={form.description}
             onChange={handleChange}
           />
-          <Typography.Caption color="var(--grey-300)">
+          <Typography.Caption $color="var(--grey-300)">
             메뉴 등 추가 정보를 입력해 주세요.
           </Typography.Caption>
         </FormItem>
         <Button
           onClick={handleUploadForm}
-          disabled={loading}
+          disabled={addingLoading}
         >
           추가하기
         </Button>

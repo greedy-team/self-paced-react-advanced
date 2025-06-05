@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import { Typography } from '../styles/GlobalStyle';
-import { useModalStateContext } from '../hooks/useModalStateContext';
+import { addModalState } from '../store/atoms';
+import { useSetRecoilState } from 'recoil';
 
 const HeaderContainer = styled.header`
   display: flex;
@@ -28,11 +29,11 @@ const AddButtonImage = styled.img`
 `;
 
 const Header = () => {
-  const { setIsAddModalOpen } = useModalStateContext();
+  const setIsAddModalOpen = useSetRecoilState(addModalState);
 
   return (
     <HeaderContainer>
-      <Typography.Title color="#fcfcfd">점심 뭐 먹지</Typography.Title>
+      <Typography.Title $color="#fcfcfd">점심 뭐 먹지</Typography.Title>
       <AddButton
         type="button"
         aria-label="음식점 추가"
