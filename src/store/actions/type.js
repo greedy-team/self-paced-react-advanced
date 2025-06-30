@@ -1,0 +1,4 @@
+export const FETCH_RESTAURANTS = 'FETCH_RESTAURANTS';
+export const SET_CATEGORY = 'SET_CATEGORY';
+export const SET_ADD_MODAL = 'SET_ADD_MODAL';
+export const SET_INFO_MODAL = 'SET_INFO_MODAL';

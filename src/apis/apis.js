@@ -1,9 +1,8 @@
+import axios from 'axios';
 
 export const fetchRestaurants = async () => {
-  const response = await fetch('http://localhost:3000/restaurants');
-  const data = await response.json();
-
-  return data;
+  const response = await axios.get('http://localhost:3000/restaurants');
+  return response.data;
 };
 
 export const addRestaurant = async (newRestaurant) => {
