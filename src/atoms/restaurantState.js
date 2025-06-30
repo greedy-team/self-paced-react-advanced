@@ -1,11 +1,10 @@
 import { atom, selector, useRecoilCallback } from 'recoil';
-import { createRestaurant } from '../api/restaurantsApi';
+import { createRestaurant, fetchRestaurants } from '../api/restaurantsApi';
 
 export const modalTypeState = atom({
   key: 'modalTypeState',
   default: null,
 });
-
 
 /**
  * 음식점 목록 상태
@@ -89,9 +88,10 @@ export const filteredRestaurantState = selector({
  * }) => Promise<void>}
  */
 export const useAddRestaurant = () =>
-  useRecoilCallback(({ snapshot, set }) =>
+  useRecoilCallback(({ set }) =>
     async (newItem) => {
-      const created = await createRestaurant(newItem);
-      const prev = await snapshot.getPromise(restaurantState);
-      set(restaurantState, [...prev, created]);
-    }, [],);
+      await createRestaurant(newItem);
+      const refreshed = await fetchRestaurants();
+      set(restaurantState, refreshed.map(item => ({ ...item })));
+    },
+    []);
