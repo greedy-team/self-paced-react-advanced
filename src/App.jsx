@@ -4,15 +4,11 @@ import AddRestaurantModal from "./component/aside/AddRestaurantModal";
 import RestaurantInfoModal from "./component/aside/RestaurantInfoModal";
 import Body from "./pages/Body";
 import Header from "./pages/Header";
-import { useDispatch } from "react-redux";
-import { fetchLists } from "./store/actions/restaurantAction";
+import useFetchRestaurants from "./hooks/useFetchRestaurants";
 
 function App() {
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(fetchLists());
-  }, [dispatch]);
+  // 레스토랑 리스트 불러오기(커스텀 훅)
+  useFetchRestaurants();
 
   return (
     <>

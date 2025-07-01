@@ -7,6 +7,7 @@ import Button from '../Button';
 import { addRestaurant } from '../../apis/apis';
 import { useDispatch, useSelector } from 'react-redux';
 import { setAddModal } from '../../store/actions/modalAction';
+import { fetchLists } from '../../store/actions/restaurantAction';
 
 const FormItem = styled.div`
   display: flex;
@@ -88,10 +89,12 @@ const AddRestaurantModal = () => {
 
     try {
       await addRestaurant(addForm);
+      dispatch(fetchLists());
       setForm(initForm);
       addModalClose();
     } catch (error) {
       alert("레스토랑 추가에 실패했습니다.");
+      console.log(error);
     } finally {
       setAddingLoading(false);
     }
