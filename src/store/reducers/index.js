@@ -4,9 +4,9 @@ import modalReducer from './modalReducer';
 import categoryReducer from './categoryReducer';
 
 const rootReducer = combineReducers({
-  restaurantReducer,
-  modalReducer,
-  categoryReducer,
+  category: categoryReducer,
+  restaurants: restaurantReducer,
+  modal: modalReducer,
 });
 
 export default rootReducer;

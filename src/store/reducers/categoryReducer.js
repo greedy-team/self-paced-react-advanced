@@ -3,7 +3,7 @@ import {
 } from '../actions/type';
 
 const initialState = {
-  category: '',
+  category: '전체',
 };
 
 const categoryReducer = (state = initialState, action) => {

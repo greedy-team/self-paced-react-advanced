@@ -1,5 +1,5 @@
 import { fetchRestaurants } from '../../apis/apis';
-import { FETCH_RESTAURANTS } from './type';
+import { FETCH_RESTAURANTS, SET_SELECTED_RESTAURANT } from './type';
 
 export const fetchLists = () => {
   return async dispatch => {
@@ -14,3 +14,8 @@ export const fetchLists = () => {
     }
   };
 };
+
+export const setSelectedRestaurant = (id) => ({
+  type: SET_SELECTED_RESTAURANT,
+  payload: id
+});

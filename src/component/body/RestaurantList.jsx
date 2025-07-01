@@ -1,9 +1,9 @@
 import styled from 'styled-components';
 import { Typography } from '../../styles/GlobalStyle';
 import insertImgSrc from '../utils/insertImgSrc';
-import { useRecoilValue, useSetRecoilState } from 'recoil';
-import { infoModalState, selectedRestaurantState } from '../../store/atoms';
-import { selectedRestaurantSelector } from '../../store/selector';
+import { useDispatch, useSelector } from 'react-redux';
+import { setSelectedRestaurant } from '../../store/actions/restaurantAction';
+import { setInfoModal } from '../../store/actions/modalAction';
 
 const S = {
   Container: styled.section`
@@ -61,13 +61,17 @@ const S = {
 
 
 const RestaurantList = () => {
-  const setSelectedRestaurant = useSetRecoilState(selectedRestaurantState);
-  const setIsModalOpen = useSetRecoilState(infoModalState);
-  const filteredRestaurants = useRecoilValue(selectedRestaurantSelector);
+  const dispatch = useDispatch();
+  const restaurants = useSelector(state => state.restaurants.restaurants);
+  const category = useSelector(state => state.category.category);
+
+  const filteredRestaurants = category === '전체'
+    ? restaurants
+    : restaurants.filter(restaurant => restaurant.category === category);
 
   const handleRestaurantClick = (restaurantId) => {
-    setIsModalOpen(true);
-    setSelectedRestaurant(restaurantId);
+    dispatch(setInfoModal(true));
+    dispatch(setSelectedRestaurant(restaurantId));
   };
 
   return (

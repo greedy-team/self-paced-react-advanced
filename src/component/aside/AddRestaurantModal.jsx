@@ -4,10 +4,9 @@ import { Typography } from '../../styles/GlobalStyle';
 import insertImgSrc from '../utils/insertImgSrc';
 import Modal from './Modal';
 import Button from '../Button';
-import { useRecoilRefresher_UNSTABLE, useRecoilState } from 'recoil';
-import { addModalState } from '../../store/atoms';
 import { addRestaurant } from '../../apis/apis';
-import { restaurantSelector } from '../../store/selector';
+import { useDispatch, useSelector } from 'react-redux';
+import { setAddModal } from '../../store/actions/modalAction';
 
 const FormItem = styled.div`
   display: flex;
@@ -56,10 +55,10 @@ const generateId = () => {
 };
 
 const AddRestaurantModal = () => {
-  const [isAddModalOpen, setIsAddModalOpen] = useRecoilState(addModalState);
-  const [form, setForm] = useState(initForm);
+  const dispatch = useDispatch();
+  const isAddModalOpen = useSelector(state => state.modal.addModalState);
   const [addingLoading, setAddingLoading] = useState(false);
-  const restaurantRefresh = useRecoilRefresher_UNSTABLE(restaurantSelector);
+  const [form, setForm] = useState(initForm);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -70,6 +69,10 @@ const AddRestaurantModal = () => {
       setForm({ ...form, [name]: value });
     }
   };
+
+  const addModalClose = () => {
+    dispatch(setAddModal(false));
+  }
 
   const handleUploadForm = async () => {
     if (!form.category || !form.name) {
@@ -85,9 +88,8 @@ const AddRestaurantModal = () => {
 
     try {
       await addRestaurant(addForm);
-      restaurantRefresh();
       setForm(initForm);
-      setIsAddModalOpen(false);
+      addModalClose();
     } catch (error) {
       alert("레스토랑 추가에 실패했습니다.");
     } finally {
@@ -96,7 +98,7 @@ const AddRestaurantModal = () => {
   };
 
   return (
-    <Modal isOpen={isAddModalOpen} onClose={() => setIsAddModalOpen(false)}>
+    <Modal isOpen={isAddModalOpen} onClose={addModalClose}>
       <Typography.Title $margin="0 0 36px 0">
         새로운 음식점
       </Typography.Title>

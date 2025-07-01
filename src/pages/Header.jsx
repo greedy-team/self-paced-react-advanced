@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { Typography } from '../styles/GlobalStyle';
-import { addModalState } from '../store/atoms';
-import { useSetRecoilState } from 'recoil';
+import { useDispatch } from 'react-redux';
+import { setAddModal } from '../store/actions/modalAction';
 
 const HeaderContainer = styled.header`
   display: flex;
@@ -29,7 +29,10 @@ const AddButtonImage = styled.img`
 `;
 
 const Header = () => {
-  const setIsAddModalOpen = useSetRecoilState(addModalState);
+  const dispatch = useDispatch();
+  const setIsAddModalOpen = () => {
+    dispatch(setAddModal(true));
+  }
 
   return (
     <HeaderContainer>
@@ -37,7 +40,7 @@ const Header = () => {
       <AddButton
         type="button"
         aria-label="음식점 추가"
-        onClick={() => setIsAddModalOpen(true)}
+        onClick={setIsAddModalOpen}
       >
         <AddButtonImage
           src="../../templates/add-button.png"
