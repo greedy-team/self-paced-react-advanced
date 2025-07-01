@@ -4,7 +4,7 @@ import { Typography } from '../../styles/GlobalStyle';
 import Modal from './Modal';
 import Button from '../Button';
 import { useDispatch, useSelector } from 'react-redux';
-import { setInfoModal } from '../../store/actions/modalAction';
+import { setInfoModal } from '../../store/modalSlice';
 
 const RestaurantInfo = styled.div`
   margin-bottom: 24px;
@@ -47,7 +47,7 @@ const RestaurantInfoModal = () => {
         </Typography.Body>
       </RestaurantInfo>
       <ButtonContainer>
-        <Button onClick={() => setIsModalOpen(false)}>
+        <Button onClick={handleClose}>
           닫기
         </Button>
       </ButtonContainer>

@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { Typography } from '../styles/GlobalStyle';
 import { useDispatch } from 'react-redux';
-import { setAddModal } from '../store/actions/modalAction';
+import { setAddModal } from '../store/modalSlice';
 
 const HeaderContainer = styled.header`
   display: flex;

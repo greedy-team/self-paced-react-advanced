@@ -2,8 +2,8 @@ import styled from 'styled-components';
 import { Typography } from '../../styles/GlobalStyle';
 import insertImgSrc from '../utils/insertImgSrc';
 import { useDispatch, useSelector } from 'react-redux';
-import { setSelectedRestaurant } from '../../store/actions/restaurantAction';
-import { setInfoModal } from '../../store/actions/modalAction';
+import { setInfoModal } from '../../store/modalSlice';
+import { setSelectedRestaurant } from '../../store/restaurantSlice';
 
 const S = {
   Container: styled.section`

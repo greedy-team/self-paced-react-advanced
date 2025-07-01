@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
-import { setCategory } from '../../store/actions/categoryAction';
+import { setCategory } from '../../store/categorySlice';
 
 const FilterContainer = styled.section`
   display: flex;

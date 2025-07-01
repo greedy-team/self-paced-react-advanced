@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { fetchLists } from "../store/actions/restaurantAction";
+import { fetchLists } from "../store/restaurantSlice";
 
 const useFetchRestaurants = () => {
   const dispatch = useDispatch();

@@ -6,8 +6,8 @@ import Modal from './Modal';
 import Button from '../Button';
 import { addRestaurant } from '../../apis/apis';
 import { useDispatch, useSelector } from 'react-redux';
-import { setAddModal } from '../../store/actions/modalAction';
-import { fetchLists } from '../../store/actions/restaurantAction';
+import { setAddModal } from '../../store/modalSlice';
+import { fetchLists } from '../../store/restaurantSlice';
 
 const FormItem = styled.div`
   display: flex;
