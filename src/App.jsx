@@ -5,7 +5,6 @@ import RestaurantFilter from "./components/main/RestaurantFilter.jsx";
 import RestaurantDetailModal from "./components/aside/RestaurantDetailModal.jsx";
 import RestaurantAddModal from "./components/aside/RestaurantAddModal.jsx";
 import { useSelector } from "react-redux";
-import { modalSlice } from "./redux/modalState.js";
 import { Suspense } from "react";
 import { ErrorBoundary } from "react-error-boundary";
 import styled from "styled-components";
