@@ -107,7 +107,7 @@ function RestaurantAddModal() {
   return (
     <Modal
       title="새로운 음식점"
-      onClose={setModal(null)}
+      onClose={() => dispatch(setModal(null))}
       onSubmit={handleSubmit}
     >
       <FormItem>
