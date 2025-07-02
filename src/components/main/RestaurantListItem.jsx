@@ -1,6 +1,7 @@
 import styled from "styled-components";
-import { useSetRecoilState } from "recoil";
-import { selectedRestaurantItemState } from "../../recoil/SelectedRestaurantItemState.jsx";
+import { useDispatch } from "react-redux";
+import { setSelectedRestaurantItem } from "../../redux/selectedRestaurantItemSlice.js";
+import { setModal } from "../../redux/modalSlice.js";
 
 const RestaurantItem = styled.li`
   display: flex;
@@ -50,18 +51,12 @@ const RestaurantDescription = styled.p`
   -webkit-box-orient: vertical;
 `;
 
-function RestaurantListItem({
-  categoryIcon,
-  categoryAlt,
-  name,
-  description,
-  setModalStateValue,
-}) {
-  const setRestaurantItem = useSetRecoilState(selectedRestaurantItemState);
+function RestaurantListItem({ categoryIcon, categoryAlt, name, description }) {
+  const dispatch = useDispatch();
 
   const handleClick = () => {
-    setRestaurantItem({ name, description });
-    setModalStateValue("detail");
+    dispatch(setSelectedRestaurantItem({ name, description }));
+    dispatch(setModal("detail"));
   };
 
   return (
