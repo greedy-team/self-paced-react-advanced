@@ -1,6 +1,6 @@
 import styled from "styled-components";
-import { useSetRecoilState } from "recoil";
-import { modalTypeState } from "../../store/AppAtom";
+import { useDispatch } from "react-redux";
+import { openAdd } from "../../store/AppSlice";
 
 const Gnb = styled.header`
   display: flex;
@@ -35,14 +35,15 @@ const GnbButton = styled.button`
 `;
 
 function Header() {
-  const setModalTypeToOpen = useSetRecoilState(modalTypeState);
+  const setModalTypeToOpen = useDispatch();
+
   return (
     <Gnb>
       <GnbTitle>점심 뭐 먹지</GnbTitle>
       <GnbButton
         type="button"
         aria-label="음식점 추가"
-        onClick={() => setModalTypeToOpen(true)}
+        onClick={() => setModalTypeToOpen(openAdd())}
       >
         <img src="/templates/add-button.png" alt="음식점 추가" />
       </GnbButton>
