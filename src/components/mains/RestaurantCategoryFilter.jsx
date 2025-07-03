@@ -1,26 +1,29 @@
-import { useRecoilValue, useRecoilState } from "recoil";
-import {
-  restaurantState,
-  selectedCategoryState,
-} from "../../atoms/restaurantState";
+import React from "react";
+import { useSelector, useDispatch } from "react-redux";
 import {
   FilterContainer,
   CategorySelect,
 } from "./RestaurantCategoryFilter.styled";
+import { setSelectedCategory } from "../../redux/slice/restaurantSlice";
 
 function RestaurantCategoryFilter() {
-  const restaurants = useRecoilValue(restaurantState);
-  const [selectedCategory, setSelectedCategory] = useRecoilState(
-    selectedCategoryState
+  const restaurants = useSelector((state) => state.restaurants.allRestaurants);
+  const selectedCategory = useSelector(
+    (state) => state.restaurants.selectedCategory
   );
 
-  const categories = [
-    "전체",
-    ...new Set(restaurants.map((restaurant) => restaurant.category)),
-  ];
+  const dispatch = useDispatch();
+
+  const categories = React.useMemo(
+    () => [
+      "전체",
+      ...new Set(restaurants.map((restaurant) => restaurant.category)),
+    ],
+    [restaurants]
+  );
 
   const handleChange = (event) => {
-    setSelectedCategory(event.target.value);
+    dispatch(setSelectedCategory(event.target.value));
   };
 
   return (
