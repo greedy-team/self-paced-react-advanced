@@ -1,13 +1,10 @@
 import styled from 'styled-components';
 import { selectableCategories } from '../../constant/constant';
 import Modal from './modal/Modal';
-import { getRestaurants, addNewRestaurant } from '../../api/api';
-import { useSetRecoilState, useRecoilValue } from 'recoil';
-import {
-  restaurantsState,
-  isRestaurantAddModalOpenState,
-} from '../../store/atoms';
-import { useRestaurantAddModalAction } from '../../hooks/modalAction';
+import { addNewRestaurant } from '../../api/api';
+import { useSelector, useDispatch } from 'react-redux';
+import { fetchRestaurants } from '../../features/restaurantSlice';
+import { closeRestaurantAddModal } from '../../features/modalSlice';
 
 const AddRestaurantForm = styled.form``;
 
@@ -82,11 +79,12 @@ const SubmitButton = styled.button`
 `;
 
 const AddRestaurantModal = () => {
-  const { closeRestaurantAddModal } = useRestaurantAddModalAction();
-  const isRestaurantAddModalOpen = useRecoilValue(
-    isRestaurantAddModalOpenState
+  const dispatch = useDispatch();
+  const handleCloseRestaurantAddModal = () =>
+    dispatch(closeRestaurantAddModal());
+  const isRestaurantAddModalOpen = useSelector(
+    (state) => state.modal.isRestaurantAddModalOpen
   );
-  const setRestaurants = useSetRecoilState(restaurantsState);
 
   const handleFormSubmit = async (e) => {
     e.preventDefault();
@@ -97,15 +95,14 @@ const AddRestaurantModal = () => {
       description: e.target.description.value,
     };
     await addNewRestaurant(newRestaurant);
-    const data = await getRestaurants();
-    setRestaurants(data);
-    closeRestaurantAddModal();
+    dispatch(fetchRestaurants());
+    handleCloseRestaurantAddModal();
   };
 
   return (
     <Modal
       title="새로운 음식점"
-      onClose={closeRestaurantAddModal}
+      onClose={handleCloseRestaurantAddModal}
       isOpen={isRestaurantAddModalOpen}
     >
       <AddRestaurantForm onSubmit={handleFormSubmit}>
