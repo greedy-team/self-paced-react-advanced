@@ -69,7 +69,6 @@ const RestaurantDescription = styled.p`
 
 function RestaurantList() {
   const restaurants = useSelector(selectFilteredRestaurants);
-  //   console.log("filteredRestaurants:", restaurants);
   const dispatch = useDispatch();
 
   const handleClickedRestaurantInfo = (restaurant) => {

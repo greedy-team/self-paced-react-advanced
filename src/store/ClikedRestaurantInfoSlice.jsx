@@ -1,8 +1,3 @@
-// export const clickedRestaurantInfoState = atom({
-//     key: "clickedRestaurantInfoState",
-//     default: null,
-//   });
-
 import { createSlice } from "@reduxjs/toolkit";
 
 const clickedRestaurantInfoSlice = createSlice({

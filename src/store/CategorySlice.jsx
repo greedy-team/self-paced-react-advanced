@@ -1,8 +1,3 @@
-// export const categoryState = atom({
-//     key: "categoryState",
-//     default: "전체",
-//   });
-
 import { createSlice } from "@reduxjs/toolkit";
 
 const categorySlice = createSlice({

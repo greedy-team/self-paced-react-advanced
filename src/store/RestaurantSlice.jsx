@@ -1,8 +1,3 @@
-// export const restaurantsState = atom({
-//     key: "restaurantsState",
-//     default: [],
-//   });
-
 import { createSlice } from "@reduxjs/toolkit";
 
 const restaurantsSlice = createSlice({
