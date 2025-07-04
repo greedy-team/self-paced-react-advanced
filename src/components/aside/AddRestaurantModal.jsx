@@ -6,6 +6,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { fetchRestaurants } from '../../features/restaurantSlice';
 import { closeRestaurantAddModal } from '../../features/modalSlice';
 
+
 const AddRestaurantForm = styled.form``;
 
 const FormItem = styled.div`

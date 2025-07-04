@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import { categories } from '../../constant/constant';
 import { useSelector, useDispatch } from 'react-redux';
 import { setSelectedCategory } from '../../features/restaurantSlice';
+
 const RestaurantFilterContainer = styled.section`
   display: flex;
   justify-content: space-between;
@@ -25,6 +26,7 @@ const CategoryFilter = () => {
   const dispatch = useDispatch();
   const selectedCategory = useSelector(
     (state) => state.restaurant.selectedCategory
+
   );
 
   return (

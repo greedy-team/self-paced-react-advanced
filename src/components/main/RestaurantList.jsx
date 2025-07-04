@@ -5,6 +5,7 @@ import { selectFilteredRestaurants } from '../../features/selectors';
 import { setSelectedRestaurant } from '../../features/restaurantSlice';
 import { openRestaurantDetailModal } from '../../features/modalSlice';
 
+
 const RestaurantListContainer = styled.section`
   display: flex;
   flex-direction: column;
@@ -34,6 +35,7 @@ const RestaurantList = () => {
   if (status === 'failed') {
     return <div>레스토랑 목록 불러오기 실패 ERROR: {error}</div>;
   }
+
   return (
     <RestaurantListContainer>
       <RestaurantListItemContainer>
@@ -44,6 +46,7 @@ const RestaurantList = () => {
             onRestaurantClick={() =>
               handleOpenRestaurantDetailModal(restaurant)
             }
+
           />
         ))}
       </RestaurantListItemContainer>
