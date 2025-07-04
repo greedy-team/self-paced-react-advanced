@@ -36,7 +36,6 @@ const GnbButton = styled.button`
 
 function Header() {
   const setModalTypeToOpen = useDispatch();
-
   return (
     <Gnb>
       <GnbTitle>점심 뭐 먹지</GnbTitle>

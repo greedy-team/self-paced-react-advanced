@@ -23,7 +23,6 @@ function App() {
       console.error(err);
     }
   };
-
   useEffect(() => {
     fetchRestaurants();
   }, []);
