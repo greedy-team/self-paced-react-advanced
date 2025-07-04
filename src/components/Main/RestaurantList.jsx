@@ -1,11 +1,9 @@
 import styled from "styled-components";
 import { selectedCategories } from "../../data/data";
-import { useRecoilValue, useSetRecoilState } from "recoil";
-import {
-  clickedRestaurantInfoState,
-  filteredRestaurantsState,
-  modalTypeState,
-} from "../../store/AppAtom";
+import { useDispatch, useSelector } from "react-redux";
+import { openDetail } from "../../store/ModalSlice";
+import { selectFilteredRestaurants } from "../../store/Selector";
+import { setClickedRestaurantInfo } from "../../store/ClikedRestaurantInfoSlice";
 
 const RestaurantListContainer = styled.section`
   display: flex;
@@ -70,18 +68,18 @@ const RestaurantDescription = styled.p`
 `;
 
 function RestaurantList() {
-  const restaurants = useRecoilValue(filteredRestaurantsState);
-  const setModalTypeToOpen = useSetRecoilState(modalTypeState);
-  const setClickedRestaurantInfo = useSetRecoilState(
-    clickedRestaurantInfoState
-  );
-  const handleClickedRestaurantInfo = (name, description) => {
-    const restaurant = {
-      name,
-      description,
-    };
-    setClickedRestaurantInfo(restaurant);
-    setModalTypeToOpen("detail");
+  const restaurants = useSelector(selectFilteredRestaurants);
+  //   console.log("filteredRestaurants:", restaurants);
+  const dispatch = useDispatch();
+
+  const handleClickedRestaurantInfo = (restaurant) => {
+    dispatch(
+      setClickedRestaurantInfo({
+        name: restaurant.name,
+        description: restaurant.description,
+      })
+    );
+    dispatch(openDetail());
   };
 
   return (
@@ -94,12 +92,7 @@ function RestaurantList() {
           return (
             <Restaurant
               key={restaurant.id}
-              onClick={() =>
-                handleClickedRestaurantInfo(
-                  restaurant.name,
-                  restaurant.description
-                )
-              }
+              onClick={() => handleClickedRestaurantInfo(restaurant)}
             >
               <RestaurantCategory>
                 <CategoryIcon

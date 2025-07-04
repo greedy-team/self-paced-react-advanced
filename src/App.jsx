@@ -5,19 +5,12 @@ import RestaurantList from "./components/Main/RestaurantList";
 import AddRestaurantModal from "./components/Aside/AddRestaurantModal";
 import RestaurantDetailModal from "./components/Aside/RestaurantDetailModal";
 import { useEffect } from "react";
-import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
-import { restaurantsState } from "./store/AppAtom";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { setRestaurants, addRestaurant } from "./store/RestaurantSlice";
 
 function App() {
-  const MODAL_TYPES = {
-    ADD: "add",
-    DETAIL: "detail",
-  };
-  Object.freeze(MODAL_TYPES);
-
-  const setRestaurants = useSetRecoilState(restaurantsState);
   const modalTypeToOpen = useSelector((state) => state.modal.type);
+  const dispatch = useDispatch();
 
   const fetchRestaurants = async () => {
     try {
@@ -25,7 +18,7 @@ function App() {
       if (!response.ok)
         throw new Error("레스토랑 목록을 불러오는데 문제가 발생했습니다.");
       const data = await response.json();
-      setRestaurants(data);
+      dispatch(setRestaurants(data));
     } catch (err) {
       console.error(err);
     }
@@ -54,7 +47,7 @@ function App() {
 
   const handleUpdatedRestaurants = async (restaurant) => {
     const newRestaurant = await addNewRestaurant(restaurant);
-    setRestaurants((prev) => [...prev, newRestaurant]);
+    dispatch(addRestaurant(newRestaurant));
   };
 
   return (

@@ -1,9 +1,7 @@
 import { useState } from "react";
 import styled, { css } from "styled-components";
-import { useSetRecoilState } from "recoil";
-// import { modalTypeState } from "../../store/AppAtom";
 import { useDispatch } from "react-redux";
-import { close } from "../../store/AppSlice";
+import { close } from "../../store/ModalSlice";
 
 const ModalWrapper = styled.div`
   display: block;
@@ -127,7 +125,7 @@ const Button = styled.button`
 `;
 
 function AddRestaurantModal({ onSubmitRestaurant }) {
-  const setModalTypeToOpen = useDispatch();
+  const dispatch = useDispatch();
 
   const [category, setCategory] = useState("");
   const [name, setName] = useState("");
@@ -135,9 +133,7 @@ function AddRestaurantModal({ onSubmitRestaurant }) {
 
   return (
     <ModalWrapper>
-      <ModalBackdrop
-        onClick={() => setModalTypeToOpen(close())}
-      ></ModalBackdrop>
+      <ModalBackdrop onClick={() => dispatch(close())}></ModalBackdrop>
       <ModalContainer>
         <ModalTitle>새로운 음식점</ModalTitle>
         <form
@@ -152,7 +148,7 @@ function AddRestaurantModal({ onSubmitRestaurant }) {
             };
 
             onSubmitRestaurant(newRestaurant);
-            setModalTypeToOpen(close());
+            dispatch(close());
           }}
         >
           <FormItem>

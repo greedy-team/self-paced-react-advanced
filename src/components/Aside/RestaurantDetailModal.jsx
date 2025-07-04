@@ -1,8 +1,6 @@
 import styled from "styled-components";
-import { useRecoilValue, useSetRecoilState } from "recoil";
-import { useDispatch } from "react-redux";
-import { close } from "../../store/AppSlice";
-import { clickedRestaurantInfoState } from "../../store/AppAtom";
+import { useSelector, useDispatch } from "react-redux";
+import { close } from "../../store/ModalSlice";
 
 const ModalWrapper = styled.div`
   display: block;
@@ -76,7 +74,9 @@ const TextBody = styled.p`
 `;
 
 function RestaurantDetailModal() {
-  const clickedRestaurantInfo = useRecoilValue(clickedRestaurantInfoState);
+  const clickedRestaurantInfo = useSelector(
+    (state) => state.clickedRestaurantInfo
+  );
   const setModalTypeToOpen = useDispatch();
 
   return (
