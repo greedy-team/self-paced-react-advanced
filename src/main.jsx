@@ -5,6 +5,8 @@ import store from "./redux/store";
 
 createRoot(document.getElementById("root")).render(
   <Provider store={store}>
-    <App />
+    <StrictMode>
+      <App />
+    </StrictMode>
   </Provider>
 );
