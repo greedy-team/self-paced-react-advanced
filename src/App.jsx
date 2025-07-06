@@ -7,7 +7,6 @@ import RestaurantInfoModal from "./components/asides/RestaurantInfoModal";
 import AddRestaurantModal from "./components/asides/AddRestaurantModal";
 import categoryOptions from "./data/categoryOptions";
 import { useEffect } from "react";
-
 import { fetchAllRestaurants } from "./redux/slice/restaurantSlice";
 
 function App() {
