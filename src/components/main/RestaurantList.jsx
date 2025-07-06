@@ -13,7 +13,7 @@ const RestaurantListContainer = styled.div`
   margin: 16px 0;
 `;
 
-const EmptyRestaurantList = styled.div`
+const FetchRestaurantList = styled.div`
   padding: 20px;
   margin: 20px;
   border: 1px solid var(--grey-200);
@@ -55,11 +55,17 @@ const RestaurantList = () => {
     }
   }, [status, error, showBoundary]);
 
-  if (restaurants.length === 0) {
+  if (status === "loading") {
     return (
-      <EmptyRestaurantList>
+      <FetchRestaurantList>레스토랑을 불러오는 중입니다...</FetchRestaurantList>
+    );
+  }
+
+  if (status === "loading" && restaurants.length === 0) {
+    return (
+      <FetchRestaurantList>
         해당 카테고리에 해당하는 레스토랑이 없습니다.
-      </EmptyRestaurantList>
+      </FetchRestaurantList>
     );
   }
 

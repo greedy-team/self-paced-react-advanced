@@ -27,6 +27,10 @@ const restaurantsSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder
+      .addCase(fetchFilteredRestaurants.pending, (state) => {
+        state.status = "loading";
+        state.error = null;
+      })
       .addCase(fetchFilteredRestaurants.fulfilled, (state, action) => {
         state.status = "succeeded";
         state.items = action.payload;
