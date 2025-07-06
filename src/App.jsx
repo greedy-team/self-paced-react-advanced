@@ -42,20 +42,10 @@ const ErrorContainer = styled.div`
 `;
 
 const ErrorFallback = ({ error, resetErrorBoundary }) => {
-  let msg = "";
-
-  if (error.message === "AddModal Error") {
-    msg = "레스토랑을 추가하는 과정 중, 서버 연결에 문제가 발생했습니다.";
-  } else if (error.message === "Fetching Error") {
-    msg = "Selector에서 fetching 오류가 발생했습니다.";
-  } else {
-    msg = "레스토랑 리스트를 fetching 하는 과정에서 오류가 발생했습니다.";
-  }
-
   return (
     <ErrorContainer>
       <h2>오류가 발생했습니다</h2>
-      <pre>{msg}</pre>
+      <pre>{error.message}</pre>
       <button onClick={resetErrorBoundary}>다시 시도</button>
     </ErrorContainer>
   );
