@@ -96,7 +96,9 @@ function RestaurantAddModal() {
       });
 
       if (!response.ok) {
-        throw new Error("AddModal Error");
+        throw new Error(
+          "레스토랑을 추가하는 과정 중, 서버 연결에 문제가 발생했습니다."
+        );
       }
       dispatch(setModal("add-success"));
     } catch (error) {

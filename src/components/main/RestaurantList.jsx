@@ -51,7 +51,7 @@ const RestaurantList = () => {
   // 에러 처리
   useEffect(() => {
     if (status === "failed") {
-      showBoundary(new Error(error));
+      showBoundary(new Error("레스토랑을 불러오는데 실패했습니다."));
     }
   }, [status, error, showBoundary]);
 
