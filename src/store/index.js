@@ -1,8 +1,8 @@
 import { configureStore } from "@reduxjs/toolkit";
-import modalTypeReducer from "./ModalSlice.jsx";
-import restaurantsReducer from "./RestaurantSlice.jsx";
-import categoryReducer from "./CategorySlice.jsx";
-import clickedRestaurantInfoReducer from "./ClikedRestaurantInfoSlice.jsx";
+import modalTypeReducer from "./ModalSlice.js";
+import restaurantsReducer from "./RestaurantSlice.js";
+import categoryReducer from "./CategorySlice.js";
+import clickedRestaurantInfoReducer from "./ClikedRestaurantInfoSlice.js";
 
 export const store = configureStore({
   reducer: {

@@ -1,7 +1,7 @@
 import { categories } from "../../data/data.js";
 import styled from "styled-components";
 import { useSelector, useDispatch } from "react-redux";
-import { setCategory } from "../../store/CategorySlice.jsx";
+import { setCategory } from "../../store/CategorySlice.js";
 
 const RestaurantFilterContainer = styled.section`
   display: flex;
