@@ -17,12 +17,12 @@ const ButtonContainer = styled.div`
 const RestaurantInfoModal = () => {  
   const dispatch = useDispatch();
   const isModalOpen = useSelector(state => state.modal.infoModalState);
-  const restaurants = useSelector(state => state.restaurants.restaurants);
-  const selectedRestaurant = useSelector(state => state.restaurants.selectedRestaurant);
+  const restaurantList = useSelector(state => state.restaurant.list);
+  const selectedRestaurant = useSelector(state => state.restaurant.selectedRestaurant);
 
   if (!isModalOpen) return null;
 
-  const restaurant = restaurants?.find(restaurant => restaurant.id === selectedRestaurant);
+  const restaurant = restaurantList?.find(restaurant => restaurant.id === selectedRestaurant);
 
   const handleClose = () => {
     dispatch(setInfoModal(false));

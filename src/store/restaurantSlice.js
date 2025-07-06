@@ -10,7 +10,7 @@ export const fetchLists = createAsyncThunk(
 );
 
 const initialState = {
-  restaurants: [],
+  list: [],
   selectedRestaurant: 0,
   loading: false,
   error: null,
@@ -32,7 +32,7 @@ const restaurantSlice = createSlice({
       })
       .addCase(fetchLists.fulfilled, (state, action) => {
         state.loading = false;
-        state.restaurants = action.payload;
+        state.list = action.payload;
       })
       .addCase(fetchLists.rejected, (state, action) => {
         state.loading = false;

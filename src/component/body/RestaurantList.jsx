@@ -62,12 +62,13 @@ const S = {
 
 const RestaurantList = () => {
   const dispatch = useDispatch();
-  const restaurants = useSelector(state => state.restaurants.restaurants);
-  const category = useSelector(state => state.category.category);
+  const restaurants = useSelector((state) => state.restaurant.list);
+  const category = useSelector((state) => state.category.category);
 
-  const filteredRestaurants = category === '전체'
-    ? restaurants
-    : restaurants.filter(restaurant => restaurant.category === category);
+  const filteredRestaurants =
+    category === "전체"
+      ? restaurants
+      : restaurants.filter((restaurant) => restaurant.category === category);
 
   const handleRestaurantClick = (restaurantId) => {
     dispatch(setInfoModal(true));
