@@ -3,10 +3,6 @@ import { closeModalType } from "../../redux/slice/modalSlice";
 import MODAL_TYPES from "../../constants/modalTypes";
 import Modal from "../modals/Modal";
 import {
-  modalTypeState,
-  selectedRestaurantState,
-} from "../../atoms/restaurantState";
-import {
   InfoModalTitle,
   RestaurantInfo,
   RestaurantInfoDescription,
