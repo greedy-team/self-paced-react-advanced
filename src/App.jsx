@@ -6,26 +6,21 @@ import AddRestaurantModal from "./components/Aside/AddRestaurantModal";
 import RestaurantDetailModal from "./components/Aside/RestaurantDetailModal";
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { setRestaurants, addRestaurant } from "./store/RestaurantSlice";
+import { addRestaurant, fetchRestaurants } from "./store/RestaurantSlice";
 
 function App() {
   const modalTypeToOpen = useSelector((state) => state.modal.type);
+  const { status, error } = useSelector((state) => state.restaurants);
   const dispatch = useDispatch();
 
-  const fetchRestaurants = async () => {
-    try {
-      const response = await fetch("http://localhost:3000/restaurants");
-      if (!response.ok)
-        throw new Error("레스토랑 목록을 불러오는데 문제가 발생했습니다.");
-      const data = await response.json();
-      dispatch(setRestaurants(data));
-    } catch (err) {
-      console.error(err);
-    }
-  };
   useEffect(() => {
-    fetchRestaurants();
-  }, []);
+    if (status === "idle") {
+      dispatch(fetchRestaurants());
+    }
+  }, [status, dispatch]);
+
+  if (status === "loading") return <p>Loading…</p>;
+  if (status === "failed") return <p>{error}</p>;
 
   const addNewRestaurant = async (restaurant) => {
     try {
