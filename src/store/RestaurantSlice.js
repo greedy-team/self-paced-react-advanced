@@ -13,20 +13,48 @@ export const fetchRestaurants = createAsyncThunk(
   }
 );
 
+// const addNewRestaurant = async (restaurant) => {
+//     try {
+//       const response = await fetch("http://localhost:3000/restaurants", {
+//         method: "POST",
+//         headers: { "Content-Type": "application/json" },
+//         body: JSON.stringify(restaurant),
+//       });
+//       if (!response.ok) {
+//         throw new Error("레스토랑 추가에 문제가 발생했습니다.");
+//       }
+//       const newRestaurant = await response.json();
+//       return newRestaurant;
+//     } catch (err) {
+//       console.error(err);
+//     }
+//   };
+
+export const addNewRestaurant = createAsyncThunk(
+  "restaurants/addOne",
+  async (restaurant, { rejectWithValue }) => {
+    try {
+      const response = await fetch("http://localhost:3000/restaurants", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(restaurant),
+      });
+      if (!response.ok) {
+        throw new Error("레스토랑 추가에 문제가 발생했습니다.");
+      }
+      return await response.json();
+    } catch (err) {
+      return rejectWithValue(err.message);
+    }
+  }
+);
+
 const restaurantsSlice = createSlice({
   name: "restaurants",
   initialState: {
     items: [],
     status: "idle",
     error: null,
-  },
-  reducers: {
-    setRestaurants: (state, action) => {
-      return action.payload;
-    },
-    addRestaurant: (state, action) => {
-      state.push(action.payload);
-    },
   },
   extraReducers: (builder) => {
     builder
@@ -40,9 +68,20 @@ const restaurantsSlice = createSlice({
       .addCase(fetchRestaurants.rejected, (state, action) => {
         state.status = "failed";
         state.error = action.payload;
+      })
+
+      .addCase(addNewRestaurant.pending, (state) => {
+        state.status = "loading";
+      })
+      .addCase(addNewRestaurant.fulfilled, (state, action) => {
+        state.status = "succeeded";
+        state.items.push(action.payload);
+      })
+      .addCase(addNewRestaurant.rejected, (state, action) => {
+        state.status = "failed";
+        state.error = action.payload;
       });
   },
 });
 
-export const { setRestaurants, addRestaurant } = restaurantsSlice.actions;
 export default restaurantsSlice.reducer;
