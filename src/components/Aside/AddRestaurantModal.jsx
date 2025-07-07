@@ -1,7 +1,7 @@
 import { useState } from "react";
 import styled, { css } from "styled-components";
 import { useDispatch } from "react-redux";
-import { close } from "../../store/ModalSlice";
+import { hideModal } from "../../store/ModalSlice";
 
 const ModalWrapper = styled.div`
   display: block;
@@ -133,7 +133,7 @@ function AddRestaurantModal({ onSubmitRestaurant }) {
 
   return (
     <ModalWrapper>
-      <ModalBackdrop onClick={() => dispatch(close())}></ModalBackdrop>
+      <ModalBackdrop onClick={() => dispatch(hideModal())}></ModalBackdrop>
       <ModalContainer>
         <ModalTitle>새로운 음식점</ModalTitle>
         <form
@@ -148,7 +148,7 @@ function AddRestaurantModal({ onSubmitRestaurant }) {
             };
 
             onSubmitRestaurant(newRestaurant);
-            dispatch(close());
+            dispatch(hideModal());
           }}
         >
           <FormItem>

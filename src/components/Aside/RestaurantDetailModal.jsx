@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { useSelector, useDispatch } from "react-redux";
-import { close } from "../../store/ModalSlice";
+import { hideModal } from "../../store/ModalSlice";
 
 const ModalWrapper = styled.div`
   display: block;
@@ -77,13 +77,11 @@ function RestaurantDetailModal() {
   const clickedRestaurantInfo = useSelector(
     (state) => state.clickedRestaurantInfo
   );
-  const setModalTypeToOpen = useDispatch();
+  const dispatch = useDispatch();
 
   return (
     <ModalWrapper>
-      <ModalBackdrop
-        onClick={() => setModalTypeToOpen(close())}
-      ></ModalBackdrop>
+      <ModalBackdrop onClick={() => dispatch(hideModal())}></ModalBackdrop>
       <ModalContainer>
         <ModalTitle>{clickedRestaurantInfo.name}</ModalTitle>
         <RestaurantInfo>
@@ -91,10 +89,7 @@ function RestaurantDetailModal() {
         </RestaurantInfo>
 
         <ButtonContainer>
-          <Button
-            className="primary"
-            onClick={() => setModalTypeToOpen(close())}
-          >
+          <Button className="primary" onClick={() => dispatch(hideModal())}>
             닫기
           </Button>
         </ButtonContainer>

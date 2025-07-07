@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { selectedCategories } from "../../data/data";
 import { useDispatch, useSelector } from "react-redux";
-import { openDetail } from "../../store/ModalSlice";
+import { showDetailModal } from "../../store/ModalSlice";
 import { selectFilteredRestaurants } from "../../store/Selector";
 import { setClickedRestaurantInfo } from "../../store/ClikedRestaurantInfoSlice";
 
@@ -78,7 +78,7 @@ function RestaurantList() {
         description: restaurant.description,
       })
     );
-    dispatch(openDetail());
+    dispatch(showDetailModal());
   };
 
   return (

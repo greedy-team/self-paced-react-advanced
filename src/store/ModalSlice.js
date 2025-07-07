@@ -4,17 +4,18 @@ const modalTypeSlice = createSlice({
   name: "modalType",
   initialState: { type: null },
   reducers: {
-    openAdd: (state) => {
+    showAddModal: (state) => {
       state.type = "add";
     },
-    openDetail: (state) => {
+    showDetailModal: (state) => {
       state.type = "detail";
     },
-    close: (state) => {
+    hideModal: (state) => {
       state.type = null;
     },
   },
 });
 
-export const { openAdd, openDetail, close } = modalTypeSlice.actions;
+export const { showAddModal, showDetailModal, hideModal } =
+  modalTypeSlice.actions;
 export default modalTypeSlice.reducer;

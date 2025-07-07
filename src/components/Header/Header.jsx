@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { useDispatch } from "react-redux";
-import { openAdd } from "../../store/ModalSlice";
+import { showAddModal } from "../../store/ModalSlice";
 
 const Gnb = styled.header`
   display: flex;
@@ -42,7 +42,7 @@ function Header() {
       <GnbButton
         type="button"
         aria-label="음식점 추가"
-        onClick={() => setModalTypeToOpen(openAdd())}
+        onClick={() => setModalTypeToOpen(showAddModal())}
       >
         <img src="/templates/add-button.png" alt="음식점 추가" />
       </GnbButton>
