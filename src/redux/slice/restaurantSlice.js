@@ -5,6 +5,8 @@ const initialState = {
     allRestaurants: [],
     selectedRestaurant: null,
     selectedCategory: '전체',
+    status: 'idle',
+    error: null,
 };
 
 export const fetchAllRestaurants = createAsyncThunk(
@@ -50,11 +52,27 @@ const restaurantSlice = createSlice({
     },
     extraReducers: (builder) => {
         builder
+            .addCase(fetchAllRestaurants.pending, (state) => {
+                state.status = 'loading';
+            })
             .addCase(fetchAllRestaurants.fulfilled, (state, action) => {
+                state.status = 'succeeded';
                 state.allRestaurants = action.payload;
             })
+            .addCase(fetchAllRestaurants.rejected, (state, action) => {
+                state.status = 'failed';
+                state.error = action.payload;
+            })
+            .addCase(addNewRestaurantAndFetch.pending, (state) => {
+                state.status = 'loading';
+            })
             .addCase(addNewRestaurantAndFetch.fulfilled, (state, action) => {
+                state.status = 'succeeded';
                 state.allRestaurants = action.payload;
+            })
+            .addCase(addNewRestaurantAndFetch.rejected, (state, action) => {
+                state.status = 'failed';
+                state.error = action.payload;
             });
     }
 });
