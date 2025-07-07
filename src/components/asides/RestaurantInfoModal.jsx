@@ -12,12 +12,12 @@ import {
 } from "./RestaurantInfoModal.styled";
 
 function RestaurantInfoModal() {
-  const modalType = useSelector((state) => state.modal);
+  const currentModalType = useSelector((state) => state.modal);
   const selectedRestaurant = useSelector(
     (state) => state.restaurants.selectedRestaurant
   );
   const dispatch = useDispatch();
-  const isInfoModalOpen = modalType === MODAL_TYPES.INFO;
+  const isInfoModalOpen = currentModalType === MODAL_TYPES.INFO;
 
   if (!isInfoModalOpen) return null;
 
