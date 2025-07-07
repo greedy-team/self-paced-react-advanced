@@ -1,16 +1,4 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-// export const fetchRestaurants = async () => {
-//   try {
-//     const response = await fetch("http://localhost:3000/restaurants");
-//     if (!response.ok)
-//       throw new Error("레스토랑 목록을 불러오는데 문제가 발생했습니다.");
-//     const data = await response.json();
-//     dispatch(setRestaurants(data));
-//   } catch (err) {
-//     console.error(err);
-//   }
-// };
-
 export const fetchRestaurants = createAsyncThunk(
   "restaurants/fetchAll",
   async (_, { rejectWithValue }) => {
