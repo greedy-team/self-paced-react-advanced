@@ -1,10 +1,11 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { getRestaurants } from '../api/api';
+import { getRestaurants, addNewRestaurant } from '../api/api';
 
 const initialState = {
   restaurants: [],
-  status: 'idle',
-  error: null,
+  getStatus: 'idle',
+  getError: null,
+  postStatus: 'idle',
   selectedCategory: '전체',
   selectedRestaurant: null,
 };
@@ -14,6 +15,13 @@ export const fetchRestaurants = createAsyncThunk(
   async () => {
     const data = await getRestaurants();
     return data;
+  }
+);
+
+export const postNewRestaurant = createAsyncThunk(
+  'restaurant/postNewRestaurant',
+  async (newRestaurant) => {
+    await addNewRestaurant(newRestaurant);
   }
 );
 
@@ -31,15 +39,24 @@ const restaurantSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(fetchRestaurants.pending, (state) => {
-        state.status = 'loading';
+        state.getStatus = 'loading';
       })
       .addCase(fetchRestaurants.fulfilled, (state, action) => {
-        state.status = 'succeeded';
+        state.getStatus = 'succeeded';
         state.restaurants = action.payload;
       })
       .addCase(fetchRestaurants.rejected, (state, action) => {
-        state.status = 'failed';
-        state.error = action.error.message;
+        state.getStatus = 'failed';
+        state.getError = action.error.message;
+      })
+      .addCase(postNewRestaurant.pending, (state) => {
+        state.postStatus = 'loading';
+      })
+      .addCase(postNewRestaurant.fulfilled, (state) => {
+        state.postStatus = 'succeeded';
+      })
+      .addCase(postNewRestaurant.rejected, (state) => {
+        state.postStatus = 'failed';
       });
   },
 });

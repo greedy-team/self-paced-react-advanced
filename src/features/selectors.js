@@ -8,5 +8,7 @@ export const selectFilteredRestaurants = createSelector(
   (restaurants, selectedCategory) =>
     selectedCategory == '전체'
       ? restaurants
-      : restaurants.filter((r) => r.category === selectedCategory)
+      : restaurants.filter(
+          (restaurant) => restaurant.category === selectedCategory
+        )
 );

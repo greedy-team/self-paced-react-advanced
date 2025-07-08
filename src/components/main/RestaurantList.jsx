@@ -20,19 +20,19 @@ const RestaurantListItemContainer = styled.ul`
 const RestaurantList = () => {
   const dispatch = useDispatch();
   const filteredRestaurants = useSelector(selectFilteredRestaurants);
-  const status = useSelector((state) => state.restaurant.status);
-  const error = useSelector((state) => state.restaurant.error);
+  const getStatus = useSelector((state) => state.restaurant.getStatus);
+  const getError = useSelector((state) => state.restaurant.getError);
 
   const handleOpenRestaurantDetailModal = (restaurant) => {
     dispatch(setSelectedRestaurant(restaurant));
     dispatch(openRestaurantDetailModal());
   };
 
-  if (status === 'loading') {
+  if (getStatus === 'loading') {
     return <div>레스토랑 목록 불러오는 중...</div>;
   }
-  if (status === 'failed') {
-    return <div>레스토랑 목록 불러오기 실패 ERROR: {error}</div>;
+  if (getStatus === 'failed') {
+    return <div>레스토랑 목록 불러오기 실패 ERROR: {getError}</div>;
   }
   return (
     <RestaurantListContainer>
