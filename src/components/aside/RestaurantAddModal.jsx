@@ -1,9 +1,9 @@
 import Modal from "./modal/Modal.jsx";
 import styled from "styled-components";
 import RestaurantCategory from "../category/FilteredCategoryOptions";
-import { useSetRecoilState } from "recoil";
-import { modalState } from "../../recoil/ModalState.jsx";
 import { useErrorBoundary } from "react-error-boundary";
+import { useDispatch } from "react-redux";
+import { setModal } from "../../redux/modalSlice.js";
 
 const CATEGORY_MAP = {
   korean: "한식",
@@ -64,7 +64,7 @@ const Select = styled.select`
 `;
 
 function RestaurantAddModal() {
-  const setModalStateValue = useSetRecoilState(modalState);
+  const dispatch = useDispatch();
   const { showBoundary } = useErrorBoundary();
 
   const handleSubmit = async (e) => {
@@ -96,12 +96,11 @@ function RestaurantAddModal() {
       });
 
       if (!response.ok) {
-        throw new Error("AddModal Error");
+        throw new Error(
+          "레스토랑을 추가하는 과정 중, 서버 연결에 문제가 발생했습니다."
+        );
       }
-
-      const data = await response.json();
-      console.log("새로운 음식점이 추가되었습니다:", data);
-      setModalStateValue("add-success");
+      dispatch(setModal("add-success"));
     } catch (error) {
       showBoundary(error);
     }
@@ -110,7 +109,7 @@ function RestaurantAddModal() {
   return (
     <Modal
       title="새로운 음식점"
-      onClose={() => setModalStateValue(null)}
+      onClose={() => dispatch(setModal(null))}
       onSubmit={handleSubmit}
     >
       <FormItem>

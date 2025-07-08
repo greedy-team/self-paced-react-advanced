@@ -1,8 +1,7 @@
 import Modal from "./modal/Modal.jsx";
 import styled from "styled-components";
-import { useRecoilValue, useSetRecoilState } from "recoil";
-import { selectedRestaurantItemState } from "../../recoil/SelectedRestaurantItemState.jsx";
-import { modalState } from "../../recoil/ModalState.jsx";
+import { useDispatch, useSelector } from "react-redux";
+import { setModal } from "../../redux/modalSlice.js";
 
 const RestaurantInfo = styled.div`
   margin-bottom: 24px;
@@ -18,13 +17,15 @@ const Description = styled.p`
 `;
 
 function RestaurantDetailModal() {
-  const setModalStateValue = useSetRecoilState(modalState);
-  const restaurantItem = useRecoilValue(selectedRestaurantItemState);
+  const dispatch = useDispatch();
+  const restaurantItem = useSelector(
+    (state) => state.selectedRestaurantItem.value
+  );
 
   return (
     <Modal
       title={restaurantItem.name}
-      onClose={() => setModalStateValue(null)}
+      onClose={() => dispatch(setModal(null))}
       isButtonOpen
     >
       <RestaurantInfo>

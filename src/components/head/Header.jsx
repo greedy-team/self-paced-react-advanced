@@ -1,6 +1,6 @@
 import styled from "styled-components";
-import { useSetRecoilState } from "recoil";
-import { modalState } from "../../recoil/ModalState.jsx";
+import { useDispatch } from "react-redux";
+import { setModal } from "../../redux/modalSlice.js";
 
 const HeaderContainer = styled.header`
   display: flex;
@@ -29,7 +29,7 @@ const Button = styled.button`
 `;
 
 function Header() {
-  const setModalStateValue = useSetRecoilState(modalState);
+  const dispatch = useDispatch();
 
   return (
     <HeaderContainer>
@@ -37,7 +37,7 @@ function Header() {
       <Button
         type="button"
         aria-label="음식점 추가"
-        onClick={() => setModalStateValue("add")}
+        onClick={() => dispatch(setModal("add"))}
       >
         <img src="/assets/images/button/add-button.png" alt="음식점 추가" />
       </Button>
