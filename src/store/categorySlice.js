@@ -1,15 +1,15 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  category: '전체',
+  value: "전체",
 };
 
 const categorySlice = createSlice({
-  name: 'category',
+  name: "category",
   initialState,
   reducers: {
     setCategory: (state, action) => {
-      state.category = action.payload;
+      state.value = action.payload;
     },
   },
 });

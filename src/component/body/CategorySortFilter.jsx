@@ -1,6 +1,6 @@
-import styled from 'styled-components';
-import { useDispatch, useSelector } from 'react-redux';
-import { setCategory } from '../../store/categorySlice';
+import styled from "styled-components";
+import { useDispatch, useSelector } from "react-redux";
+import { setCategory } from "../../store/categorySlice";
 
 const FilterContainer = styled.section`
   display: flex;
@@ -21,7 +21,7 @@ const CategorySelect = styled.select`
 
 const CategorySortFilter = () => {
   const dispatch = useDispatch();
-  const category = useSelector(state => state.category.category);
+  const category = useSelector((state) => state.category.value);
 
   const handleChange = (e) => {
     dispatch(setCategory(e.target.value));
