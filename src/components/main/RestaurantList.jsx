@@ -34,6 +34,7 @@ const RestaurantList = () => {
   if (getStatus === 'failed') {
     return <div>레스토랑 목록 불러오기 실패 ERROR: {getError}</div>;
   }
+
   return (
     <RestaurantListContainer>
       <RestaurantListItemContainer>

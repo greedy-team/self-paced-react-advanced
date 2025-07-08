@@ -8,6 +8,7 @@ import RestaurantDetailModal from './components/aside/RestaurantDetailModal';
 import AddRestaurantModal from './components/aside/AddRestaurantModal';
 import StyleProvider from './styles/StyleProvider';
 
+
 const App = () => {
   const dispatch = useDispatch();
 
@@ -27,6 +28,7 @@ const App = () => {
         <AddRestaurantModal />
       </aside>
     </StyleProvider>
+
   );
 };
 

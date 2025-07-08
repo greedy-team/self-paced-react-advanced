@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { closeRestaurantDetailModal } from '../../features/modalSlice';
 import { setSelectedRestaurant } from '../../features/restaurantSlice';
 
+
 const RestaurantInfo = styled.div`
   margin-bottom: 24px;
 `;
@@ -58,6 +59,7 @@ const RestaurantDetailModal = () => {
       </RestaurantInfo>
       <CloseButtonContainer>
         <CloseButton type="button" onClick={handleCloseRestaurantDetailModal}>
+
           닫기
         </CloseButton>
       </CloseButtonContainer>

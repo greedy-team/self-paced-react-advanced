@@ -39,6 +39,7 @@ const AddRestaurantImg = styled.img`
 
 const Header = () => {
   const dispatch = useDispatch();
+
   return (
     <HeaderContainer>
       <Title>점심 뭐 먹지</Title>
