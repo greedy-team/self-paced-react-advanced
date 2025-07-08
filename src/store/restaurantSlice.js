@@ -1,13 +1,7 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { fetchRestaurants } from '../apis/apis';
 
-export const fetchLists = createAsyncThunk(
-  'fetchRestaurantList',
-  async () => {
-    const data = await fetchRestaurants();
-    return data;
-  }
-);
+export const fetchLists = createAsyncThunk('fetchRestaurantList', fetchRestaurants);
 
 const initialState = {
   list: [],
