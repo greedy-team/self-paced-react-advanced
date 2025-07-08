@@ -1,21 +1,31 @@
-import { useRecoilValue, useSetRecoilState } from "recoil";
+import React from "react";
+import { useSelector, useDispatch } from "react-redux";
 import RestaurantCard from "./RestaurantCard";
 import MODAL_TYPES from "../../constants/modalTypes";
-import {
-  modalTypeState,
-  filteredRestaurantState,
-  selectedRestaurantState,
-} from "../../atoms/restaurantState";
 import { ListContainer, RestaurantListWrapper } from "./RestaurantList.styled";
+import { setSelectedRestaurant } from "../../redux/slice/restaurantSlice";
+import { setModalType } from "../../redux/slice/modalSlice";
 
 function RestaurantList() {
-  const filteredRestaurants = useRecoilValue(filteredRestaurantState);
-  const selectedRestaurant = useSetRecoilState(selectedRestaurantState);
-  const setOpenModal = useSetRecoilState(modalTypeState);
+  const allRestaurants = useSelector(
+    (state) => state.restaurants.allRestaurants
+  );
+  const selectedCategory = useSelector(
+    (state) => state.restaurants.selectedCategory
+  );
+  const dispatch = useDispatch();
+
+  const filteredRestaurants = React.useMemo(() => {
+    return selectedCategory === "전체"
+      ? allRestaurants
+      : allRestaurants.filter(
+          (restaurant) => restaurant.category === selectedCategory
+        );
+  }, [allRestaurants, selectedCategory]);
 
   const handleClick = (restaurant) => {
-    selectedRestaurant(restaurant);
-    setOpenModal(MODAL_TYPES.INFO);
+    dispatch(setSelectedRestaurant(restaurant));
+    dispatch(setModalType(MODAL_TYPES.INFO));
   };
 
   return (

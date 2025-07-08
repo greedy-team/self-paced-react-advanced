@@ -1,8 +1,7 @@
 import { useState } from "react";
-import { useRecoilValue, useSetRecoilState } from "recoil";
+import { useSelector, useDispatch } from "react-redux";
 import Modal from "../modals/Modal";
 import MODAL_TYPES from "../../constants/modalTypes";
-import { modalTypeState, useAddRestaurant } from "../../atoms/restaurantState";
 import {
   AddModalTitle,
   AddModalFormItem,
@@ -14,14 +13,13 @@ import {
   AddModalSubmitButton,
   AddModalLabel,
 } from "./AddRestaurantModal.styled";
+import { closeModalType } from "../../redux/slice/modalSlice";
+import { addNewRestaurantAndFetch } from "../../redux/slice/restaurantSlice";
 
 function AddRestaurantModal({ categoryOptions }) {
-  const modalType = useRecoilValue(modalTypeState);
-  const setModalType = useSetRecoilState(modalTypeState);
-  const addRestaurant = useAddRestaurant();
-
+  const modalType = useSelector((state) => state.modal);
+  const dispatch = useDispatch();
   const isAddModalOpen = modalType === MODAL_TYPES.ADD;
-
   const [restaurantForm, setRestaurantForm] = useState({
     category: categoryOptions[0]?.value || "",
     name: "",
@@ -35,13 +33,13 @@ function AddRestaurantModal({ categoryOptions }) {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    addRestaurant(restaurantForm);
+    dispatch(addNewRestaurantAndFetch(restaurantForm));
     setRestaurantForm({
       category: categoryOptions[0]?.value || "",
       name: "",
       description: "",
     });
-    setModalType(null);
+    dispatch(closeModalType());
   };
 
   const handleCloseAndReset = () => {
@@ -50,7 +48,7 @@ function AddRestaurantModal({ categoryOptions }) {
       name: "",
       description: "",
     });
-    setModalType(null);
+    dispatch(closeModalType());
   };
 
   return (
