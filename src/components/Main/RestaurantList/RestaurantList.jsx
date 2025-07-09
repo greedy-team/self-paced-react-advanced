@@ -1,8 +1,9 @@
 import styled from 'styled-components';
 import { CATEGORY_ICONS } from '../../../constants/icons';
-import { useRecoilValue } from 'recoil';
 import RestaurantComponent from './RestaurantComponent';
-import { filteredRestaurantsSelector } from '../../../recoil/selectors';
+import { useSelector } from 'react-redux';
+import { filteredRestaurantsSelector } from '../../../store/selectors/restaurantSelectors';
+
 
 const RestaurantListContainer = styled.ul`
   display: flex;
@@ -12,7 +13,8 @@ const RestaurantListContainer = styled.ul`
 `;
 
 function RestaurantList() {
-  const filteredRestaurants = useRecoilValue(filteredRestaurantsSelector);
+  const filteredRestaurants = useSelector(filteredRestaurantsSelector);
+
 
   return (
     <RestaurantListContainer>

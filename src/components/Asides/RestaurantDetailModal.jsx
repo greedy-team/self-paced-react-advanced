@@ -4,21 +4,26 @@ import Modal from '../Common/Modal';
 import Button from '../Common/Button';
 import { Body } from '../Common/Typography';
 import { Caption } from '../Common/Typography';
-import { isDetailModalOpenState } from '../../recoil/atoms';
-import { useRecoilValue, useSetRecoilState } from 'recoil';
-import { selectClickedRestaurant } from '../../recoil/selectors';
+
+import { useDispatch } from 'react-redux';
+import { setDetailModalOpen } from '../../store/slices/modalSlice';
+import { useSelector } from 'react-redux';
+import { selectClickedRestaurant } from '../../store/selectors/restaurantSelectors';
+
 
 const RestaurantInfo = styled.div`
   margin-bottom: 24px;
 `;
 
 function RestaurantDetailModal() {
-  const selectedRestaurant = useRecoilValue(selectClickedRestaurant);
-  const setIsDetailModalOpen = useSetRecoilState(isDetailModalOpenState);
+
+  const dispatch = useDispatch();
+  const selectedRestaurant = useSelector(selectClickedRestaurant);
+
 
   return (
     <Modal
-      handleCloseModal={() => setIsDetailModalOpen(false)}
+      handleCloseModal={() => dispatch(setDetailModalOpen(false))}
       modalTitle={selectedRestaurant?.name || TEXT.RESTAURANT_NAME_NULL}
     >
       <RestaurantInfo>
@@ -28,7 +33,8 @@ function RestaurantDetailModal() {
       </RestaurantInfo>
       <Button
         $variant="modal"
-        onClick={() => setIsDetailModalOpen(false)}
+        onClick={() => dispatch(setDetailModalOpen(false))}
+
         type="button"
       >
         <Caption>{TEXT.CLOSE_BUTTON_TEXT}</Caption>

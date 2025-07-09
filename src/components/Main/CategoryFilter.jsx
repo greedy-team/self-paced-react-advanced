@@ -1,8 +1,10 @@
 import styled from 'styled-components';
 import { RESTAURANT_CATEGORY_FILTER } from '../../constants/category';
 import { TEXT } from '../../constants/messages';
-import { useRecoilState } from 'recoil';
-import { selectedCategoryState } from '../../recoil/atoms';
+
+import { useDispatch, useSelector } from 'react-redux';
+import { setSelectedCategory } from '../../store/slices/restaurantSlice';
+
 
 const CategoryFilterContainer = styled.section`
   display: flex;
@@ -22,12 +24,12 @@ const CategorySelect = styled.select`
 `;
 
 function CategoryFilter() {
-  const [selectedCategory, setSelectedCategory] = useRecoilState(
-    selectedCategoryState
-  );
+  const dispatch = useDispatch();
+  const { selectedCategory } = useSelector(state => state.restaurant);
 
   const handleChangeCategory = event => {
-    setSelectedCategory(event.target.value);
+    dispatch(setSelectedCategory(event.target.value));
+
   };
 
   return (

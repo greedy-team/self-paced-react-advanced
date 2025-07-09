@@ -3,11 +3,12 @@ import styled from 'styled-components';
 import { TEXT } from '../../constants/messages';
 import { ADD_RESTAURANT_CATEGORY_FILTER } from '../../constants/category';
 import { CATEGORY_ICONS } from '../../constants/icons';
-import { getRestaurants, addRestaurant } from '../../api/api';
+import { postRestaurantData } from '../../store/thunks/restaurantThunks';
 import Modal from '../Common/Modal';
 import Button from '../Common/Button';
-import { isAddModalOpenState, restaurantsDataState } from '../../recoil/atoms';
-import { useSetRecoilState } from 'recoil';
+import { useDispatch } from 'react-redux';
+import { setAddModalOpen } from '../../store/slices/modalSlice';
+import { v4 as uuidv4 } from 'uuid';
 
 const FormItem = styled.div`
   display: flex;
@@ -55,27 +56,23 @@ const HelpText = styled.span`
 `;
 
 function AddRestaurantModal() {
-  const setIsAddModalOpen = useSetRecoilState(isAddModalOpenState);
-  const setRestaurantsData = useSetRecoilState(restaurantsDataState);
+
+  const dispatch = useDispatch();
+
   const [category, setCategory] = useState('');
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
 
   function handleCloseModal() {
-    setIsAddModalOpen(false);
+    dispatch(setAddModalOpen(false));
   }
 
-  async function addRestaurantData(newRestaurant) {
-    await addRestaurant(newRestaurant);
-    const refreshedRestaurant = await getRestaurants();
-    setRestaurantsData(refreshedRestaurant);
-  }
 
   const handleSubmitRestaurantData = event => {
     event.preventDefault();
 
     const newRestaurant = {
-      id: Date.now(),
+      id: uuidv4(),
       category,
       name,
       description,
@@ -83,8 +80,8 @@ function AddRestaurantModal() {
       categoryIcon: CATEGORY_ICONS[category],
     };
 
-    addRestaurantData(newRestaurant);
-    setIsAddModalOpen(false);
+    dispatch(postRestaurantData(newRestaurant));
+    dispatch(setAddModalOpen(false));
   };
 
   return (

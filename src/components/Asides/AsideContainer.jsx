@@ -1,14 +1,11 @@
-import { useRecoilValue } from 'recoil';
+
+import { useSelector } from 'react-redux';
 import RestaurantDetailModal from './RestaurantDetailModal';
 import AddRestaurantModal from './AddRestaurantModal';
-import {
-  isDetailModalOpenState,
-  isAddModalOpenState,
-} from '../../recoil/atoms';
 
 function AsideContainer() {
-  const isDetailModalOpen = useRecoilValue(isDetailModalOpenState);
-  const isAddModalOpen = useRecoilValue(isAddModalOpenState);
+  const isDetailModalOpen = useSelector(state => state.modal.isDetailModalOpen);
+  const isAddModalOpen = useSelector(state => state.modal.isAddModalOpen);
 
   return (
     <aside>

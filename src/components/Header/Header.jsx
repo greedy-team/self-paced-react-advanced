@@ -3,8 +3,9 @@ import { TEXT } from '../../constants/messages';
 import { BUTTON_ICONS } from '../../constants/icons';
 import { Title } from '../Common/Typography';
 import Button from '../Common/Button';
-import { isAddModalOpenState } from '../../recoil/atoms';
-import { useSetRecoilState } from 'recoil';
+import { useDispatch } from 'react-redux';
+import { setAddModalOpen } from '../../store/slices/modalSlice';
+
 
 const Gnb = styled.header`
   display: flex;
@@ -21,12 +22,14 @@ const HeaderTitle = styled(Title)`
 `;
 
 function Header() {
-  const setIsAddModalOpen = useSetRecoilState(isAddModalOpenState);
+
+  const dispatch = useDispatch();
 
   return (
     <Gnb>
       <HeaderTitle>{TEXT.HEADER_TITLE}</HeaderTitle>
-      <Button $variant="gnb" onClick={() => setIsAddModalOpen(true)}>
+      <Button $variant="gnb" onClick={() => dispatch(setAddModalOpen(true))}>
+
         <img src={BUTTON_ICONS.ADD} alt={TEXT.ADD_BUTTON_ARIA_LABEL} />
       </Button>
     </Gnb>

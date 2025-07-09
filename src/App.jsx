@@ -1,12 +1,13 @@
 import RestaurantListPage from './pages/RestaurantListPage';
 import './App.css';
-import { RecoilRoot } from 'recoil';
+import { Provider } from 'react-redux';
+import store from './store/store';
 
 function App() {
   return (
-    <RecoilRoot>
+    <Provider store={store}>
       <RestaurantListPage />
-    </RecoilRoot>
+    </Provider>
   );
 }
 

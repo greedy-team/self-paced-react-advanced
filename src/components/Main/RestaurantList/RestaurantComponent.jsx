@@ -1,9 +1,8 @@
 import styled from 'styled-components';
-import { useSetRecoilState } from 'recoil';
-import {
-  isDetailModalOpenState,
-  selectedRestaurantIdState,
-} from '../../../recoil/atoms';
+import { useDispatch } from 'react-redux';
+import { setDetailModalOpen } from '../../../store/slices/modalSlice';
+import { setSelectedRestaurantId } from '../../../store/slices/restaurantSlice';
+
 
 const Restaurant = styled.li`
   display: flex;
@@ -56,12 +55,12 @@ function RestaurantComponent({
   name,
   description,
 }) {
-  const setSelectedRestaurantId = useSetRecoilState(selectedRestaurantIdState);
-  const setIsDetailModalOpen = useSetRecoilState(isDetailModalOpenState);
+  const dispatch = useDispatch();
 
   const handleSelectRestaurantClick = () => {
-    setSelectedRestaurantId(id);
-    setIsDetailModalOpen(true);
+    dispatch(setSelectedRestaurantId(id));
+    dispatch(setDetailModalOpen(true));
+
   };
 
   return (
