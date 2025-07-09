@@ -1,26 +1,23 @@
+import axios from 'axios';
+
+const instance = axios.create({
+  baseURL: 'http://localhost:3000',
+  headers: {
+    'Content-Type': 'application/json',
+  },
+});
 
 export const fetchRestaurants = async () => {
-  const response = await fetch('http://localhost:3000/restaurants');
-  const data = await response.json();
-
+  const { data } = await instance.get('/restaurants');
   return data;
 };
 
 export const addRestaurant = async (newRestaurant) => {
-    try {
-      const response = await fetch("http://localhost:3000/restaurants", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(newRestaurant),
-      });
-      
-      if (!response.ok) {
-        throw new Error('레스토랑 추가 실패');
-      }
-    } catch (error) {
-      console.error('레스토랑 추가 실패:', error);
-      throw error;
-    }
+  try {
+    const { data } = await instance.post('/restaurants', newRestaurant);
+    return data;
+  } catch (error) {
+    console.error('레스토랑 추가 실패:', error);
+    throw error;
   }
+};

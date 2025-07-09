@@ -1,6 +1,6 @@
-import { useRecoilState } from 'recoil';
-import styled from 'styled-components';
-import { categoryState } from '../../store/atoms';
+import styled from "styled-components";
+import { useDispatch, useSelector } from "react-redux";
+import { setCategory } from "../../store/categorySlice";
 
 const FilterContainer = styled.section`
   display: flex;
@@ -20,10 +20,11 @@ const CategorySelect = styled.select`
 `;
 
 const CategorySortFilter = () => {
-  const [category, setCategory] = useRecoilState(categoryState);
+  const dispatch = useDispatch();
+  const category = useSelector((state) => state.category.value);
 
   const handleChange = (e) => {
-    setCategory(e.target.value);
+    dispatch(setCategory(e.target.value));
   };
 
   return (
