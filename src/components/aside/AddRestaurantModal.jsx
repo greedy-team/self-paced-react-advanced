@@ -1,13 +1,12 @@
 import styled from 'styled-components';
 import { selectableCategories } from '../../constant/constant';
 import Modal from './modal/Modal';
-import { getRestaurants, addNewRestaurant } from '../../api/api';
-import { useSetRecoilState, useRecoilValue } from 'recoil';
+import { useSelector, useDispatch } from 'react-redux';
 import {
-  restaurantsState,
-  isRestaurantAddModalOpenState,
-} from '../../store/atoms';
-import { useRestaurantAddModalAction } from '../../hooks/modalAction';
+  fetchRestaurants,
+  postNewRestaurant,
+} from '../../features/restaurantSlice';
+import { closeRestaurantAddModal } from '../../features/modalSlice';
 
 const AddRestaurantForm = styled.form``;
 
@@ -82,11 +81,13 @@ const SubmitButton = styled.button`
 `;
 
 const AddRestaurantModal = () => {
-  const { closeRestaurantAddModal } = useRestaurantAddModalAction();
-  const isRestaurantAddModalOpen = useRecoilValue(
-    isRestaurantAddModalOpenState
+  const dispatch = useDispatch();
+  const handleCloseRestaurantAddModal = () =>
+    dispatch(closeRestaurantAddModal());
+  const isRestaurantAddModalOpen = useSelector(
+    (state) => state.modal.isRestaurantAddModalOpen
   );
-  const setRestaurants = useSetRecoilState(restaurantsState);
+  const postStatus = useSelector((state) => state.restaurant.postStatus);
 
   const handleFormSubmit = async (e) => {
     e.preventDefault();
@@ -96,16 +97,22 @@ const AddRestaurantModal = () => {
       name: e.target.name.value,
       description: e.target.description.value,
     };
-    await addNewRestaurant(newRestaurant);
-    const data = await getRestaurants();
-    setRestaurants(data);
-    closeRestaurantAddModal();
+    const resultAction = await dispatch(postNewRestaurant(newRestaurant));
+
+    if (postNewRestaurant.rejected.match(resultAction)) {
+      alert(`추가 실패 ERROR: ${resultAction.error.message}`);
+      return;
+    }
+
+    await dispatch(fetchRestaurants());
+    handleCloseRestaurantAddModal();
+    e.target.reset();
   };
 
   return (
     <Modal
       title="새로운 음식점"
-      onClose={closeRestaurantAddModal}
+      onClose={handleCloseRestaurantAddModal}
       isOpen={isRestaurantAddModalOpen}
     >
       <AddRestaurantForm onSubmit={handleFormSubmit}>
@@ -144,7 +151,9 @@ const AddRestaurantModal = () => {
         </FormItem>
 
         <SubmitButtonContainer>
-          <SubmitButton type="submit">추가하기</SubmitButton>
+          <SubmitButton type="submit" disabled={postStatus === 'loading'}>
+            {postStatus === 'loading' ? '추가 중...' : '추가하기'}
+          </SubmitButton>
         </SubmitButtonContainer>
       </AddRestaurantForm>
     </Modal>

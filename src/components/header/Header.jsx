@@ -1,6 +1,7 @@
 import addButton from '../../assets/add-button.png';
 import styled from 'styled-components';
-import { useRestaurantAddModalAction } from '../../hooks/modalAction';
+import { useDispatch } from 'react-redux';
+import { openRestaurantAddModal } from '../../features/modalSlice';
 
 const NEAR_WHITE = '#fcfcfd';
 
@@ -37,14 +38,15 @@ const AddRestaurantImg = styled.img`
 `;
 
 const Header = () => {
-  const { openRestaurantAddModal } = useRestaurantAddModalAction();
+  const dispatch = useDispatch();
+
   return (
     <HeaderContainer>
       <Title>점심 뭐 먹지</Title>
       <AddRestaurantButton
         type="button"
         aria-label="음식점 추가"
-        onClick={openRestaurantAddModal}
+        onClick={() => dispatch(openRestaurantAddModal())}
       >
         <AddRestaurantImg src={addButton} alt="음식점 추가" />
       </AddRestaurantButton>
