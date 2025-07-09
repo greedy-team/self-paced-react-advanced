@@ -1,9 +1,6 @@
 import styled from "styled-components";
-import { useRecoilValue, useSetRecoilState } from "recoil";
-import {
-  clickedRestaurantInfoState,
-  modalTypeState,
-} from "../../store/AppAtom";
+import { useSelector, useDispatch } from "react-redux";
+import { hideModal } from "../../store/ModalSlice";
 
 const ModalWrapper = styled.div`
   display: block;
@@ -77,13 +74,14 @@ const TextBody = styled.p`
 `;
 
 function RestaurantDetailModal() {
-  const clickedRestaurantInfo = useRecoilValue(clickedRestaurantInfoState);
-  const setModalTypeToOpen = useSetRecoilState(modalTypeState);
-  const handleCloseModal = () => setModalTypeToOpen(null);
+  const clickedRestaurantInfo = useSelector(
+    (state) => state.clickedRestaurantInfo
+  );
+  const dispatch = useDispatch();
 
   return (
     <ModalWrapper>
-      <ModalBackdrop onClick={() => handleCloseModal()}></ModalBackdrop>
+      <ModalBackdrop onClick={() => dispatch(hideModal())}></ModalBackdrop>
       <ModalContainer>
         <ModalTitle>{clickedRestaurantInfo.name}</ModalTitle>
         <RestaurantInfo>
@@ -91,7 +89,7 @@ function RestaurantDetailModal() {
         </RestaurantInfo>
 
         <ButtonContainer>
-          <Button className="primary" onClick={handleCloseModal}>
+          <Button className="primary" onClick={() => dispatch(hideModal())}>
             닫기
           </Button>
         </ButtonContainer>
