@@ -1,17 +1,7 @@
-.restaurantListContainer {
-  display: flex;
-  flex-direction: column;
-
-  padding: 0 16px;
-  margin: 16px 0;
-}
-
 .restaurant {
   display: flex;
   align-items: flex-start;
-
   padding: 16px 8px;
-
   border-bottom: 1px solid #e9eaed;
 }
 
@@ -23,9 +13,7 @@
   height: 64px;
   min-width: 64px;
   min-height: 64px;
-
   margin-right: 16px;
-
   border-radius: 50%;
   background: var(--lighten-color);
 }
@@ -45,15 +33,9 @@
   margin: 0;
 }
 
-.restaurantDistance {
-  color: var(--primary-color);
-}
-
 .restaurantDescription {
   display: -webkit-box;
-
   padding-top: 8px;
-
   overflow: hidden;
   text-overflow: ellipsis;
   -webkit-line-clamp: 2;

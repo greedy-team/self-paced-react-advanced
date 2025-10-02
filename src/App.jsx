@@ -1,24 +1,33 @@
-import styles from './App.module.css';
+import { useState } from 'react';
 import HomeHeader from './components/Header/HomeHeader';
 import RestaurantCategoryFilter from './components/Main/RestaurantCategoryFilter';
 import RestaurantList from './components/Main/RestaurantList';
 import RestaurantDetailModal from './components/Aside/RestaurantDetailModal';
 import AddRestaurantModal from './components/Aside/AddRestaurantModal';
+import restaurants from './data/restaurantsData';
 
 function App() {
+  const [selectedCategory, setSelectedCategory] = useState('전체');
+
+  const filteredRestaurants = selectedCategory === '전체'
+    ? restaurants
+    : restaurants.filter((e) => e.category === selectedCategory);
+
   return (
-    <div className={styles.app}>
+    <div>
+
       <HomeHeader />
 
       <main>
-        <RestaurantCategoryFilter />
-        <RestaurantList />
+        <RestaurantCategoryFilter
+          setSelectedCategory={setSelectedCategory}
+        />
+        <RestaurantList restaurants={filteredRestaurants} />
       </main>
 
-      <article>
-        <RestaurantDetailModal />
-        <AddRestaurantModal />
-      </article>
+      <RestaurantDetailModal />
+      <AddRestaurantModal />
+
     </div>
   );
 }
