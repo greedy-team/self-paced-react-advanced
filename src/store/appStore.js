@@ -1,11 +1,21 @@
 import { create } from 'zustand';
+import { persist, createJSONStorage } from 'zustand/middleware';
 import { createModalSlice } from './slices/modalSlice';
 import { createRestaurantSlice } from './slices/restaurantSlice';
 
-export const useAppStore = create((set, get) => ({
-  ...createRestaurantSlice(set, get),
-  ...createModalSlice(set),
-}));
+export const useAppStore = create(
+  persist(
+    (set, get) => ({
+      ...createRestaurantSlice(set, get),
+      ...createModalSlice(set),
+    }),
+    {
+      name: 'selectedCategory-storage',
+      storage: createJSONStorage(() => sessionStorage),
+      partialize: (state) => ({ selectedCategory: state.selectedCategory }),
+    }
+  )
+);
 
 export const useRestaurantActions = () =>
   useAppStore((store) => store.restaurantActions);
