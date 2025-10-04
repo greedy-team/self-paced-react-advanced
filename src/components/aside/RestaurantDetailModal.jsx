@@ -1,9 +1,11 @@
 import styled from 'styled-components';
 import Modal from './modal/Modal';
-import { useSelector, useDispatch } from 'react-redux';
-import { closeRestaurantDetailModal } from '../../features/modalSlice';
-import { setSelectedRestaurant } from '../../features/restaurantSlice';
-
+import {
+  useIsDetailModalOpen,
+  useSelectedRestaurant,
+  useRestaurantActions,
+  useModalActions,
+} from '../../store/appStore';
 
 const RestaurantInfo = styled.div`
   margin-bottom: 24px;
@@ -35,16 +37,13 @@ const CloseButton = styled.button`
 `;
 
 const RestaurantDetailModal = () => {
-  const dispatch = useDispatch();
-  const isRestaurantDetailModalOpen = useSelector(
-    (state) => state.modal.isRestaurantDetailModalOpen
-  );
-  const selectedRestaurant = useSelector(
-    (state) => state.restaurant.selectedRestaurant
-  );
+  const isRestaurantDetailModalOpen = useIsDetailModalOpen();
+  const selectedRestaurant = useSelectedRestaurant();
+  const { setSelectedRestaurant } = useRestaurantActions();
+  const { closeRestaurantDetailModal } = useModalActions();
   const handleCloseRestaurantDetailModal = () => {
-    dispatch(closeRestaurantDetailModal());
-    dispatch(setSelectedRestaurant(null));
+    closeRestaurantDetailModal();
+    setSelectedRestaurant(null);
   };
   return (
     <Modal
@@ -59,7 +58,6 @@ const RestaurantDetailModal = () => {
       </RestaurantInfo>
       <CloseButtonContainer>
         <CloseButton type="button" onClick={handleCloseRestaurantDetailModal}>
-
           닫기
         </CloseButton>
       </CloseButtonContainer>

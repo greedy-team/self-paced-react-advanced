@@ -1,9 +1,12 @@
 import RestaurantListItem from './RestaurantListItem';
 import styled from 'styled-components';
-import { useSelector, useDispatch } from 'react-redux';
-import { selectFilteredRestaurants } from '../../features/selectors';
-import { setSelectedRestaurant } from '../../features/restaurantSlice';
-import { openRestaurantDetailModal } from '../../features/modalSlice';
+import {
+  useRestaurants,
+  useGetStatus,
+  useSelectedCategory,
+  useRestaurantActions,
+  useModalActions,
+} from '../../store/appStore';
 
 const RestaurantListContainer = styled.section`
   display: flex;
@@ -18,21 +21,25 @@ const RestaurantListItemContainer = styled.ul`
 `;
 
 const RestaurantList = () => {
-  const dispatch = useDispatch();
-  const filteredRestaurants = useSelector(selectFilteredRestaurants);
-  const getStatus = useSelector((state) => state.restaurant.getStatus);
-  const getError = useSelector((state) => state.restaurant.getError);
-
+  const restaurants = useRestaurants();
+  const getStatus = useGetStatus();
+  const selectedCategory = useSelectedCategory();
+  const { setSelectedRestaurant } = useRestaurantActions();
+  const { openRestaurantDetailModal } = useModalActions();
+  const filteredRestaurants =
+    selectedCategory === '전체'
+      ? restaurants
+      : restaurants.filter((r) => r.category === selectedCategory);
   const handleOpenRestaurantDetailModal = (restaurant) => {
-    dispatch(setSelectedRestaurant(restaurant));
-    dispatch(openRestaurantDetailModal());
+    setSelectedRestaurant(restaurant);
+    openRestaurantDetailModal();
   };
 
   if (getStatus === 'loading') {
     return <div>레스토랑 목록 불러오는 중...</div>;
   }
   if (getStatus === 'failed') {
-    return <div>레스토랑 목록 불러오기 실패 ERROR: {getError}</div>;
+    return <div>레스토랑 목록 불러오기 실패</div>;
   }
 
   return (
