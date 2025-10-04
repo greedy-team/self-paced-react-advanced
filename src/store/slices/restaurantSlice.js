@@ -1,6 +1,6 @@
 import { getRestaurants, addNewRestaurant } from '../../api/api';
 
-export const createRestaurantSlice = (set) => ({
+export const createRestaurantSlice = (set, get) => ({
   restaurants: [],
   getStatus: 'idle',
   postStatus: 'idle',
@@ -14,6 +14,8 @@ export const createRestaurantSlice = (set) => ({
       set({ selectedRestaurant: restaurant }),
 
     fetchRestaurants: async () => {
+      if (get().getStatus === 'loading') return;
+
       set({ getStatus: 'loading' });
       try {
         const list = await getRestaurants();
@@ -24,6 +26,8 @@ export const createRestaurantSlice = (set) => ({
     },
 
     postNewRestaurant: async (newRestaurant) => {
+      if (get().postStatus === 'loading') return;
+
       set({ postStatus: 'loading' });
       try {
         await addNewRestaurant(newRestaurant);

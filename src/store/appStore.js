@@ -2,8 +2,8 @@ import { create } from 'zustand';
 import { createModalSlice } from './slices/modalSlice';
 import { createRestaurantSlice } from './slices/restaurantSlice';
 
-export const useAppStore = create((set) => ({
-  ...createRestaurantSlice(set),
+export const useAppStore = create((set, get) => ({
+  ...createRestaurantSlice(set, get),
   ...createModalSlice(set),
 }));
 
