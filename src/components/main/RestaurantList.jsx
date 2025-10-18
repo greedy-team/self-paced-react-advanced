@@ -21,25 +21,24 @@ const RestaurantListMessageBox = styled.div`
 
 const RestaurantList = () => {
   const selectedCategory = useClientStore((state) => state.selectedCategory);
+  const category =
+    selectedCategory === "선택해 주세요" || !selectedCategory
+      ? "all"
+      : selectedCategory;
 
   const {
-    data: restaurants,
+    data: restaurants = [],
     isLoading,
     isError,
     error,
   } = useQuery({
-    queryKey: ["restaurants", selectedCategory],
-    queryFn: getRestaurants,
-    select: (data) => {
-      const categoryToFilter =
-        selectedCategory === "선택해 주세요" ? "all" : selectedCategory;
-      if (categoryToFilter === "all") {
-        return data;
-      }
-      return data.filter(
-        (restaurant) => restaurant.category === categoryToFilter
-      );
-    },
+    queryKey: ["restaurants", { category }],
+    queryFn: () => getRestaurants({ category }),
+    staleTime: 60_000,
+    gcTime: 5 * 60_000,
+    keepPreviousData: true,
+    refetchOnWindowFocus: false,
+    retry: 1,
   });
 
   if (isLoading) {
@@ -51,22 +50,30 @@ const RestaurantList = () => {
   }
 
   if (isError) {
-    throw new Error(`레스토랑 목록 로딩 실패: ${error.message}`);
+    return (
+      <RestaurantListMessageBox>에러: {error.message}</RestaurantListMessageBox>
+    );
   }
 
   return (
     <RestaurantListContainer>
-      <ul>
-        {restaurants.map((restaurant) => (
-          <RestaurantListItem
-            key={restaurant.id}
-            categoryIcon={restaurant.icon}
-            categoryAlt={restaurant.alt}
-            name={restaurant.name}
-            description={restaurant.description}
-          />
-        ))}
-      </ul>
+      {restaurants.length === 0 ? (
+        <RestaurantListMessageBox>
+          표시할 레스토랑이 없습니다.
+        </RestaurantListMessageBox>
+      ) : (
+        <ul>
+          {restaurants.map((restaurant) => (
+            <RestaurantListItem
+              key={restaurant.id}
+              categoryIcon={restaurant.icon}
+              categoryAlt={restaurant.alt}
+              name={restaurant.name}
+              description={restaurant.description}
+            />
+          ))}
+        </ul>
+      )}
     </RestaurantListContainer>
   );
 };
