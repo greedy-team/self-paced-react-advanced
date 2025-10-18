@@ -7,6 +7,7 @@ import RestaurantAddModal from "./components/aside/RestaurantAddModal.jsx";
 import { Suspense } from "react";
 import { ErrorBoundary } from "react-error-boundary";
 import styled from "styled-components";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import useClientStore from "./store/clientStore.js";
 
 const ErrorContainer = styled.div`
@@ -82,6 +83,7 @@ function App() {
           <ModalContainer />
         </Suspense>
       </ErrorBoundary>
+      <ReactQueryDevtools initialIsOpen={false} />
     </>
   );
 }

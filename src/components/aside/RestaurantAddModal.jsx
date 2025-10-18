@@ -1,8 +1,8 @@
 import Modal from "./modal/Modal.jsx";
 import styled from "styled-components";
 import RestaurantCategory from "../category/FilteredCategoryOptions";
-import { useErrorBoundary } from "react-error-boundary";
-import { useDispatch } from "react-redux";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { addRestaurant } from "../../api/restaurant.js";
 import useClientStore from "../../store/clientStore.js";
 
 const CATEGORY_MAP = {
@@ -64,7 +64,19 @@ const Select = styled.select`
 `;
 
 function RestaurantAddModal() {
+  const queryClient = useQueryClient();
   const setModal = useClientStore((state) => state.setModal);
+
+  const { mutate } = useMutation({
+    mutationFn: addRestaurant,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["restaurants"] });
+      setModal(null);
+    },
+    onError: (error) => {
+      throw new Error(`레스토랑 추가 실패: ${error.message}`);
+    },
+  });
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -85,24 +97,7 @@ function RestaurantAddModal() {
       description,
     };
 
-    try {
-      const response = await fetch("http://localhost:3000/restaurants", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(newRestaurant),
-      });
-
-      if (!response.ok) {
-        throw new Error(
-          "레스토랑을 추가하는 과정 중, 서버 연결에 문제가 발생했습니다."
-        );
-      }
-      dispatch(setModal("add-success"));
-    } catch (error) {
-      showBoundary(error);
-    }
+    mutate(newRestaurant);
   };
 
   return (

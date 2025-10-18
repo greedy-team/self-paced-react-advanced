@@ -1,5 +1,7 @@
 import styled from "styled-components";
 import RestaurantListItem from "./RestaurantListItem.jsx";
+import { useQuery } from "@tanstack/react-query";
+import { getRestaurants } from "../../api/restaurant.js";
 import useClientStore from "../../store/clientStore.js";
 
 const RestaurantListContainer = styled.div`
@@ -21,36 +23,26 @@ const RestaurantList = () => {
   const selectedCategory = useClientStore((state) => state.selectedCategory);
 
   const {
-    items: restaurants,
-    status,
+    data: restaurants,
+    isLoading,
+    isError,
     error,
-  } = useSelector((state) => state.restaurants);
-  const selectedCategory = useSelector(
-    (state) => state.category.selectedCategory
-  );
-  const modalStateValue = useSelector((state) => state.modal.value);
+  } = useQuery({
+    queryKey: ["restaurants", selectedCategory],
+    queryFn: getRestaurants,
+    select: (data) => {
+      const categoryToFilter =
+        selectedCategory === "선택해 주세요" ? "all" : selectedCategory;
+      if (categoryToFilter === "all") {
+        return data;
+      }
+      return data.filter(
+        (restaurant) => restaurant.category === categoryToFilter
+      );
+    },
+  });
 
-  // 카테고리 변경 시, 리스트 새로고침
-  useEffect(() => {
-    dispatch(fetchFilteredRestaurants());
-  }, [dispatch, selectedCategory]);
-
-  // 레스토랑 추가 시, 리스트 새로고침
-  useEffect(() => {
-    if (modalStateValue === "add-success") {
-      dispatch(fetchFilteredRestaurants());
-      dispatch(setModal(null));
-    }
-  }, [modalStateValue, dispatch]);
-
-  // 에러 처리
-  useEffect(() => {
-    if (status === "failed") {
-      showBoundary(new Error("레스토랑을 불러오는데 실패했습니다."));
-    }
-  }, [status, error, showBoundary]);
-
-  if (status === "loading") {
+  if (isLoading) {
     return (
       <RestaurantListMessageBox>
         레스토랑을 불러오는 중입니다...
@@ -58,12 +50,8 @@ const RestaurantList = () => {
     );
   }
 
-  if (status !== "loading" && restaurants.length === 0) {
-    return (
-      <RestaurantListMessageBox>
-        해당 카테고리에 해당하는 레스토랑이 없습니다.
-      </RestaurantListMessageBox>
-    );
+  if (isError) {
+    throw new Error(`레스토랑 목록 로딩 실패: ${error.message}`);
   }
 
   return (
