@@ -1,7 +1,7 @@
 import Modal from "./modal/Modal.jsx";
 import styled from "styled-components";
-import { useDispatch, useSelector } from "react-redux";
-import { setModal } from "../../redux/modalSlice.js";
+import useClientStore from "../../store/clientStore.js";
+import { useShallow } from "zustand/shallow";
 
 const RestaurantInfo = styled.div`
   margin-bottom: 24px;
@@ -17,19 +17,21 @@ const Description = styled.p`
 `;
 
 function RestaurantDetailModal() {
-  const dispatch = useDispatch();
-  const restaurantItem = useSelector(
-    (state) => state.selectedRestaurantItem.value
+  const { selectedRestaurantItem, setModal } = useClientStore(
+    useShallow((state) => ({
+      selectedRestaurantItem: state.selectedRestaurantItem,
+      setModal: state.setModal,
+    }))
   );
 
   return (
     <Modal
-      title={restaurantItem.name}
-      onClose={() => dispatch(setModal(null))}
+      title={selectedRestaurantItem.name}
+      onClose={() => setModal(null)}
       isButtonOpen
     >
       <RestaurantInfo>
-        <Description>{restaurantItem.description}</Description>
+        <Description>{selectedRestaurantItem.description}</Description>
       </RestaurantInfo>
     </Modal>
   );

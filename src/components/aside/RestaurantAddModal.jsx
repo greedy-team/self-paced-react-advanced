@@ -3,7 +3,7 @@ import styled from "styled-components";
 import RestaurantCategory from "../category/FilteredCategoryOptions";
 import { useErrorBoundary } from "react-error-boundary";
 import { useDispatch } from "react-redux";
-import { setModal } from "../../redux/modalSlice.js";
+import useClientStore from "../../store/clientStore.js";
 
 const CATEGORY_MAP = {
   korean: "한식",
@@ -64,8 +64,7 @@ const Select = styled.select`
 `;
 
 function RestaurantAddModal() {
-  const dispatch = useDispatch();
-  const { showBoundary } = useErrorBoundary();
+  const setModal = useClientStore((state) => state.setModal);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -109,7 +108,7 @@ function RestaurantAddModal() {
   return (
     <Modal
       title="새로운 음식점"
-      onClose={() => dispatch(setModal(null))}
+      onClose={() => setModal(null)}
       onSubmit={handleSubmit}
     >
       <FormItem>

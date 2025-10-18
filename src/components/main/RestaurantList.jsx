@@ -1,10 +1,6 @@
 import styled from "styled-components";
 import RestaurantListItem from "./RestaurantListItem.jsx";
-import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useErrorBoundary } from "react-error-boundary";
-import { fetchFilteredRestaurants } from "../../redux/restaurantsSlice.js";
-import { setModal } from "../../redux/modalSlice.js";
+import useClientStore from "../../store/clientStore.js";
 
 const RestaurantListContainer = styled.div`
   display: flex;
@@ -22,8 +18,7 @@ const RestaurantListMessageBox = styled.div`
 `;
 
 const RestaurantList = () => {
-  const dispatch = useDispatch();
-  const { showBoundary } = useErrorBoundary();
+  const selectedCategory = useClientStore((state) => state.selectedCategory);
 
   const {
     items: restaurants,

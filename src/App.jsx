@@ -4,10 +4,10 @@ import RestaurantList from "./components/main/RestaurantList.jsx";
 import RestaurantFilter from "./components/main/RestaurantFilter.jsx";
 import RestaurantDetailModal from "./components/aside/RestaurantDetailModal.jsx";
 import RestaurantAddModal from "./components/aside/RestaurantAddModal.jsx";
-import { useSelector } from "react-redux";
 import { Suspense } from "react";
 import { ErrorBoundary } from "react-error-boundary";
 import styled from "styled-components";
+import useClientStore from "./store/clientStore.js";
 
 const ErrorContainer = styled.div`
   padding: 20px;
@@ -52,7 +52,7 @@ const ErrorFallback = ({ error, resetErrorBoundary }) => {
 };
 
 function ModalContainer() {
-  const modalStateValue = useSelector((state) => state.modal.value);
+  const modalStateValue = useClientStore((state) => state.modal);
 
   return (
     <aside>
