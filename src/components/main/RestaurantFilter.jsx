@@ -25,7 +25,7 @@ const RestaurantFilter = () => {
   );
 
   const handleChange = (event) => {
-    setSelectedCategory(event.target.value);
+    dispatch(setCategory(event.target.value));
   };
 
   return (
