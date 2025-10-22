@@ -63,11 +63,23 @@ const Select = styled.select`
   color: var(--grey-300);
 `;
 
+const Banner = styled.div`
+  margin-bottom: 12px;
+  padding: 10px 12px;
+  border-radius: 8px;
+  font-size: 14px;
+`;
+
+const PendingBanner = styled(Banner)`
+  border: 1px solid var(--grey-200);
+  color: var(--primary-color);
+`;
+
 function RestaurantAddModal() {
   const queryClient = useQueryClient();
   const setModal = useModalStore((state) => state.setModal);
 
-  const { mutate } = useMutation({
+  const { mutate, isPending } = useMutation({
     mutationFn: addRestaurant,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["restaurants"] });
@@ -78,8 +90,9 @@ function RestaurantAddModal() {
     },
   });
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
+    if (isPending) return;
 
     const id = crypto.randomUUID();
     const category = e.target.category.value;
@@ -88,16 +101,7 @@ function RestaurantAddModal() {
     const name = e.target.name.value;
     const description = e.target.description.value;
 
-    const newRestaurant = {
-      id,
-      category,
-      icon,
-      alt,
-      name,
-      description,
-    };
-
-    mutate(newRestaurant);
+    mutate({ id, category, icon, alt, name, description });
   };
 
   return (
@@ -106,6 +110,12 @@ function RestaurantAddModal() {
       onClose={() => setModal(null)}
       onSubmit={handleSubmit}
     >
+      {isPending && (
+        <PendingBanner role="status" aria-live="polite">
+          음식점을 등록하는 중입니다…
+        </PendingBanner>
+      )}
+
       <FormItem>
         <Label htmlFor="category" required>
           카테고리
