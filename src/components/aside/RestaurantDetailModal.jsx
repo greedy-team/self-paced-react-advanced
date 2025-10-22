@@ -1,7 +1,7 @@
 import Modal from "./modal/Modal.jsx";
 import styled from "styled-components";
-import useClientStore from "../../store/clientStore.js";
-import { useShallow } from "zustand/shallow";
+import useRestaurantStore from "../../store/restaurantStore";
+import useModalStore from "../../store/modalStore";
 
 const RestaurantInfo = styled.div`
   margin-bottom: 24px;
@@ -17,12 +17,11 @@ const Description = styled.p`
 `;
 
 function RestaurantDetailModal() {
-  const { selectedRestaurantItem, setModal } = useClientStore(
-    useShallow((state) => ({
-      selectedRestaurantItem: state.selectedRestaurantItem,
-      setModal: state.setModal,
-    }))
+  const selectedRestaurantItem = useRestaurantStore(
+    (state) => state.selectedRestaurantItem
   );
+
+  const setModal = useModalStore((state) => state.setModal);
 
   return (
     <Modal

@@ -1,6 +1,6 @@
 import styled from "styled-components";
-import useClientStore from "../../store/clientStore";
-import { useShallow } from "zustand/shallow";
+import useRestaurantStore from "../../store/restaurantStore";
+import useModalStore from "../../store/modalStore";
 
 const RestaurantItem = styled.li`
   display: flex;
@@ -51,12 +51,11 @@ const RestaurantDescription = styled.p`
 `;
 
 function RestaurantListItem({ categoryIcon, categoryAlt, name, description }) {
-  const { setSelectedRestaurantItem, setModal } = useClientStore(
-    useShallow((state) => ({
-      setSelectedRestaurantItem: state.setSelectedRestaurantItem,
-      setModal: state.setModal,
-    }))
+  const setSelectedRestaurantItem = useRestaurantStore(
+    (state) => state.setSelectedRestaurantItem
   );
+
+  const setModal = useModalStore((state) => state.setModal);
 
   const handleClick = () => {
     setSelectedRestaurantItem({ name, description });

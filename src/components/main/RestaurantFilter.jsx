@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import FilteredCategoryOptions from "../category/FilteredCategoryOptions";
-import useClientStore from "../../store/clientStore";
+import useCategoryStore from "../../store/categoryStore";
 
 const FilterContainer = styled.section`
   display: flex;
@@ -20,12 +20,12 @@ const SelectCategory = styled.select`
 `;
 
 const RestaurantFilter = () => {
-  const setSelectedCategory = useClientStore(
+  const setSelectedCategory = useCategoryStore(
     (state) => state.setSelectedCategory
   );
 
   const handleChange = (event) => {
-    dispatch(setCategory(event.target.value));
+    setSelectedCategory(event.target.value);
   };
 
   return (

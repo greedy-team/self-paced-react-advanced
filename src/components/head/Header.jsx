@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import useClientStore from "../../store/clientStore";
+import useModalStore from "../../store/modalStore.js";
 
 const HeaderContainer = styled.header`
   display: flex;
@@ -28,7 +28,7 @@ const Button = styled.button`
 `;
 
 function Header() {
-  const setModal = useClientStore((state) => state.setModal);
+  const setModal = useModalStore((state) => state.setModal);
 
   return (
     <HeaderContainer>

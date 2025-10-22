@@ -3,7 +3,7 @@ import styled from "styled-components";
 import RestaurantCategory from "../category/FilteredCategoryOptions";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { addRestaurant } from "../../api/restaurant.js";
-import useClientStore from "../../store/clientStore.js";
+import useModalStore from "../../store/modalStore.js";
 
 const CATEGORY_MAP = {
   korean: "한식",
@@ -65,7 +65,7 @@ const Select = styled.select`
 
 function RestaurantAddModal() {
   const queryClient = useQueryClient();
-  const setModal = useClientStore((state) => state.setModal);
+  const setModal = useModalStore((state) => state.setModal);
 
   const { mutate } = useMutation({
     mutationFn: addRestaurant,

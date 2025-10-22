@@ -2,7 +2,7 @@ import styled from "styled-components";
 import RestaurantListItem from "./RestaurantListItem.jsx";
 import { useQuery } from "@tanstack/react-query";
 import { getRestaurants } from "../../api/restaurant.js";
-import useClientStore from "../../store/clientStore.js";
+import useCategoryStore from "../../store/categoryStore.js";
 
 const RestaurantListContainer = styled.div`
   display: flex;
@@ -20,7 +20,7 @@ const RestaurantListMessageBox = styled.div`
 `;
 
 const RestaurantList = () => {
-  const selectedCategory = useClientStore((state) => state.selectedCategory);
+  const selectedCategory = useCategoryStore((state) => state.selectedCategory);
   const category =
     selectedCategory === "선택해 주세요" || !selectedCategory
       ? "all"
@@ -36,7 +36,6 @@ const RestaurantList = () => {
     queryFn: () => getRestaurants({ category }),
     staleTime: 60_000,
     gcTime: 5 * 60_000,
-    keepPreviousData: true,
     refetchOnWindowFocus: false,
     retry: 1,
   });

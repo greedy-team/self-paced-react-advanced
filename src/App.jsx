@@ -8,7 +8,7 @@ import { Suspense } from "react";
 import { ErrorBoundary } from "react-error-boundary";
 import styled from "styled-components";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
-import useClientStore from "./store/clientStore.js";
+import useModalStore from "./store/modalStore.js";
 
 const ErrorContainer = styled.div`
   padding: 20px;
@@ -53,7 +53,7 @@ const ErrorFallback = ({ error, resetErrorBoundary }) => {
 };
 
 function ModalContainer() {
-  const modalStateValue = useClientStore((state) => state.modal);
+  const modalStateValue = useModalStore((state) => state.modal);
 
   return (
     <aside>
