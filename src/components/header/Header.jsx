@@ -45,7 +45,7 @@ const Header = () => {
       <AddRestaurantButton
         type="button"
         aria-label="음식점 추가"
-        onClick={() => dispatch(openRestaurantAddModal())}
+        onClick={() => openRestaurantAddModal()}
       >
         <AddRestaurantImg src={addButton} alt="음식점 추가" />
       </AddRestaurantButton>
