@@ -1,6 +1,5 @@
 import styled from "styled-components";
-import { useDispatch } from "react-redux";
-import { setModal } from "../../redux/modalSlice.js";
+import useModalStore from "../../store/modalStore.js";
 
 const HeaderContainer = styled.header`
   display: flex;
@@ -29,7 +28,7 @@ const Button = styled.button`
 `;
 
 function Header() {
-  const dispatch = useDispatch();
+  const setModal = useModalStore((state) => state.setModal);
 
   return (
     <HeaderContainer>
@@ -37,7 +36,7 @@ function Header() {
       <Button
         type="button"
         aria-label="음식점 추가"
-        onClick={() => dispatch(setModal("add"))}
+        onClick={() => setModal("add")}
       >
         <img src="/assets/images/button/add-button.png" alt="음식점 추가" />
       </Button>

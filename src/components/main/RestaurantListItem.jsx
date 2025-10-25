@@ -1,7 +1,6 @@
 import styled from "styled-components";
-import { useDispatch } from "react-redux";
-import { setSelectedRestaurantItem } from "../../redux/selectedRestaurantItemSlice.js";
-import { setModal } from "../../redux/modalSlice.js";
+import useRestaurantStore from "../../store/restaurantStore";
+import useModalStore from "../../store/modalStore";
 
 const RestaurantItem = styled.li`
   display: flex;
@@ -52,11 +51,15 @@ const RestaurantDescription = styled.p`
 `;
 
 function RestaurantListItem({ categoryIcon, categoryAlt, name, description }) {
-  const dispatch = useDispatch();
+  const setSelectedRestaurantItem = useRestaurantStore(
+    (state) => state.setSelectedRestaurantItem
+  );
+
+  const setModal = useModalStore((state) => state.setModal);
 
   const handleClick = () => {
-    dispatch(setSelectedRestaurantItem({ name, description }));
-    dispatch(setModal("detail"));
+    setSelectedRestaurantItem({ name, description });
+    setModal("detail");
   };
 
   return (

@@ -1,7 +1,6 @@
 import styled from "styled-components";
 import FilteredCategoryOptions from "../category/FilteredCategoryOptions";
-import { useDispatch } from "react-redux";
-import { setCategory } from "../../redux/categorySlice";
+import useCategoryStore from "../../store/categoryStore";
 
 const FilterContainer = styled.section`
   display: flex;
@@ -21,10 +20,12 @@ const SelectCategory = styled.select`
 `;
 
 const RestaurantFilter = () => {
-  const dispatch = useDispatch();
+  const setSelectedCategory = useCategoryStore(
+    (state) => state.setSelectedCategory
+  );
 
   const handleChange = (event) => {
-    dispatch(setCategory(event.target.value));
+    setSelectedCategory(event.target.value);
   };
 
   return (

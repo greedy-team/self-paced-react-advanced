@@ -1,9 +1,9 @@
 import Modal from "./modal/Modal.jsx";
 import styled from "styled-components";
 import RestaurantCategory from "../category/FilteredCategoryOptions";
-import { useErrorBoundary } from "react-error-boundary";
-import { useDispatch } from "react-redux";
-import { setModal } from "../../redux/modalSlice.js";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { addRestaurant } from "../../api/restaurant.js";
+import useModalStore from "../../store/modalStore.js";
 
 const CATEGORY_MAP = {
   korean: "한식",
@@ -63,12 +63,36 @@ const Select = styled.select`
   color: var(--grey-300);
 `;
 
-function RestaurantAddModal() {
-  const dispatch = useDispatch();
-  const { showBoundary } = useErrorBoundary();
+const Banner = styled.div`
+  margin-bottom: 12px;
+  padding: 10px 12px;
+  border-radius: 8px;
+  font-size: 14px;
+`;
 
-  const handleSubmit = async (e) => {
+const PendingBanner = styled(Banner)`
+  border: 1px solid var(--grey-200);
+  color: var(--primary-color);
+`;
+
+function RestaurantAddModal() {
+  const queryClient = useQueryClient();
+  const setModal = useModalStore((state) => state.setModal);
+
+  const { mutate, isPending } = useMutation({
+    mutationFn: addRestaurant,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["restaurants"] });
+      setModal(null);
+    },
+    onError: (error) => {
+      throw new Error(`레스토랑 추가 실패: ${error.message}`);
+    },
+  });
+
+  const handleSubmit = (e) => {
     e.preventDefault();
+    if (isPending) return;
 
     const id = crypto.randomUUID();
     const category = e.target.category.value;
@@ -77,41 +101,21 @@ function RestaurantAddModal() {
     const name = e.target.name.value;
     const description = e.target.description.value;
 
-    const newRestaurant = {
-      id,
-      category,
-      icon,
-      alt,
-      name,
-      description,
-    };
-
-    try {
-      const response = await fetch("http://localhost:3000/restaurants", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(newRestaurant),
-      });
-
-      if (!response.ok) {
-        throw new Error(
-          "레스토랑을 추가하는 과정 중, 서버 연결에 문제가 발생했습니다."
-        );
-      }
-      dispatch(setModal("add-success"));
-    } catch (error) {
-      showBoundary(error);
-    }
+    mutate({ id, category, icon, alt, name, description });
   };
 
   return (
     <Modal
       title="새로운 음식점"
-      onClose={() => dispatch(setModal(null))}
+      onClose={() => setModal(null)}
       onSubmit={handleSubmit}
     >
+      {isPending && (
+        <PendingBanner role="status" aria-live="polite">
+          음식점을 등록하는 중입니다…
+        </PendingBanner>
+      )}
+
       <FormItem>
         <Label htmlFor="category" required>
           카테고리
