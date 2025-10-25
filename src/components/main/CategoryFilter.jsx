@@ -35,7 +35,7 @@ const CategoryFilter = () => {
         id="category-filter"
         value={selectedCategory}
         aria-label="음식점 카테고리 필터"
-        onChange={(e) => dispatch(setSelectedCategory(e.target.value))}
+        onChange={(e) => setSelectedCategory(e.target.value)}
       >
         {categories.map((category) => (
           <option key={category} value={category}>
