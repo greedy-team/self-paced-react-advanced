@@ -1,12 +1,11 @@
 import RestaurantListItem from './RestaurantListItem';
 import styled from 'styled-components';
 import {
-  useRestaurants,
-  useGetStatus,
   useSelectedCategory,
   useRestaurantActions,
   useModalActions,
 } from '../../store/appStore';
+import { useRestaurants } from '../../api/hooks/useRestaurants';
 
 const RestaurantListContainer = styled.section`
   display: flex;
@@ -21,31 +20,32 @@ const RestaurantListItemContainer = styled.ul`
 `;
 
 const RestaurantList = () => {
-  const restaurants = useRestaurants();
-  const getStatus = useGetStatus();
   const selectedCategory = useSelectedCategory();
   const { setSelectedRestaurant } = useRestaurantActions();
   const { openRestaurantDetailModal } = useModalActions();
-  const filteredRestaurants =
-    selectedCategory === '전체'
-      ? restaurants
-      : restaurants.filter((r) => r.category === selectedCategory);
+
+  const {
+    data: restaurants = [],
+    isPending,
+    isError,
+    error,
+  } = useRestaurants(selectedCategory);
   const handleOpenRestaurantDetailModal = (restaurant) => {
     setSelectedRestaurant(restaurant);
     openRestaurantDetailModal();
   };
 
-  if (getStatus === 'loading') {
+  if (isPending) {
     return <div>레스토랑 목록 불러오는 중...</div>;
   }
-  if (getStatus === 'failed') {
-    return <div>레스토랑 목록 불러오기 실패</div>;
+  if (isError) {
+    return <div>{error.message}</div>;
   }
 
   return (
     <RestaurantListContainer>
       <RestaurantListItemContainer>
-        {filteredRestaurants.map((restaurant) => (
+        {restaurants.map((restaurant) => (
           <RestaurantListItem
             key={restaurant.id}
             restaurant={restaurant}
