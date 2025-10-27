@@ -27,4 +27,4 @@
 
 1. #### Context API
 2. #### Zustand
-3. #### Redux
+3. #### Tanstack Query
