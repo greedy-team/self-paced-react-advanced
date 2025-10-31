@@ -7,7 +7,9 @@ import RestaurantDetailModal from './components/aside/RestaurantDetailModal';
 import AddRestaurantModal from './components/aside/AddRestaurantModal';
 import StyleProvider from './styles/StyleProvider';
 import { Toaster } from 'react-hot-toast';
+import { startRestaurantUpdateSimulator } from './sim/startRestaurantUpdateSimulator';
 
+startRestaurantUpdateSimulator();
 const queryClient = new QueryClient();
 
 const App = () => {
