@@ -45,7 +45,7 @@ createRoot(document.getElementById('root')).render(
 
 ## 🧙‍♀️ 진행 가이드
 
-- 진행시간 : 2시간 내에 완료하는 것을 목표로 합니다.
+- 진행시간 : 4시간 내에 완료하는 것을 목표로 합니다.
 
 ## 🔗 참고 문서
 
