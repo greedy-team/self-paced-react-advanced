@@ -1,7 +1,9 @@
 import styled from 'styled-components';
 import { categories } from '../../constant/constant';
-import { useSelector, useDispatch } from 'react-redux';
-import { setSelectedCategory } from '../../features/restaurantSlice';
+import {
+  useSelectedCategory,
+  useRestaurantActions,
+} from '../../store/appStore';
 
 const RestaurantFilterContainer = styled.section`
   display: flex;
@@ -23,10 +25,8 @@ const RestaurantFilter = styled.select`
 `;
 
 const CategoryFilter = () => {
-  const dispatch = useDispatch();
-  const selectedCategory = useSelector(
-    (state) => state.restaurant.selectedCategory
-  );
+  const selectedCategory = useSelectedCategory();
+  const { setSelectedCategory } = useRestaurantActions();
 
   return (
     <RestaurantFilterContainer>
@@ -35,7 +35,7 @@ const CategoryFilter = () => {
         id="category-filter"
         value={selectedCategory}
         aria-label="음식점 카테고리 필터"
-        onChange={(e) => dispatch(setSelectedCategory(e.target.value))}
+        onChange={(e) => setSelectedCategory(e.target.value)}
       >
         {categories.map((category) => (
           <option key={category} value={category}>

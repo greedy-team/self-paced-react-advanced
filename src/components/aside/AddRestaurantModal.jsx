@@ -1,12 +1,13 @@
 import styled from 'styled-components';
 import { selectableCategories } from '../../constant/constant';
 import Modal from './modal/Modal';
-import { useSelector, useDispatch } from 'react-redux';
 import {
-  fetchRestaurants,
-  postNewRestaurant,
-} from '../../features/restaurantSlice';
-import { closeRestaurantAddModal } from '../../features/modalSlice';
+  useIsAddModalOpen,
+  usePostStatus,
+  useRestaurantActions,
+  useModalActions,
+  useAppStore,
+} from '../../store/appStore';
 
 const AddRestaurantForm = styled.form``;
 
@@ -81,13 +82,12 @@ const SubmitButton = styled.button`
 `;
 
 const AddRestaurantModal = () => {
-  const dispatch = useDispatch();
-  const handleCloseRestaurantAddModal = () =>
-    dispatch(closeRestaurantAddModal());
-  const isRestaurantAddModalOpen = useSelector(
-    (state) => state.modal.isRestaurantAddModalOpen
-  );
-  const postStatus = useSelector((state) => state.restaurant.postStatus);
+  const isRestaurantAddModalOpen = useIsAddModalOpen();
+  const postStatus = usePostStatus();
+  const { postNewRestaurant, fetchRestaurants } = useRestaurantActions();
+  const { closeRestaurantAddModal } = useModalActions();
+
+  const handleCloseRestaurantAddModal = () => closeRestaurantAddModal();
 
   const handleFormSubmit = async (e) => {
     e.preventDefault();
@@ -97,14 +97,12 @@ const AddRestaurantModal = () => {
       name: e.target.name.value,
       description: e.target.description.value,
     };
-    const resultAction = await dispatch(postNewRestaurant(newRestaurant));
-
-    if (postNewRestaurant.rejected.match(resultAction)) {
-      alert(`추가 실패 ERROR: ${resultAction.error.message}`);
+    await postNewRestaurant(newRestaurant);
+    if (useAppStore.getState().postStatus === 'failed') {
+      alert('식당 추가에 실패 했습니다.');
       return;
     }
-
-    await dispatch(fetchRestaurants());
+    await fetchRestaurants();
     handleCloseRestaurantAddModal();
     e.target.reset();
   };
