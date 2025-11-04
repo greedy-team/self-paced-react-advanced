@@ -1,16 +1,22 @@
-import Modal from '../UI/Modal';
+import Modal from '../ui/Modal';
 import styles from './RestaurantModal.module.css';
 
-function RestaurantDetailModal() {
+function RestaurantDetailModal({ restaurant, onClose }) {
   return (
-    <Modal>
-      <h2 className={`${styles.modalTitle} text-title`}>음식점 이름</h2>
+    <Modal onClose={onClose}>
+      <h2 className={`${styles.modalTitle} text-title`}>{restaurant.name}</h2>
       <div className={styles.restaurantInfo}>
-        <p className={`${styles.restaurantInfodescription} text-body`}>음식점 소개 문구</p>
+        <p className="text-body">{restaurant.description}</p>
       </div>
 
       <div className={styles.buttonContainer}>
-        <button type="button" className={`${styles.button} ${styles.buttonPrimary} text-caption`}>닫기</button>
+        <button
+          type="button"
+          className={`${styles.button} ${styles.buttonPrimary} text-caption`}
+          onClick={onClose}
+        >
+          닫기
+        </button>
       </div>
     </Modal>
   );

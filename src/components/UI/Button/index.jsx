@@ -1,9 +1,16 @@
 import styles from './Button.module.css';
 
-function Button() {
+function Button({
+  className, label, onClick, children,
+}) {
   return (
-    <button type="button" className={styles.button} aria-label="button">
-      <img src="templates\add-button.png" alt="button" />
+    <button
+      type="button"
+      className={`${styles.button} ${className}`}
+      aria-label={label}
+      onClick={onClick}
+    >
+      {children}
     </button>
   );
 }

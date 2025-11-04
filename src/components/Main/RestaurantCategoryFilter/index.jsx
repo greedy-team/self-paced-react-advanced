@@ -1,5 +1,5 @@
 import styles from './RestaurantCategoryFilter.module.css';
-import Filter from '../../UI/Filter';
+import Filter from '../../ui/Filter';
 import { CATEGORIES } from '../../../data/restaurantsData';
 
 function RestaurantCategoryFilter({ setSelectedCategory }) {
