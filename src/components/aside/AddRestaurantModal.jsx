@@ -1,13 +1,8 @@
 import styled from 'styled-components';
 import { selectableCategories } from '../../constant/constant';
 import Modal from './modal/Modal';
-import {
-  useIsAddModalOpen,
-  usePostStatus,
-  useRestaurantActions,
-  useModalActions,
-  useAppStore,
-} from '../../store/appStore';
+import { useIsAddModalOpen, useModalActions } from '../../store/appStore';
+import { useAddNewRestaurant } from '../../api/hooks/useAddNewRestaurant';
 
 const AddRestaurantForm = styled.form``;
 
@@ -83,28 +78,24 @@ const SubmitButton = styled.button`
 
 const AddRestaurantModal = () => {
   const isRestaurantAddModalOpen = useIsAddModalOpen();
-  const postStatus = usePostStatus();
-  const { postNewRestaurant, fetchRestaurants } = useRestaurantActions();
   const { closeRestaurantAddModal } = useModalActions();
+  const mutation = useAddNewRestaurant();
 
   const handleCloseRestaurantAddModal = () => closeRestaurantAddModal();
 
-  const handleFormSubmit = async (e) => {
+  const handleFormSubmit = (e) => {
     e.preventDefault();
+    if (mutation.isPending) return;
+
     const newRestaurant = {
       id: e.target.name.value,
       category: e.target.category.value,
       name: e.target.name.value,
       description: e.target.description.value,
     };
-    await postNewRestaurant(newRestaurant);
-    if (useAppStore.getState().postStatus === 'failed') {
-      alert('식당 추가에 실패 했습니다.');
-      return;
-    }
-    await fetchRestaurants();
-    handleCloseRestaurantAddModal();
+    closeRestaurantAddModal();
     e.target.reset();
+    mutation.mutate(newRestaurant);
   };
 
   return (
@@ -149,8 +140,8 @@ const AddRestaurantModal = () => {
         </FormItem>
 
         <SubmitButtonContainer>
-          <SubmitButton type="submit" disabled={postStatus === 'loading'}>
-            {postStatus === 'loading' ? '추가 중...' : '추가하기'}
+          <SubmitButton type="submit" disabled={mutation.isPending}>
+            {mutation.isPending ? '추가 중...' : '추가하기'}
           </SubmitButton>
         </SubmitButtonContainer>
       </AddRestaurantForm>
