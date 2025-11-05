@@ -10,8 +10,21 @@ function Modal({ children, onClose }) {
     }
   };
 
+  const handleKeyDown = (event) => {
+    if (event.key === 'Escape') {
+      event.preventDefault();
+      onClose();
+    }
+  };
+
   return (
-    <div className={styles.modalBackdrop} onClick={handleBackdropClick}>
+    <div
+      className={styles.modalBackdrop}
+      onClick={handleBackdropClick}
+      onKeyDown={handleKeyDown}
+      role="button"
+      tabIndex={0}
+    >
       <div ref={modalContentRef} className={styles.modalContainer}>
         {children}
       </div>
