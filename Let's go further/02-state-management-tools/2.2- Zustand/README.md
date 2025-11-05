@@ -34,10 +34,7 @@ export const useBear = create((set) => ({
 - 전역상태관리
   - Zustand
   - create
-  - selector pattern
   - set / get
-  - slice pattern
-  - middleware (persist, createJSONStorage)
 
 ## 🧙‍♀️ 진행 가이드
 
