@@ -1,4 +1,5 @@
 import styles from './RestaurantItem.module.css';
+import { CATEGORY_IMAGE } from '../../../data/restaurantsData';
 
 function RestaurantItem({ restaurant, onRestaurantClick }) {
   return (
@@ -6,7 +7,7 @@ function RestaurantItem({ restaurant, onRestaurantClick }) {
       <button type="button" className={styles.restaurantButton} onClick={() => onRestaurantClick(restaurant)}>
         <div className={styles.restaurantCategory}>
           <img
-            src={restaurant.image}
+            src={CATEGORY_IMAGE[restaurant.category]}
             alt={restaurant.category}
             className={styles.categoryIcon}
           />

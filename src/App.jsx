@@ -1,13 +1,22 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import HomeHeader from './components/header/HomeHeader';
 import RestaurantCategoryFilter from './components/main/RestaurantCategoryFilter';
 import RestaurantList from './components/main/restaurantList';
 import RestaurantDetailModal from './components/aside/RestaurantDetailModal';
 import AddRestaurantModal from './components/aside/AddRestaurantModal';
-import restaurantData from './data/restaurantsData';
 
 function App() {
-  const [restaurants, setRestaurants] = useState(restaurantData);
+  const [restaurants, setRestaurants] = useState([]);
+
+  const fetchRestaurants = async () => {
+    const restaurantsResponse = await fetch('http://localhost:3000/restaurants');
+    const fetchedRestaurants = await restaurantsResponse.json();
+    setRestaurants(fetchedRestaurants);
+  };
+
+  useEffect(() => {
+    fetchRestaurants();
+  }, []);
 
   const [selectedCategory, setSelectedCategory] = useState('전체');
   const filteredRestaurants = selectedCategory === '전체'

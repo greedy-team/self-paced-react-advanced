@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import styles from './RestaurantModal.module.css';
 import Modal from '../ui/Modal';
-import restaurantsData from '../../data/restaurantsData';
+import { CATEGORY_IMAGE } from '../../data/restaurantsData';
 
 function AddRestaurantModal({ onAddRestaurant, onClose }) {
   const [category, setCategory] = useState('');
@@ -14,7 +14,7 @@ function AddRestaurantModal({ onAddRestaurant, onClose }) {
       category,
       name,
       description,
-      image: restaurantsData.find((restaurantItem) => restaurantItem.category === category)?.image,
+      image: CATEGORY_IMAGE[category],
     };
     onAddRestaurant(newRestaurant);
     onClose();
