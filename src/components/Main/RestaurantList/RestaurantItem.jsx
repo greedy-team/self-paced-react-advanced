@@ -1,5 +1,5 @@
 import styles from './RestaurantItem.module.css';
-import { CATEGORY_IMAGE } from '../../../data/restaurantsData';
+import { CATEGORY_IMAGE } from '../../../data/restaurantCategories';
 
 function RestaurantItem({ restaurant, onRestaurantClick }) {
   return (

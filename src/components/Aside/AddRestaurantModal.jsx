@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import styles from './RestaurantModal.module.css';
 import Modal from '../ui/Modal';
-import { CATEGORY_IMAGE } from '../../data/restaurantsData';
+import { CATEGORIES, CATEGORY_IMAGE } from '../../data/restaurantCategories';
 
 function AddRestaurantModal({ onAddRestaurant, onClose }) {
   const [category, setCategory] = useState('');
@@ -28,12 +28,11 @@ function AddRestaurantModal({ onAddRestaurant, onClose }) {
           <label htmlFor="category" className="text-caption">카테고리</label>
           <select name="category" id="category" required value={category} onChange={(e) => setCategory(e.target.value)}>
             <option value="">선택해 주세요</option>
-            <option value="한식">한식</option>
-            <option value="중식">중식</option>
-            <option value="일식">일식</option>
-            <option value="양식">양식</option>
-            <option value="아시안">아시안</option>
-            <option value="기타">기타</option>
+            {CATEGORIES.filter((cat) => cat !== '전체').map((cat) => (
+              <option key={cat} value={cat}>
+                {cat}
+              </option>
+            ))}
           </select>
         </div>
 

@@ -1,6 +1,6 @@
 import styles from './RestaurantCategoryFilter.module.css';
 import Filter from '../../ui/Filter';
-import { CATEGORIES } from '../../../data/restaurantsData';
+import { CATEGORIES } from '../../../data/restaurantCategories';
 
 function RestaurantCategoryFilter({ setSelectedCategory }) {
   const handleCategoryChange = (e) => {
