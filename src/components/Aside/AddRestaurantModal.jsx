@@ -10,7 +10,7 @@ function AddRestaurantModal({ onAddRestaurant, onClose }) {
 
   const handleAddRestaurant = () => {
     const newRestaurant = {
-      id: Date.now(),
+      id: crypto.randomUUID(),
       category,
       name,
       description,
