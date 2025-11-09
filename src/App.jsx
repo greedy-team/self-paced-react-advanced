@@ -8,8 +8,10 @@ import AddRestaurantModal from './components/aside/AddRestaurantModal';
 function App() {
   const [restaurants, setRestaurants] = useState([]);
 
+  const LOCAL_SERVER_URL = 'http://localhost:3000';
+
   const fetchRestaurants = async () => {
-    const restaurantsResponse = await fetch('http://localhost:3000/restaurants');
+    const restaurantsResponse = await fetch(`${LOCAL_SERVER_URL}/restaurants`);
     const fetchedRestaurants = await restaurantsResponse.json();
     setRestaurants(fetchedRestaurants);
   };
@@ -33,7 +35,7 @@ function App() {
   const [isAddRestaurantModalOpen, setIsAddRestaurantModalOpen] = useState(false);
 
   const handleAddRestaurant = async (restaurant) => {
-    await fetch('http://localhost:3000/restaurants', {
+    await fetch(`${LOCAL_SERVER_URL}/restaurants`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(restaurant),
