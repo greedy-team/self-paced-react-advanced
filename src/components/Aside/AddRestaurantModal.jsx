@@ -28,9 +28,9 @@ function AddRestaurantModal({ onAddRestaurant, onClose }) {
           <label htmlFor="category" className="text-caption">카테고리</label>
           <select name="category" id="category" required value={category} onChange={(e) => setCategory(e.target.value)}>
             <option value="">선택해 주세요</option>
-            {CATEGORIES.filter((cat) => cat !== '전체').map((cat) => (
-              <option key={cat} value={cat}>
-                {cat}
+            {CATEGORIES.filter((c) => c !== '전체').map((categoryOption) => (
+              <option key={crypto.randomUUID()} value={categoryOption}>
+                {categoryOption}
               </option>
             ))}
           </select>
