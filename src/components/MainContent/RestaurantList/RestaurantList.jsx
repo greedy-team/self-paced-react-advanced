@@ -1,10 +1,18 @@
+import styled from 'styled-components';
 import RestaurantItem from './RestaurantItem/RestaurantItem';
-import styles from './RestaurantList.module.css';
+
+const ListContainer = styled.section`
+  display: flex;
+  flex-direction: column;
+
+  padding: 0 16px;
+  margin: 16px 0;
+`;
 
 export default function RestaurantList({ restaurantInfoList, updateClickedRestaurantID }) {
   return (
-    <section className={styles.restaurantListContainer}>
-      <ul className={styles.restaurantList}>
+    <ListContainer>
+      <ul>
         {restaurantInfoList.map((restaurantInfo) => (
           <RestaurantItem
             key={restaurantInfo.id}
@@ -13,6 +21,6 @@ export default function RestaurantList({ restaurantInfoList, updateClickedRestau
           />
         ))}
       </ul>
-    </section>
+    </ListContainer>
   );
 }
