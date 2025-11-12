@@ -13,6 +13,7 @@ module.exports = {
   plugins: ["react-refresh"],
   rules: {
     "linebreak-style": "off",
+    "no-alert": "off",
     "react/jsx-no-target-blank": "off",
     "react/prop-types": "off",
     "react-refresh/only-export-components": 
