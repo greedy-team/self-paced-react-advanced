@@ -1,7 +1,92 @@
-import styled from 'styled-components';
-import styles from '../RestaurantModal.module.css';
+import styled, { css } from 'styled-components';
 import Modal from '../Modal/Modal';
 import categoryList from '../../../Data/categoryList';
+
+const FormItem = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 36px;
+
+  ${(props) => props.required
+    && css`
+      label::after {
+        content: "*";
+        color: var(--primary-color);
+        padding-left: 4px;
+      }
+    `}
+
+  label {
+    color: var(--grey-400);
+
+    font-size: 14px;
+    line-height: 20px;
+    font-weight: 400;
+  }
+
+  input,
+  textarea,
+  select {
+    padding: 8px;
+    margin: 6px 0;
+    border: 1px solid var(--grey-200);
+    border-radius: 8px;
+    font-size: 16px;
+  }
+
+  textarea {
+    resize: none;
+  }
+
+  select {
+    height: 44px;
+
+    padding: 8px;
+
+    border: 1px solid var(--grey-200);
+    border-radius: 8px;
+
+    color: var(--grey-300);
+  }
+
+  input[name="name"],
+  input[name="link"] {
+    height: 44px;
+  }
+
+  span {
+    color: var(--grey-300);
+
+    font-size: 14px;
+    line-height: 20px;
+    font-weight: 400;
+  }
+`;
+
+const ButtonContainer = styled.div`
+  display: flex;
+`;
+
+const Button = styled.button`
+  width: 100%;
+  height: 44px;
+
+  margin-right: 16px;
+
+  border: none;
+  border-radius: 8px;
+
+  font-weight: 600;
+  cursor: pointer;
+
+  background: var(--primary-color);
+
+  color: var(--grey-100);
+
+  &:last-child {
+    margin-right: 0;
+  }
+`;
 
 const optionList = categoryList.filter((value) => (value !== '전체')).map((value) => (
   <option value={value} key={value}>{value}</option>
@@ -26,27 +111,27 @@ export default function AddRestaurantModal({ isVisible, closeModal, addRestauran
   return (
     <Modal onClickBackdrop={closeModal} title="새로운 음식점">
       <form onSubmit={handleSubmit}>
-        <div className={`${styles.formItem} ${styles.formItemRequired}`}>
-          <label htmlFor="category" className="text-caption">카테고리</label>
+        <FormItem required>
+          <label htmlFor="category">카테고리</label>
           <select name="category" id="category" required>
             {optionList}
           </select>
-        </div>
+        </FormItem>
 
-        <div className={`${styles.formItem} ${styles.formItemRequired}`}>
-          <label htmlFor="name" className="text-caption">이름</label>
+        <FormItem required>
+          <label htmlFor="name">이름</label>
           <input type="text" name="name" id="name" required />
-        </div>
+        </FormItem>
 
-        <div className={styles.formItem}>
-          <label htmlFor="description" className="text-caption">설명</label>
+        <FormItem>
+          <label htmlFor="description">설명</label>
           <textarea name="description" id="description" cols="30" rows="5" />
-          <span className={`${styles.helpText} text-caption`}>메뉴 등 추가 정보를 입력해 주세요.</span>
-        </div>
+          <span>메뉴 등 추가 정보를 입력해 주세요.</span>
+        </FormItem>
 
-        <div className={styles.buttonContainer}>
-          <button type="submit" className={`${styles.button} ${styles.buttonPrimary} text-caption`}>추가하기</button>
-        </div>
+        <ButtonContainer>
+          <Button type="submit">추가하기</Button>
+        </ButtonContainer>
       </form>
     </Modal>
   );
