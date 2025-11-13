@@ -1,16 +1,32 @@
-import styles from "./RestaurantCategoryFilter.module.css";
 import categories from "../../../constants/category";
+import styled from "styled-components";
+
+const FilterContainer = styled.section`
+  display: flex;
+  justify-content: space-between;
+  padding: 0 16px;
+  margin-top: 24px;
+`;
+
+const FilterSelect = styled.select`
+  height: 44px;
+  min-width: 125px;
+  border: 1px solid #d0d5dd;
+  border-radius: 8px;
+  background: transparent;
+  font-size: 16px;
+  padding: 8px;
+`;
 
 export default function RestaurantCategoryFilter({
   category,
   onChangeCategory,
 }) {
   return (
-    <section className={`${styles["restaurant-filter-container"]}`}>
-      <select
+    <FilterContainer>
+      <FilterSelect
         name="category"
         id="category-filter"
-        className={`${styles["restaurant-filter"]}`}
         value={category}
         onChange={(event) => onChangeCategory(event.target.value)}
         aria-label="카테고리 필터"
@@ -20,7 +36,7 @@ export default function RestaurantCategoryFilter({
             {categoryItem.value}
           </option>
         ))}
-      </select>
-    </section>
+      </FilterSelect>
+    </FilterContainer>
   );
 }

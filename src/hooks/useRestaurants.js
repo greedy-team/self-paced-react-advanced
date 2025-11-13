@@ -6,7 +6,6 @@ export default function useRestaurants() {
 
   const fetchRestaurants = useCallback(async () => {
     const data = await getRestaurants();
-    console.log(data);
     setRestaurants(data);
   }, []);
 

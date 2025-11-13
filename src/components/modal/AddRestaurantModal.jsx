@@ -1,7 +1,55 @@
 import { useState } from "react";
-import styles from "./Modal.module.css";
 import Modal from "./Modal";
 import categories from "../../constants/category";
+import styled from "styled-components";
+import ModalButton from "../ModalButton";
+
+const ModalFormItem = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 36px;
+
+  label {
+    color: var(--grey-400);
+    font-size: 14px;
+  }
+
+  ${(props) =>
+    props.required &&
+    `
+      label::after {
+        padding-left: 4px;
+        color: var(--primary-color);
+        content: "*";
+      }
+    `}
+
+  .help-text {
+    color: var(--grey-300);
+  }
+
+  input,
+  textarea,
+  select {
+    padding: 8px;
+    margin: 6px 0;
+    border: 1px solid var(--grey-200);
+    border-radius: 8px;
+    font-size: 16px;
+  }
+
+  textarea {
+    resize: none;
+  }
+
+  select {
+    height: 44px;
+    padding: 8px;
+    border: 1px solid var(--grey-200);
+    border-radius: 8px;
+    color: var(--grey-300);
+  }
+`;
 
 export default function AddRestaurantModal({ closeModal, onAddRestaurant }) {
   const [restaurantInfo, setRestaurantInfo] = useState({
@@ -25,9 +73,7 @@ export default function AddRestaurantModal({ closeModal, onAddRestaurant }) {
   return (
     <Modal title="새로운 음식점" onBackdropClick={closeModal}>
       <form method="post" onSubmit={handleSubmit}>
-        <div
-          className={`${styles["form-item"]} ${styles["form-item--required"]}`}
-        >
+        <ModalFormItem>
           <label htmlFor="category" className="text-caption">
             카테고리
           </label>
@@ -48,11 +94,9 @@ export default function AddRestaurantModal({ closeModal, onAddRestaurant }) {
                 </option>
               ))}
           </select>
-        </div>
+        </ModalFormItem>
 
-        <div
-          className={`${styles["form-item"]} ${styles["form-item--required"]}`}
-        >
+        <ModalFormItem required>
           <label htmlFor="name" className="text-caption">
             이름
           </label>
@@ -64,9 +108,9 @@ export default function AddRestaurantModal({ closeModal, onAddRestaurant }) {
             value={restaurantInfo.name}
             onChange={handleChange}
           />
-        </div>
+        </ModalFormItem>
 
-        <div className={styles["form-item"]}>
+        <ModalFormItem>
           <label htmlFor="description" className="text-caption">
             설명
           </label>
@@ -81,16 +125,11 @@ export default function AddRestaurantModal({ closeModal, onAddRestaurant }) {
           <span className="help-text text-caption">
             메뉴 등 추가 정보를 입력해 주세요.
           </span>
-        </div>
+        </ModalFormItem>
 
-        <div className={styles["button-container"]}>
-          <button
-            type="submit"
-            className={`${styles.button} ${styles["button--primary"]} text-caption`}
-          >
-            추가하기
-          </button>
-        </div>
+        <ModalButton type="submit" variant="primary">
+          추가하기
+        </ModalButton>
       </form>
     </Modal>
   );

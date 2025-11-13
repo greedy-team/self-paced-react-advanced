@@ -1,23 +1,26 @@
 import Modal from "./Modal";
-import style from "./Modal.module.css";
+import styled from "styled-components";
+import ModalButton from "../ModalButton";
+
+const ModalRestaurantInfo = styled.div`
+  margin-bottom: 24px;
+`;
+
+const ModalResturantInfoDetail = styled.p`
+  text-body;
+  `;
 
 export default function RestaurantDetailModal({ restaurantInfo, closeModal }) {
   return (
     <Modal title={restaurantInfo?.name} onBackdropClick={closeModal}>
-      <div className={style["restaurant-info"]}>
-        <p className={`${style["restaurant-info__description"]} text-body`}>
+      <ModalRestaurantInfo>
+        <ModalResturantInfoDetail>
           {restaurantInfo?.description}
-        </p>
-      </div>
-      <div className={style["button-container"]}>
-        <button
-          className={`${style.button} ${style["button--primary"]} text-caption`}
-          onClick={closeModal}
-          autoFocus
-        >
-          닫기
-        </button>
-      </div>
+        </ModalResturantInfoDetail>
+      </ModalRestaurantInfo>
+      <ModalButton onClick={closeModal} autoFocus>
+        닫기
+      </ModalButton>
     </Modal>
   );
 }

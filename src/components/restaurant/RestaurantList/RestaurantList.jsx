@@ -1,6 +1,14 @@
-import styles from "./RestaurantList.module.css";
 import RestaurantListItem from "./RestaurantListItem";
 import getCategoryIcon from "../../../utils/getCategoryIcon";
+import styled from "styled-components";
+
+const ListContainer = styled.section`
+  display: flex;
+  flex-direction: column;
+
+  padding: 0 16px;
+  margin: 16px 0;
+`;
 
 export default function RestaurantList({
   filteredRestaurants,
@@ -13,8 +21,8 @@ export default function RestaurantList({
   };
 
   return (
-    <section className={`${styles["restaurant-list-container"]}`}>
-      <ul className={`${styles["restaurant-list"]}`}>
+    <ListContainer>
+      <ul>
         {filteredRestaurants.map((restaurant) => (
           <RestaurantListItem
             key={restaurant.id}
@@ -24,6 +32,6 @@ export default function RestaurantList({
           />
         ))}
       </ul>
-    </section>
+    </ListContainer>
   );
 }
