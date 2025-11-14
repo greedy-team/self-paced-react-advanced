@@ -1,10 +1,11 @@
-import styles from './RestaurantList.module.css';
+import React from 'react';
 import RestaurantItem from './RestaurantItem';
+import { RestaurantListContainer, RestaurantItemList } from './RestaurantList.styles';
 
 function RestaurantList({ restaurants, onRestaurantClick }) {
   return (
-    <section className={styles.restaurantListContainer}>
-      <ul className={styles.restaurantList}>
+    <RestaurantListContainer>
+      <RestaurantItemList>
         {restaurants.map((restaurant) => (
           <RestaurantItem
             key={restaurant.id}
@@ -12,8 +13,8 @@ function RestaurantList({ restaurants, onRestaurantClick }) {
             onRestaurantClick={onRestaurantClick}
           />
         ))}
-      </ul>
-    </section>
+      </RestaurantItemList>
+    </RestaurantListContainer>
   );
 }
 
