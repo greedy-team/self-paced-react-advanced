@@ -45,7 +45,8 @@ export const RestaurantInfo = styled.div`
 export const RestaurantName = styled.h3`
   margin: 0;
   font-size: 18px;
-  font-weight: 600; 
+  line-height: 28px;
+  font-weight: 600;
 `;
 
 export const RestaurantDescription = styled.p`
@@ -55,6 +56,7 @@ export const RestaurantDescription = styled.p`
   text-overflow: ellipsis;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
-  font-size: 14px; 
-  color: var(--grey-400); 
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 400;
 `;

@@ -2,6 +2,9 @@ import styled from 'styled-components';
 
 export const ModalTitle = styled.h2`
   margin-bottom: 36px;
+  font-size: 20px;
+  line-height: 24px;
+  font-weight: 600;
 `;
 
 export const FormItem = styled.div`
@@ -12,10 +15,15 @@ export const FormItem = styled.div`
   label {
     color: var(--grey-400);
     font-size: 14px;
+    line-height: 20px;
+    font-weight: 400;
   }
 
   .helpText {
     color: var(--grey-300);
+    font-size: 14px;
+    line-height: 20px;
+    font-weight: 400;
   }
 
   input,
@@ -84,6 +92,8 @@ export const ButtonSecondary = styled.button`
   background: transparent;
   border-radius: 8px;
   color: var(--grey-300);
+  font-size: 14px;
+  line-height: 20px;
   font-weight: 600;
   cursor: pointer;
 
@@ -100,6 +110,8 @@ export const ButtonPrimary = styled.button`
   border-radius: 8px;
   background: var(--primary-color);
   color: var(--grey-100);
+  font-size: 14px;
+  line-height: 20px;
   font-weight: 600;
   cursor: pointer;
 
@@ -110,4 +122,10 @@ export const ButtonPrimary = styled.button`
 
 export const RestaurantInfo = styled.div`
   margin-bottom: 24px;
+
+  p {
+    font-size: 16px;
+    line-height: 24px;
+    font-weight: 400;
+  }
 `;
