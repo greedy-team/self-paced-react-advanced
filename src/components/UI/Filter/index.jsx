@@ -1,9 +1,10 @@
-import styles from './Filter.module.css';
+import React from 'react';
+import { StyledSelect } from './Filter.styles';
 
 function Filter({ label, options, onChange }) {
   return (
-    <select
-      className={styles.select}
+    <StyledSelect
+      as="select"
       aria-label={label}
       onChange={onChange}
     >
@@ -12,7 +13,7 @@ function Filter({ label, options, onChange }) {
           {option}
         </option>
       ))}
-    </select>
+    </StyledSelect>
   );
 }
 
