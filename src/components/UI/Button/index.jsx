@@ -1,17 +1,19 @@
-import styles from './Button.module.css';
+import React from 'react';
+import StyledButton from './Button.styles';
 
 function Button({
   className, label, onClick, children,
 }) {
   return (
-    <button
+    <StyledButton
+      as="button"
       type="button"
-      className={`${styles.button} ${className}`}
+      className={className}
       aria-label={label}
       onClick={onClick}
     >
       {children}
-    </button>
+    </StyledButton>
   );
 }
 
