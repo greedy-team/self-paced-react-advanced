@@ -1,5 +1,27 @@
 import styled from 'styled-components';
 
+export default function Modal({ children, onClickBackdrop, title }) {
+  return (
+    <ModalContainer>
+      <ModalBackdrop
+        role="button"
+        tabIndex={0}
+        onClick={onClickBackdrop}
+        onKeyDown={(e) => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            onClickBackdrop();
+          }
+        }}
+        aria-label="모달 백드롭"
+      />
+      <ModalContent>
+        <ModalTitle>{ title }</ModalTitle>
+        { children }
+      </ModalContent>
+    </ModalContainer>
+  );
+}
+
 const ModalContainer = styled.div`
   display: block;
 `;
@@ -29,25 +51,3 @@ const ModalContent = styled.div`
 const ModalTitle = styled.h2`
   margin-bottom: 36px;
 `;
-
-export default function Modal({ children, onClickBackdrop, title }) {
-  return (
-    <ModalContainer>
-      <ModalBackdrop
-        role="button"
-        tabIndex={0}
-        onClick={onClickBackdrop}
-        onKeyDown={(e) => {
-          if (e.key === 'Enter' || e.key === ' ') {
-            onClickBackdrop();
-          }
-        }}
-        aria-label="모달 백드롭"
-      />
-      <ModalContent>
-        <ModalTitle>{ title }</ModalTitle>
-        { children }
-      </ModalContent>
-    </ModalContainer>
-  );
-}

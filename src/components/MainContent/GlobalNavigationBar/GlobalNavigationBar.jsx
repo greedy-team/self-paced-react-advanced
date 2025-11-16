@@ -1,5 +1,15 @@
 import styled from 'styled-components';
 
+export default function GlobalNavigationBar({ showAddRestaurantModal }) {
+  return (
+    <GNBContainer>
+      <GNBTitle>점심 뭐 먹지</GNBTitle>
+      <GNBButton type="button" aria-label="음식점 추가" onClick={showAddRestaurantModal}>
+        <img src="templates/add-button.png" alt="음식점 추가" />
+      </GNBButton>
+    </GNBContainer>
+  );
+}
 const GNBContainer = styled.header`
   display: flex;
   justify-content: space-between;
@@ -36,14 +46,3 @@ const GNBButton = styled.button`
     object-fit: contain;
   }
 `;
-
-export default function GlobalNavigationBar({ showAddRestaurantModal }) {
-  return (
-    <GNBContainer>
-      <GNBTitle>점심 뭐 먹지</GNBTitle>
-      <GNBButton type="button" aria-label="음식점 추가" onClick={showAddRestaurantModal}>
-        <img src="templates/add-button.png" alt="음식점 추가" />
-      </GNBButton>
-    </GNBContainer>
-  );
-}

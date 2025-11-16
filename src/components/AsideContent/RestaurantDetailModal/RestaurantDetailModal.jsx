@@ -1,6 +1,21 @@
 import styled from 'styled-components';
 import Modal from '../Modal/Modal';
 
+export default function RestaurantDetailModal({ isVisible, closeModal, restaurantInfo }) {
+  if (!isVisible) return null;
+  return (
+    <Modal onClickBackdrop={closeModal} title={restaurantInfo.name}>
+      <DescriptionContainer>
+        <Description>{restaurantInfo.description}</Description>
+      </DescriptionContainer>
+
+      <ButtonContainer>
+        <Button type="button" onClick={closeModal}>닫기</Button>
+      </ButtonContainer>
+    </Modal>
+  );
+}
+
 const DescriptionContainer = styled.div`
   margin-bottom: 24px;
 `;
@@ -45,18 +60,3 @@ const Button = styled.button`
     margin-right: 0;
   }
 `;
-
-export default function RestaurantDetailModal({ isVisible, closeModal, restaurantInfo }) {
-  if (!isVisible) return null;
-  return (
-    <Modal onClickBackdrop={closeModal} title={restaurantInfo.name}>
-      <DescriptionContainer>
-        <Description>{restaurantInfo.description}</Description>
-      </DescriptionContainer>
-
-      <ButtonContainer>
-        <Button type="button" onClick={closeModal}>닫기</Button>
-      </ButtonContainer>
-    </Modal>
-  );
-}

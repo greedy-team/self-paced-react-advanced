@@ -2,6 +2,55 @@ import styled, { css } from 'styled-components';
 import Modal from '../Modal/Modal';
 import categoryList from '../../../Data/categoryList';
 
+const optionList = categoryList.filter((value) => (value !== '전체')).map((value) => (
+  <option value={value} key={value}>{value}</option>
+));
+
+export default function AddRestaurantModal({ isVisible, closeModal, addRestaurantInfo }) {
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    const formData = new FormData(e.target);
+    const newRestaurant = {
+      id: String(Date.now()),
+      name: formData.get('name'),
+      description: formData.get('description'),
+      category: formData.get('category'),
+    };
+    addRestaurantInfo(newRestaurant);
+    closeModal();
+  };
+
+  if (!isVisible) return null;
+  return (
+    <Modal onClickBackdrop={closeModal} title="새로운 음식점">
+      <form onSubmit={handleSubmit}>
+        <FormItem required>
+          <Label htmlFor="category">카테고리</Label>
+          <Select name="category" id="category" required>
+            {optionList}
+          </Select>
+        </FormItem>
+
+        <FormItem required>
+          <Label htmlFor="name">이름</Label>
+          <Input type="text" name="name" id="name" required />
+        </FormItem>
+
+        <FormItem>
+          <Label htmlFor="description">설명</Label>
+          <TextArea name="description" id="description" cols="30" rows="5" />
+          <Span>메뉴 등 추가 정보를 입력해 주세요.</Span>
+        </FormItem>
+
+        <ButtonContainer>
+          <Button type="submit">추가하기</Button>
+        </ButtonContainer>
+      </form>
+    </Modal>
+  );
+}
+
 const textCaption = css`
   font-size: 14px;
   line-height: 20px;
@@ -93,52 +142,3 @@ const Button = styled.button`
     margin-right: 0;
   }
 `;
-
-const optionList = categoryList.filter((value) => (value !== '전체')).map((value) => (
-  <option value={value} key={value}>{value}</option>
-));
-
-export default function AddRestaurantModal({ isVisible, closeModal, addRestaurantInfo }) {
-  const handleSubmit = (e) => {
-    e.preventDefault();
-
-    const formData = new FormData(e.target);
-    const newRestaurant = {
-      id: String(Date.now()),
-      name: formData.get('name'),
-      description: formData.get('description'),
-      category: formData.get('category'),
-    };
-    addRestaurantInfo(newRestaurant);
-    closeModal();
-  };
-
-  if (!isVisible) return null;
-  return (
-    <Modal onClickBackdrop={closeModal} title="새로운 음식점">
-      <form onSubmit={handleSubmit}>
-        <FormItem required>
-          <Label htmlFor="category">카테고리</Label>
-          <Select name="category" id="category" required>
-            {optionList}
-          </Select>
-        </FormItem>
-
-        <FormItem required>
-          <Label htmlFor="name">이름</Label>
-          <Input type="text" name="name" id="name" required />
-        </FormItem>
-
-        <FormItem>
-          <Label htmlFor="description">설명</Label>
-          <TextArea name="description" id="description" cols="30" rows="5" />
-          <Span>메뉴 등 추가 정보를 입력해 주세요.</Span>
-        </FormItem>
-
-        <ButtonContainer>
-          <Button type="submit">추가하기</Button>
-        </ButtonContainer>
-      </form>
-    </Modal>
-  );
-}

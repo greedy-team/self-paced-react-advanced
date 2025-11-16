@@ -1,5 +1,36 @@
 import styled from 'styled-components';
 
+const categoryImgMap = {
+  한식: 'templates/category-korean.png',
+  중식: 'templates/category-chinese.png',
+  일식: 'templates/category-japanese.png',
+  양식: 'templates/category-western.png',
+  아시안: 'templates/category-asian.png',
+  기타: 'templates/category-etc.png',
+};
+
+export default function RestaurantItem({ restaurantInfo, updateClickedRestaurantID }) {
+  return (
+    <ListItem>
+      <Button
+        type="button"
+        onClick={() => { updateClickedRestaurantID(restaurantInfo.id); }}
+      >
+        <CategoryImgContainer>
+          <CategoryImg
+            src={categoryImgMap[restaurantInfo.category]}
+            alt={restaurantInfo.category}
+          />
+        </CategoryImgContainer>
+        <RestaurantInfoContainer>
+          <RestaurantName>{restaurantInfo.name}</RestaurantName>
+          <RestaurantDescription>{restaurantInfo.description}</RestaurantDescription>
+        </RestaurantInfoContainer>
+      </Button>
+    </ListItem>
+  );
+}
+
 const ListItem = styled.li`
   display: flex;
   align-items: flex-start;
@@ -69,34 +100,3 @@ const RestaurantDescription = styled.p`
   line-height: 24px;
   font-weight: 400;
 `;
-
-const categoryImgMap = {
-  한식: 'templates/category-korean.png',
-  중식: 'templates/category-chinese.png',
-  일식: 'templates/category-japanese.png',
-  양식: 'templates/category-western.png',
-  아시안: 'templates/category-asian.png',
-  기타: 'templates/category-etc.png',
-};
-
-export default function RestaurantItem({ restaurantInfo, updateClickedRestaurantID }) {
-  return (
-    <ListItem>
-      <Button
-        type="button"
-        onClick={() => { updateClickedRestaurantID(restaurantInfo.id); }}
-      >
-        <CategoryImgContainer>
-          <CategoryImg
-            src={categoryImgMap[restaurantInfo.category]}
-            alt={restaurantInfo.category}
-          />
-        </CategoryImgContainer>
-        <RestaurantInfoContainer>
-          <RestaurantName>{restaurantInfo.name}</RestaurantName>
-          <RestaurantDescription>{restaurantInfo.description}</RestaurantDescription>
-        </RestaurantInfoContainer>
-      </Button>
-    </ListItem>
-  );
-}
