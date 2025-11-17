@@ -5,7 +5,7 @@ import {
   ModalTitle,
   FormItem,
   ButtonContainer,
-  ButtonPrimary,
+  Button,
 } from './RestaurantModal.styles';
 
 function AddRestaurantModal({ onAddRestaurant, onClose }) {
@@ -73,9 +73,13 @@ function AddRestaurantModal({ onAddRestaurant, onClose }) {
         </FormItem>
 
         <ButtonContainer>
-          <ButtonPrimary type="button" onClick={handleAddRestaurant}>
+          <Button
+            $variant="primary"
+            type="button"
+            onClick={handleAddRestaurant}
+          >
             추가하기
-          </ButtonPrimary>
+          </Button>
         </ButtonContainer>
       </form>
     </Modal>

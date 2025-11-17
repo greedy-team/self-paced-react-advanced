@@ -3,7 +3,7 @@ import {
   ModalTitle,
   RestaurantInfo,
   ButtonContainer,
-  ButtonPrimary,
+  Button,
 } from './RestaurantModal.styles';
 
 function RestaurantDetailModal({ restaurant, onClose }) {
@@ -14,9 +14,9 @@ function RestaurantDetailModal({ restaurant, onClose }) {
         <p>{restaurant.description}</p>
       </RestaurantInfo>
       <ButtonContainer>
-        <ButtonPrimary type="button" onClick={onClose}>
+        <Button $variant="primary" type="button" onClick={onClose}>
           닫기
-        </ButtonPrimary>
+        </Button>
       </ButtonContainer>
     </Modal>
   );
