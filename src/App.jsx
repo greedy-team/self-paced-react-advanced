@@ -4,6 +4,7 @@ import RestaurantCategoryFilter from './components/Main/RestaurantCategoryFilter
 import RestaurantList from './components/Main/RestaurantList';
 import RestaurantDetailModal from './components/aside/RestaurantDetailModal';
 import AddRestaurantModal from './components/aside/AddRestaurantModal';
+import GlobalStyle from './GlobalStyle';
 
 function App() {
   const [restaurants, setRestaurants] = useState([]);
@@ -44,12 +45,14 @@ function App() {
   };
 
   return (
-    <div>
+    <>
+      <GlobalStyle />
+      <div>
 
-      <HomeHeader onRestaurantAddButtonClick={() => {
-        setIsAddRestaurantModalOpen(true);
-      }}
-      />
+        <HomeHeader onRestaurantAddButtonClick={() => {
+          setIsAddRestaurantModalOpen(true);
+        }}
+        />
 
       <main>
         <RestaurantCategoryFilter
@@ -75,7 +78,8 @@ function App() {
           />
         )
       }
-    </div>
+      </div>
+    </>
   );
 }
 export default App;
