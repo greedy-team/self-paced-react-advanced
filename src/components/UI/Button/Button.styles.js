@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-const StyledButton = styled.div`
+const StyledButton = styled.button`
   height: 40px;
 
   border: none;
