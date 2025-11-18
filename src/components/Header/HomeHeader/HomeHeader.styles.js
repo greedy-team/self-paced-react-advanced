@@ -8,11 +8,11 @@ export const Gnb = styled.header`
 
   padding: 0 16px;
 
-  background-color: var(--primary-color);
+  background-color: ${props => props.theme.colors.primary};
 `;
 
 export const GnbTitle = styled.h1`
-  color: #fcfcfd;
+  color:${props => props.theme.colors.grey100};
   font-size: 20px;
   line-height: 24px;
   font-weight: 600;

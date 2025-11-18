@@ -18,5 +18,5 @@ export const ModalContainer = styled.div`
   padding: 32px 16px;
 
   border-radius: 8px 8px 0px 0px;
-  background: var(--grey-100);
+  background: ${props => props.theme.colors.grey100};
 `;

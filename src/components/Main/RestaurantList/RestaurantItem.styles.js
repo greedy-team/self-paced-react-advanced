@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const RestaurantListItem = styled.li`
-  border-bottom: 1px solid var(--grey-200);
+  border-bottom: 1px solid ${props => props.theme.colors.grey200};
   position: relative;
 `;
 
@@ -28,7 +28,7 @@ export const RestaurantCategory = styled.div`
   min-height: 64px;
   margin-right: 16px;
   border-radius: 50%;
-  background: var(--lighten-color);
+  background: ${props => props.theme.colors.lighten};
 `;
 
 export const CategoryIcon = styled.img`

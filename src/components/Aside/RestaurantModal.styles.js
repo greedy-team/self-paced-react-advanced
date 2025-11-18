@@ -13,7 +13,7 @@ export const FormItem = styled.div`
   margin-bottom: 36px;
 
   label {
-    color: var(--grey-400);
+    color: ${props => props.theme.colors.grey400};
     font-size: 14px;
     line-height: 20px;
     font-weight: 400;
@@ -23,14 +23,14 @@ export const FormItem = styled.div`
       `
       &::after {
         padding-left: 4px;
-        color: var(--primary-color);
+        color: ${props.theme.colors.primary};
         content: '*';
       }
     `}
   }
 
   .helpText {
-    color: var(--grey-300);
+    color: ${props => props.theme.colors.grey300};
     font-size: 14px;
     line-height: 20px;
     font-weight: 400;
@@ -41,7 +41,7 @@ export const FormItem = styled.div`
   select {
     padding: 8px;
     margin: 6px 0;
-    border: 1px solid var(--grey-200);
+    border: 1px solid ${props => props.theme.colors.grey200};
     border-radius: 8px;
     font-size: 16px;
   }
@@ -53,9 +53,9 @@ export const FormItem = styled.div`
   select {
     height: 44px;
     padding: 8px;
-    border: 1px solid var(--grey-200);
+    border: 1px solid ${props => props.theme.colors.grey200};
     border-radius: 8px;
-    color: var(--grey-300);
+    color: ${props => props.theme.colors.grey300};
   }
 
   input[name='name'],
@@ -65,7 +65,7 @@ export const FormItem = styled.div`
 `;
 
 export const HelpText = styled.span`
-  color: var(--grey-300);
+  color: ${props => props.theme.colors.grey300};
 `;
 
 export const ButtonContainer = styled.div`
@@ -90,15 +90,15 @@ export const Button = styled.button`
     if (props.$variant === 'primary') {
       return `
         border: none;
-        background: var(--primary-color);
-        color: var(--grey-100);
+        background: ${props.theme.colors.primary};
+        color: ${props.theme.colors.grey100};
       `;
     }
     if (props.$variant === 'secondary') {
       return `
-        border: 1px solid var(--grey-300);
+        border: 1px solid ${props.theme.colors.grey300};
         background: transparent;
-        color: var(--grey-300);
+        color: ${props.theme.colors.grey300};
       `;
     }
     return `
