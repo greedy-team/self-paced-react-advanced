@@ -7,8 +7,12 @@ import {
   buttonVariants,
 } from "../styles/common";
 import Modal from "./Modal.jsx";
+import { useContext } from "react";
+import RestaurantContext from "../contexts/RestaurantContext";
 
-export default function AddRestaurantModal({ onAdd, onClose }) {
+export default function AddRestaurantModal() {
+  const { addRestaurant, closeAddModal } = useContext(RestaurantContext);
+
   const handleSubmit = (e) => {
     e.preventDefault();
     const fd = new FormData(e.currentTarget);
@@ -20,15 +24,15 @@ export default function AddRestaurantModal({ onAdd, onClose }) {
       return;
     }
 
-    onAdd({
-      category: String(category),
-      name: String(name),
-      description: String(description),
+    addRestaurant({
+      category,
+      name,
+      description,
     });
   };
 
   return (
-    <Modal onClose={onClose}>
+    <Modal onClose={closeAddModal}>
       <ModalTitle>새로운 음식점</ModalTitle>
 
       <form onSubmit={handleSubmit}>

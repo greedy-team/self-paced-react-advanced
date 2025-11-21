@@ -1,15 +1,14 @@
 import styled from "styled-components";
-// import { typography } from "../styles/common";
+import { useContext } from "react";
+import RestaurantContext from "../contexts/RestaurantContext";
 
-export default function Header({ onOpenAddModal }) {
+export default function Header() {
+  const { openAddModal } = useContext(RestaurantContext);
+
   return (
     <Gnb>
       <GnbTitle>점심 뭐 먹지</GnbTitle>
-      <GnbButton
-        type="button"
-        aria-label="음식점 추가"
-        onClick={onOpenAddModal}
-      >
+      <GnbButton type="button" aria-label="음식점 추가" onClick={openAddModal}>
         <img src="/add-button.png" alt="음식점 추가" />
       </GnbButton>
     </Gnb>
