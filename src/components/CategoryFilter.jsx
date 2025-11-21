@@ -1,20 +1,19 @@
 import styled from "styled-components";
+import { useContext } from "react";
+import RestaurantContext from "../contexts/RestaurantContext";
 
 const OPTIONS = ["전체", "한식", "중식", "일식", "양식", "아시안", "기타"];
 
-export default function CategoryFilter({
-  id,
-  label,
-  category,
-  onChangeCategory,
-}) {
+export default function CategoryFilter() {
+  const { category, setCategory } = useContext(RestaurantContext);
+
   return (
     <StyledSelect
       name="category"
-      id={id}
-      aria-label={label}
+      id="main-category-filter"
+      aria-label="음식점 카테고리 필터"
       value={category}
-      onChange={(e) => onChangeCategory(e.target.value)}
+      onChange={(e) => setCategory(e.target.value)}
     >
       {OPTIONS.map((opt) => (
         <option key={opt} value={opt}>
