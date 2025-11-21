@@ -1,10 +1,12 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { AppContext } from "../../contexts/AppContext.jsx";
 import Modal from "./Modal";
 import categories from "../../constants/category";
 import styled from "styled-components";
 import ModalButton from "../ModalButton";
 
-export default function AddRestaurantModal({ closeModal, onAddRestaurant }) {
+export default function AddRestaurantModal() {
+  const { closeModal, onAddRestaurant } = useContext(AppContext);
   const [restaurantInfo, setRestaurantInfo] = useState({
     category: "",
     name: "",
@@ -24,7 +26,7 @@ export default function AddRestaurantModal({ closeModal, onAddRestaurant }) {
   };
 
   return (
-    <Modal title="새로운 음식점" onBackdropClick={closeModal}>
+    <Modal title="새로운 음식점">
       <form method="post" onSubmit={handleSubmit}>
         <ModalFormItem>
           <label htmlFor="category" className="text-caption">
