@@ -4,6 +4,7 @@ import AsideContent from './components/AsideContent/AsideContent';
 import RestaurantDetailModal from './components/AsideContent/RestaurantDetailModal/RestaurantDetailModal';
 import AddRestaurantModal from './components/AsideContent/AddRestaurantModal/AddRestaurantModal';
 import { getRestaurantInfoList, addNewRestaurantInfo } from './api/restaurantApi';
+import { RestaurantDetailModalProvider } from './contexts/RestaurantDetailModalContext';
 import './App.css';
 
 function App() {
@@ -39,35 +40,22 @@ function App() {
     setIsVisibleAddRestaurantModal(false);
   };
 
-  const [clickedRestaurantID, setClickedRestaurantID] = useState(null);
-  const updateClickedRestaurantID = (restaurantID) => {
-    setClickedRestaurantID(restaurantID);
-  };
-
-  const restaurantInfo = restaurantInfoList.find(
-    (restaurant) => restaurant.id === clickedRestaurantID,
-  );
-  const isVisibleRestaurantDetailModal = restaurantInfo !== undefined;
-
   return (
     <div>
-      <MainContent
-        restaurantInfoList={restaurantInfoList}
-        showAddRestaurantModal={showAddRestaurantModal}
-        updateClickedRestaurantID={updateClickedRestaurantID}
-      />
-      <AsideContent>
-        <AddRestaurantModal
-          isVisible={isVisibleAddRestaurantModal}
-          closeModal={closeAddRestaurantModal}
-          addRestaurantInfo={addRestaurantInfo}
+      <RestaurantDetailModalProvider restaurantInfoList={restaurantInfoList}>
+        <MainContent
+          restaurantInfoList={restaurantInfoList}
+          showAddRestaurantModal={showAddRestaurantModal}
         />
-        <RestaurantDetailModal
-          isVisible={isVisibleRestaurantDetailModal}
-          closeModal={() => { updateClickedRestaurantID(null); }}
-          restaurantInfo={restaurantInfo}
-        />
-      </AsideContent>
+        <AsideContent>
+          <AddRestaurantModal
+            isVisible={isVisibleAddRestaurantModal}
+            closeModal={closeAddRestaurantModal}
+            addRestaurantInfo={addRestaurantInfo}
+          />
+          <RestaurantDetailModal />
+        </AsideContent>
+      </RestaurantDetailModalProvider>
     </div>
   );
 }

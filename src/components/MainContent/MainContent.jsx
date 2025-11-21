@@ -4,7 +4,7 @@ import CategoryFilter from './CategoryFilter/CategoryFilter';
 import RestaurantList from './RestaurantList/RestaurantList';
 
 export default function MainContent(
-  { restaurantInfoList, showAddRestaurantModal, updateClickedRestaurantID },
+  { restaurantInfoList, showAddRestaurantModal },
 ) {
   const [category, setCategory] = useState('전체');
 
@@ -24,7 +24,6 @@ export default function MainContent(
       <CategoryFilter category={category} onChangeCategory={updateCategory} />
       <RestaurantList
         restaurantInfoList={filteredRestaurantInfoList}
-        updateClickedRestaurantID={updateClickedRestaurantID}
       />
     </main>
   );
