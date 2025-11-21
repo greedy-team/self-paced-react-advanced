@@ -1,3 +1,4 @@
+import { useContext } from 'react';
 import { CATEGORY_IMAGE } from '../../../data/restaurantCategories';
 import {
   RestaurantListItem,
@@ -8,14 +9,21 @@ import {
   RestaurantName,
   RestaurantDescription,
 } from './RestaurantItem.styles';
+import ModalContext from '../../../contexts/ModalContext';
+import RestaurantContext from '../../../contexts/RestaurantContext';
 
-function RestaurantItem({ restaurant, onRestaurantClick }) {
+function RestaurantItem({ restaurant }) {
+  const { setIsRestaurantDetailModalOpen } = useContext(ModalContext);
+  const { setSelectedRestaurant } = useContext(RestaurantContext);
+
+  const handleClick = () => {
+    setIsRestaurantDetailModalOpen(true);
+    setSelectedRestaurant(restaurant);
+  };
+
   return (
     <RestaurantListItem>
-      <RestaurantButton
-        type="button"
-        onClick={() => onRestaurantClick(restaurant)}
-      >
+      <RestaurantButton type="button" onClick={handleClick}>
         <RestaurantCategory>
           <CategoryIcon
             src={CATEGORY_IMAGE[restaurant.category]}

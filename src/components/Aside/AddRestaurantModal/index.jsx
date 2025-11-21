@@ -1,17 +1,23 @@
-import { useState } from 'react';
-import Modal from '../UI/Modal';
-import { CATEGORIES, CATEGORY_IMAGE } from '../../data/restaurantCategories';
+import { useState, useContext } from 'react';
+import Modal from '../../UI/Modal';
+import { CATEGORIES, CATEGORY_IMAGE } from '../../../data/restaurantCategories';
 import {
   ModalTitle,
   FormItem,
   ButtonContainer,
   Button,
-} from './RestaurantModal.styles';
+} from '../RestaurantModal.styles';
+import ModalContext from '../../../contexts/ModalContext';
 
-function AddRestaurantModal({ onAddRestaurant, onClose }) {
+function AddRestaurantModal({ onAddRestaurant }) {
+  const { setIsAddRestaurantModalOpen } = useContext(ModalContext);
   const [category, setCategory] = useState('');
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
+
+  const handleClose = () => {
+    setIsAddRestaurantModalOpen(false);
+  };
 
   const handleAddRestaurant = () => {
     const newRestaurant = {
@@ -22,11 +28,11 @@ function AddRestaurantModal({ onAddRestaurant, onClose }) {
       image: CATEGORY_IMAGE[category],
     };
     onAddRestaurant(newRestaurant);
-    onClose();
+    handleClose();
   };
 
   return (
-    <Modal onClose={onClose}>
+    <Modal onClose={handleClose}>
       <ModalTitle>새로운 음식점</ModalTitle>
       <form>
         <FormItem $required>
@@ -36,10 +42,10 @@ function AddRestaurantModal({ onAddRestaurant, onClose }) {
             id="category"
             required
             value={category}
-            onChange={e => setCategory(e.target.value)}
+            onChange={(e) => setCategory(e.target.value)}
           >
             <option value="">선택해 주세요</option>
-            {CATEGORIES.filter(c => c !== '전체').map(categoryOption => (
+            {CATEGORIES.filter((c) => c !== '전체').map((categoryOption) => (
               <option key={categoryOption} value={categoryOption}>
                 {categoryOption}
               </option>
@@ -55,7 +61,7 @@ function AddRestaurantModal({ onAddRestaurant, onClose }) {
             id="name"
             required
             value={name}
-            onChange={e => setName(e.target.value)}
+            onChange={(e) => setName(e.target.value)}
           />
         </FormItem>
 
@@ -67,7 +73,7 @@ function AddRestaurantModal({ onAddRestaurant, onClose }) {
             cols="30"
             rows="5"
             value={description}
-            onChange={e => setDescription(e.target.value)}
+            onChange={(e) => setDescription(e.target.value)}
           />
           <span className="helpText">메뉴 등 추가 정보를 입력해 주세요.</span>
         </FormItem>

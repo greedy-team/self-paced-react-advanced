@@ -1,17 +1,17 @@
-import React, { useRef } from 'react';
+import { useRef } from 'react';
 
 import { ModalBackdrop, ModalContainer } from './Modal.styles';
 
 function Modal({ children, onClose }) {
   const modalContentRef = useRef(null);
 
-  const handleBackdropClick = event => {
+  const handleBackdropClick = (event) => {
     if (!modalContentRef.current.contains(event.target)) {
       onClose();
     }
   };
 
-  const handleKeyDown = event => {
+  const handleKeyDown = (event) => {
     if (event.key === 'Escape') {
       event.preventDefault();
       onClose();

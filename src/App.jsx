@@ -1,14 +1,12 @@
 import { useState, useEffect } from 'react';
 import HomeHeader from './components/Header/HomeHeader';
 import RestaurantCategoryFilter from './components/Main/RestaurantCategoryFilter';
-import RestaurantList from './components/Main/RestaurantList';
-import RestaurantDetailModal from './components/Aside/RestaurantDetailModal';
-import AddRestaurantModal from './components/Aside/AddRestaurantModal';
+import RestaurantList from './components/Main/RestaurantList/RestaurantList';
+import ModalRenderer from './components/Aside/ModalRenderer';
 import GlobalStyle from './GlobalStyle';
 
 function App() {
   const [restaurants, setRestaurants] = useState([]);
-
   const LOCAL_SERVER_URL = 'http://localhost:3000';
 
   const fetchRestaurants = async () => {
@@ -22,23 +20,11 @@ function App() {
   }, []);
 
   const [selectedCategory, setSelectedCategory] = useState('전체');
-  const filteredRestaurants =
-    selectedCategory === '전체'
-      ? restaurants
-      : restaurants.filter(e => e.category === selectedCategory);
+  const filteredRestaurants = selectedCategory === '전체'
+    ? restaurants
+    : restaurants.filter((e) => e.category === selectedCategory);
 
-  const [selectedRestaurant, setSelectedRestaurant] = useState(null);
-  const [isRestaurantDetailModalOpen, setIsRestaurantDetailModalOpen] =
-    useState(false);
-  const handleRestaurantClick = restaurant => {
-    setIsRestaurantDetailModalOpen(true);
-    setSelectedRestaurant(restaurant);
-  };
-
-  const [isAddRestaurantModalOpen, setIsAddRestaurantModalOpen] =
-    useState(false);
-
-  const handleAddRestaurant = async restaurant => {
+  const handleAddRestaurant = async (restaurant) => {
     await fetch(`${LOCAL_SERVER_URL}/restaurants`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -51,32 +37,14 @@ function App() {
     <>
       <GlobalStyle />
       <div>
-        <HomeHeader
-          onRestaurantAddButtonClick={() => {
-            setIsAddRestaurantModalOpen(true);
-          }}
-        />
+        <HomeHeader />
 
         <main>
           <RestaurantCategoryFilter setSelectedCategory={setSelectedCategory} />
-          <RestaurantList
-            restaurants={filteredRestaurants}
-            onRestaurantClick={handleRestaurantClick}
-          />
+          <RestaurantList restaurants={filteredRestaurants} />
         </main>
 
-        {isRestaurantDetailModalOpen && (
-          <RestaurantDetailModal
-            restaurant={selectedRestaurant}
-            onClose={() => setIsRestaurantDetailModalOpen(false)}
-          />
-        )}
-        {isAddRestaurantModalOpen && (
-          <AddRestaurantModal
-            onAddRestaurant={handleAddRestaurant}
-            onClose={() => setIsAddRestaurantModalOpen(false)}
-          />
-        )}
+        <ModalRenderer onAddRestaurant={handleAddRestaurant} />
       </div>
     </>
   );
