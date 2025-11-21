@@ -1,16 +1,12 @@
-import { useState, useEffect, useContext } from 'react';
+import { useState, useEffect } from 'react';
 import HomeHeader from './components/Header/HomeHeader';
 import RestaurantCategoryFilter from './components/Main/RestaurantCategoryFilter';
 import RestaurantList from './components/Main/restaurantList/RestaurantList';
-import RestaurantDetailModal from './components/Aside/RestaurantDetailModal';
-import AddRestaurantModal from './components/Aside/AddRestaurantModal';
+import ModalRenderer from './components/Aside/ModalRenderer';
 import GlobalStyle from './GlobalStyle';
-import ModalContext from './contexts/ModalContext';
 
 function App() {
   const [restaurants, setRestaurants] = useState([]);
-  const { isRestaurantDetailModalOpen, isAddRestaurantModalOpen } = useContext(ModalContext);
-
   const LOCAL_SERVER_URL = 'http://localhost:3000';
 
   const fetchRestaurants = async () => {
@@ -48,10 +44,7 @@ function App() {
           <RestaurantList restaurants={filteredRestaurants} />
         </main>
 
-        {isRestaurantDetailModalOpen && <RestaurantDetailModal />}
-        {isAddRestaurantModalOpen && (
-          <AddRestaurantModal onAddRestaurant={handleAddRestaurant} />
-        )}
+        <ModalRenderer onAddRestaurant={handleAddRestaurant} />
       </div>
     </>
   );
