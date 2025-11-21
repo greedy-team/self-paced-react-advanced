@@ -1,10 +1,10 @@
-import Modal from '../UI/Modal';
+import Modal from '../../UI/Modal';
 import {
   ModalTitle,
   RestaurantInfo,
   ButtonContainer,
   Button,
-} from './RestaurantModal.styles';
+} from '../RestaurantModal.styles';
 
 function RestaurantDetailModal({ restaurant, onClose }) {
   return (

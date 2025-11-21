@@ -1,12 +1,12 @@
 import { useState } from 'react';
-import Modal from '../UI/Modal';
-import { CATEGORIES, CATEGORY_IMAGE } from '../../data/restaurantCategories';
+import Modal from '../../UI/Modal';
+import { CATEGORIES, CATEGORY_IMAGE } from '../../../data/restaurantCategories';
 import {
   ModalTitle,
   FormItem,
   ButtonContainer,
   Button,
-} from './RestaurantModal.styles';
+} from '../RestaurantModal.styles';
 
 function AddRestaurantModal({ onAddRestaurant, onClose }) {
   const [category, setCategory] = useState('');
