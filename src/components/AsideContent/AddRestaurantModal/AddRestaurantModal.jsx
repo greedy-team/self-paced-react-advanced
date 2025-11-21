@@ -1,12 +1,19 @@
+import { useContext } from 'react';
 import styled, { css } from 'styled-components';
 import Modal from '../Modal/Modal';
 import categoryList from '../../../Data/categoryList';
+import { AddRestaurantModalContext } from '../../../contexts/AddRestaurantModalContext';
 
 const optionList = categoryList.filter((value) => (value !== '전체')).map((value) => (
   <option value={value} key={value}>{value}</option>
 ));
 
-export default function AddRestaurantModal({ isVisible, closeModal, addRestaurantInfo }) {
+export default function AddRestaurantModal({ addRestaurantInfo }) {
+  const {
+    isVisible,
+    closeAddRestaurantModal,
+  } = useContext(AddRestaurantModalContext);
+
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -18,12 +25,12 @@ export default function AddRestaurantModal({ isVisible, closeModal, addRestauran
       category: formData.get('category'),
     };
     addRestaurantInfo(newRestaurant);
-    closeModal();
+    closeAddRestaurantModal();
   };
 
   if (!isVisible) return null;
   return (
-    <Modal onClickBackdrop={closeModal} title="새로운 음식점">
+    <Modal onClickBackdrop={closeAddRestaurantModal} title="새로운 음식점">
       <form onSubmit={handleSubmit}>
         <FormItem required>
           <Label htmlFor="category">카테고리</Label>

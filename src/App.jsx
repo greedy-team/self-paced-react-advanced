@@ -5,6 +5,7 @@ import RestaurantDetailModal from './components/AsideContent/RestaurantDetailMod
 import AddRestaurantModal from './components/AsideContent/AddRestaurantModal/AddRestaurantModal';
 import { getRestaurantInfoList, addNewRestaurantInfo } from './api/restaurantApi';
 import { RestaurantDetailModalProvider } from './contexts/RestaurantDetailModalContext';
+import { AddRestaurantModalProvider } from './contexts/AddRestaurantModalContext';
 import './App.css';
 
 function App() {
@@ -32,29 +33,18 @@ function App() {
     fetchRestaurantInfoList();
   }, []);
 
-  const [isVisibleAddRestaurantModal, setIsVisibleAddRestaurantModal] = useState(false);
-  const showAddRestaurantModal = () => {
-    setIsVisibleAddRestaurantModal(true);
-  };
-  const closeAddRestaurantModal = () => {
-    setIsVisibleAddRestaurantModal(false);
-  };
-
   return (
     <div>
       <RestaurantDetailModalProvider restaurantInfoList={restaurantInfoList}>
-        <MainContent
-          restaurantInfoList={restaurantInfoList}
-          showAddRestaurantModal={showAddRestaurantModal}
-        />
-        <AsideContent>
-          <AddRestaurantModal
-            isVisible={isVisibleAddRestaurantModal}
-            closeModal={closeAddRestaurantModal}
-            addRestaurantInfo={addRestaurantInfo}
-          />
-          <RestaurantDetailModal />
-        </AsideContent>
+        <AddRestaurantModalProvider>
+          <MainContent restaurantInfoList={restaurantInfoList} />
+
+          <AsideContent>
+            <AddRestaurantModal addRestaurantInfo={addRestaurantInfo} />
+            <RestaurantDetailModal />
+          </AsideContent>
+
+        </AddRestaurantModalProvider>
       </RestaurantDetailModalProvider>
     </div>
   );
