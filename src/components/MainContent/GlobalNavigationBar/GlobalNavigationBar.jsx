@@ -1,6 +1,10 @@
+import { useContext } from 'react';
 import styled from 'styled-components';
+import { AddRestaurantModalContext } from '../../../contexts/AddRestaurantModalContext';
 
-export default function GlobalNavigationBar({ showAddRestaurantModal }) {
+export default function GlobalNavigationBar() {
+  const { showAddRestaurantModal } = useContext(AddRestaurantModalContext);
+
   return (
     <GNBContainer>
       <GNBTitle>점심 뭐 먹지</GNBTitle>

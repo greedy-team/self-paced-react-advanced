@@ -1,4 +1,6 @@
 import styled from 'styled-components';
+import { useContext } from 'react';
+import { RestaurantDetailModalContext } from '../../../../contexts/RestaurantDetailModalContext';
 
 const categoryImgMap = {
   한식: 'templates/category-korean.png',
@@ -9,7 +11,9 @@ const categoryImgMap = {
   기타: 'templates/category-etc.png',
 };
 
-export default function RestaurantItem({ restaurantInfo, updateClickedRestaurantID }) {
+export default function RestaurantItem({ restaurantInfo }) {
+  const { updateClickedRestaurantID } = useContext(RestaurantDetailModalContext);
+
   return (
     <ListItem>
       <Button
