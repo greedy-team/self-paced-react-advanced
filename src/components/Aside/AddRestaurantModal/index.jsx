@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import Modal from '../../UI/Modal';
 import { CATEGORIES, CATEGORY_IMAGE } from '../../../data/restaurantCategories';
 import {
@@ -7,11 +7,17 @@ import {
   ButtonContainer,
   Button,
 } from '../RestaurantModal.styles';
+import ModalContext from '../../../contexts/ModalContext';
 
-function AddRestaurantModal({ onAddRestaurant, onClose }) {
+function AddRestaurantModal({ onAddRestaurant }) {
+  const { setIsAddRestaurantModalOpen } = useContext(ModalContext);
   const [category, setCategory] = useState('');
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
+
+  const handleClose = () => {
+    setIsAddRestaurantModalOpen(false);
+  };
 
   const handleAddRestaurant = () => {
     const newRestaurant = {
@@ -22,11 +28,11 @@ function AddRestaurantModal({ onAddRestaurant, onClose }) {
       image: CATEGORY_IMAGE[category],
     };
     onAddRestaurant(newRestaurant);
-    onClose();
+    handleClose();
   };
 
   return (
-    <Modal onClose={onClose}>
+    <Modal onClose={handleClose}>
       <ModalTitle>새로운 음식점</ModalTitle>
       <form>
         <FormItem $required>

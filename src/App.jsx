@@ -9,7 +9,11 @@ import ModalContext from './contexts/ModalContext';
 
 function App() {
   const [restaurants, setRestaurants] = useState([]);
-  const { isRestaurantDetailModalOpen, setIsRestaurantDetailModalOpen } = useContext(ModalContext);
+  const {
+    isRestaurantDetailModalOpen,
+    setIsRestaurantDetailModalOpen,
+    isAddRestaurantModalOpen
+  } = useContext(ModalContext);
 
   const LOCAL_SERVER_URL = 'http://localhost:3000';
 
@@ -35,9 +39,6 @@ function App() {
     setSelectedRestaurant(restaurant);
   };
 
-  const [isAddRestaurantModalOpen, setIsAddRestaurantModalOpen] =
-    useState(false);
-
   const handleAddRestaurant = async restaurant => {
     await fetch(`${LOCAL_SERVER_URL}/restaurants`, {
       method: 'POST',
@@ -51,11 +52,7 @@ function App() {
     <>
       <GlobalStyle />
       <div>
-        <HomeHeader
-          onRestaurantAddButtonClick={() => {
-            setIsAddRestaurantModalOpen(true);
-          }}
-        />
+        <HomeHeader />
 
         <main>
           <RestaurantCategoryFilter setSelectedCategory={setSelectedCategory} />
@@ -66,15 +63,11 @@ function App() {
         </main>
 
         {isRestaurantDetailModalOpen && (
-          <RestaurantDetailModal
-            restaurant={selectedRestaurant}
-            onClose={() => setIsRestaurantDetailModalOpen(false)}
-          />
+          <RestaurantDetailModal restaurant={selectedRestaurant} />
         )}
         {isAddRestaurantModalOpen && (
           <AddRestaurantModal
             onAddRestaurant={handleAddRestaurant}
-            onClose={() => setIsAddRestaurantModalOpen(false)}
           />
         )}
       </div>

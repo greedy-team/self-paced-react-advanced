@@ -1,3 +1,4 @@
+import { useContext } from 'react';
 import Modal from '../../UI/Modal';
 import {
   ModalTitle,
@@ -5,16 +6,23 @@ import {
   ButtonContainer,
   Button,
 } from '../RestaurantModal.styles';
+import ModalContext from '../../../contexts/ModalContext';
 
-function RestaurantDetailModal({ restaurant, onClose }) {
+function RestaurantDetailModal({ restaurant }) {
+  const { setIsRestaurantDetailModalOpen } = useContext(ModalContext);
+
+  const handleClose = () => {
+    setIsRestaurantDetailModalOpen(false);
+  };
+
   return (
-    <Modal onClose={onClose}>
+    <Modal onClose={(handleClose)}>
       <ModalTitle>{restaurant.name}</ModalTitle>
       <RestaurantInfo>
         <p>{restaurant.description}</p>
       </RestaurantInfo>
       <ButtonContainer>
-        <Button $variant="primary" type="button" onClick={onClose}>
+        <Button $variant="primary" type="button" onClick={handleClose}>
           닫기
         </Button>
       </ButtonContainer>
