@@ -1,17 +1,17 @@
 import categories from "../../../constants/category";
 import styled from "styled-components";
+import { useContext } from "react";
+import { AppContext } from "../../../contexts/AppContext.jsx";
 
-export default function RestaurantCategoryFilter({
-  category,
-  onChangeCategory,
-}) {
+export default function RestaurantCategoryFilter() {
+  const { selectedCategory, setCategory } = useContext(AppContext);
   return (
     <FilterContainer>
       <FilterSelect
         name="category"
         id="category-filter"
-        value={category}
-        onChange={(event) => onChangeCategory(event.target.value)}
+        value={selectedCategory}
+        onChange={(event) => setCategory(event.target.value)}
         aria-label="카테고리 필터"
       >
         {categories.map((categoryItem) => (

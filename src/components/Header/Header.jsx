@@ -1,11 +1,19 @@
 import addButton from "../../assets/add-button.png";
 import styled from "styled-components";
+import { useContext } from "react";
+import { AppContext } from "../../contexts/AppContext.jsx";
 
-export default function Header({ openModal }) {
+export default function Header() {
+  const { openModal } = useContext(AppContext);
+
   return (
     <HeaderContainer>
       <HeaderTitle>점심 뭐 먹지</HeaderTitle>
-      <HeaderButton type="button" aria-label="음식점 추가" onClick={openModal}>
+      <HeaderButton
+        type="button"
+        aria-label="음식점 추가"
+        onClick={() => openModal("ADD_RESTAURANT")}
+      >
         <HeaderButtonImage src={addButton} alt="" />
       </HeaderButton>
     </HeaderContainer>

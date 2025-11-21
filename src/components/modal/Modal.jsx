@@ -1,19 +1,21 @@
-import { useRef } from "react";
+import { useRef, useContext } from "react";
+import { AppContext } from "../../contexts/AppContext.jsx";
 import styled from "styled-components";
 
-export default function Modal({ title, children, onBackdropClick }) {
+export default function Modal({ title, children }) {
+  const { closeModal } = useContext(AppContext);
   const containerRef = useRef(null);
 
   const handleKeyDown = (event) => {
     if (event.key === "Escape") {
       event.stopPropagation();
-      onBackdropClick();
+      closeModal();
     }
   };
 
   return (
     <ModalContainer open={true}>
-      <ModalBackDrop onClick={onBackdropClick} />
+      <ModalBackDrop onClick={closeModal} />
       <ModalContent
         ref={containerRef}
         role="dialog"
