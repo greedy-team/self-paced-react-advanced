@@ -10,7 +10,8 @@ import ModalContext from '../../../contexts/ModalContext';
 import RestaurantContext from '../../../contexts/RestaurantContext';
 
 function RestaurantDetailModal() {
-  const { setIsRestaurantDetailModalOpen } = useContext(ModalContext);
+  const { isRestaurantDetailModalOpen, setIsRestaurantDetailModalOpen } = useContext(ModalContext);
+
   const { selectedRestaurant } = useContext(RestaurantContext);
 
   const handleClose = () => {
@@ -18,6 +19,7 @@ function RestaurantDetailModal() {
   };
 
   return (
+    isRestaurantDetailModalOpen && (
     <Modal onClose={handleClose}>
       <ModalTitle>{selectedRestaurant.name}</ModalTitle>
       <RestaurantInfo>
@@ -29,6 +31,7 @@ function RestaurantDetailModal() {
         </Button>
       </ButtonContainer>
     </Modal>
+    )
   );
 }
 

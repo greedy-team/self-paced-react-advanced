@@ -10,7 +10,7 @@ import {
 import ModalContext from '../../../contexts/ModalContext';
 
 function AddRestaurantModal({ onAddRestaurant }) {
-  const { setIsAddRestaurantModalOpen } = useContext(ModalContext);
+  const { isAddRestaurantModalOpen, setIsAddRestaurantModalOpen } = useContext(ModalContext);
   const [category, setCategory] = useState('');
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
@@ -32,6 +32,8 @@ function AddRestaurantModal({ onAddRestaurant }) {
   };
 
   return (
+    isAddRestaurantModalOpen
+    && (
     <Modal onClose={handleClose}>
       <ModalTitle>새로운 음식점</ModalTitle>
       <form>
@@ -89,6 +91,7 @@ function AddRestaurantModal({ onAddRestaurant }) {
         </ButtonContainer>
       </form>
     </Modal>
+    )
   );
 }
 

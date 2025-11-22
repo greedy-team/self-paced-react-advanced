@@ -2,8 +2,9 @@ import { useState, useEffect } from 'react';
 import HomeHeader from './components/Header/HomeHeader';
 import RestaurantCategoryFilter from './components/Main/RestaurantCategoryFilter';
 import RestaurantList from './components/Main/RestaurantList/RestaurantList';
-import ModalRenderer from './components/Aside/ModalRenderer';
 import GlobalStyle from './GlobalStyle';
+import RestaurantDetailModal from './components/Aside/RestaurantDetailModal';
+import AddRestaurantModal from './components/Aside/AddRestaurantModal';
 
 function App() {
   const [restaurants, setRestaurants] = useState([]);
@@ -43,8 +44,8 @@ function App() {
           <RestaurantCategoryFilter setSelectedCategory={setSelectedCategory} />
           <RestaurantList restaurants={filteredRestaurants} />
         </main>
-
-        <ModalRenderer onAddRestaurant={handleAddRestaurant} />
+        <RestaurantDetailModal />
+        <AddRestaurantModal onAddRestaurant={handleAddRestaurant} />
       </div>
     </>
   );
