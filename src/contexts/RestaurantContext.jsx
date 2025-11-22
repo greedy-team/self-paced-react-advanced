@@ -12,8 +12,7 @@ export function RestaurantProvider({ children }) {
       selectedRestaurant,
       setSelectedRestaurant,
     }),
-    [selectedRestaurant,
-      setSelectedRestaurant],
+    [selectedRestaurant],
   );
 
   return (
