@@ -1,4 +1,4 @@
-import { useState, useContext } from 'react';
+import { useState } from 'react';
 import Modal from '../../UI/Modal';
 import { CATEGORIES, CATEGORY_IMAGE } from '../../../data/restaurantCategories';
 import {
@@ -7,10 +7,10 @@ import {
   ButtonContainer,
   Button,
 } from '../RestaurantModal.styles';
-import ModalContext from '../../../contexts/ModalContext';
+import { useModalContext } from '../../../contexts/ModalContext';
 
 function AddRestaurantModal({ onAddRestaurant }) {
-  const { isAddRestaurantModalOpen, setIsAddRestaurantModalOpen } = useContext(ModalContext);
+  const { isAddRestaurantModalOpen, setIsAddRestaurantModalOpen } = useModalContext();
   const [category, setCategory] = useState('');
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');

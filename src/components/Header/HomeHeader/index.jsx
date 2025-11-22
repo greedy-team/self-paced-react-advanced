@@ -1,10 +1,9 @@
-import { useContext } from 'react';
 import Button from '../../UI/Button';
 import { Gnb, GnbTitle } from './HomeHeader.styles';
-import ModalContext from '../../../contexts/ModalContext';
+import { useModalContext } from '../../../contexts/ModalContext';
 
 function HomeHeader() {
-  const { setIsAddRestaurantModalOpen } = useContext(ModalContext);
+  const { setIsAddRestaurantModalOpen } = useModalContext();
 
   return (
     <Gnb>

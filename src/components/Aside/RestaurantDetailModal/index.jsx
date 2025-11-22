@@ -1,4 +1,3 @@
-import { useContext } from 'react';
 import Modal from '../../UI/Modal';
 import {
   ModalTitle,
@@ -6,13 +5,13 @@ import {
   ButtonContainer,
   Button,
 } from '../RestaurantModal.styles';
-import ModalContext from '../../../contexts/ModalContext';
-import RestaurantContext from '../../../contexts/RestaurantContext';
+import { useModalContext } from '../../../contexts/ModalContext';
+import { useRestaurantContext } from '../../../contexts/RestaurantContext';
 
 function RestaurantDetailModal() {
-  const { isRestaurantDetailModalOpen, setIsRestaurantDetailModalOpen } = useContext(ModalContext);
+  const { isRestaurantDetailModalOpen, setIsRestaurantDetailModalOpen } = useModalContext();
 
-  const { selectedRestaurant } = useContext(RestaurantContext);
+  const { selectedRestaurant } = useRestaurantContext();
 
   const handleClose = () => {
     setIsRestaurantDetailModalOpen(false);

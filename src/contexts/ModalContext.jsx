@@ -1,11 +1,8 @@
-import { createContext, useState, useMemo } from 'react';
+import {
+  createContext, useState, useMemo, useContext,
+} from 'react';
 
-const ModalContext = createContext({
-  isRestaurantDetailModalOpen: false,
-  setIsRestaurantDetailModalOpen: () => {},
-  isAddRestaurantModalOpen: false,
-  setIsAddRestaurantModalOpen: () => {},
-});
+const ModalContext = createContext(null);
 
 export function ModalProvider({ children }) {
   const [isRestaurantDetailModalOpen, setIsRestaurantDetailModalOpen] = useState(false);
@@ -28,5 +25,13 @@ export function ModalProvider({ children }) {
     </ModalContext.Provider>
   );
 }
+
+export const useModalContext = () => {
+  const context = useContext(ModalContext);
+  if (context === null) {
+    throw new Error('useModalContext는 ModalProvider 내에서 사용되어야 합니다.');
+  }
+  return context;
+};
 
 export default ModalContext;
