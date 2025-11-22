@@ -5,14 +5,13 @@ import RestaurantList from './components/Main/RestaurantList/RestaurantList';
 import GlobalStyle from './GlobalStyle';
 import RestaurantDetailModal from './components/Aside/RestaurantDetailModal';
 import AddRestaurantModal from './components/Aside/AddRestaurantModal';
+import restaurantApi from './api/restaurantApi';
 
 function App() {
   const [restaurants, setRestaurants] = useState([]);
-  const LOCAL_SERVER_URL = 'http://localhost:3000';
 
   const fetchRestaurants = async () => {
-    const restaurantsResponse = await fetch(`${LOCAL_SERVER_URL}/restaurants`);
-    const fetchedRestaurants = await restaurantsResponse.json();
+    const fetchedRestaurants = await restaurantApi.fetchAllRestaurants();
     setRestaurants(fetchedRestaurants);
   };
 
@@ -26,11 +25,7 @@ function App() {
     : restaurants.filter((e) => e.category === selectedCategory);
 
   const handleAddRestaurant = async (restaurant) => {
-    await fetch(`${LOCAL_SERVER_URL}/restaurants`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(restaurant),
-    });
+    await restaurantApi.postRestaurant(restaurant);
     fetchRestaurants();
   };
 
