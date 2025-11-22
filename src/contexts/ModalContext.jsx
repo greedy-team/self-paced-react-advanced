@@ -1,22 +1,65 @@
 import {
-  createContext, useState, useMemo, useContext,
+  createContext, useMemo, useContext, useReducer,
 } from 'react';
 
 const ModalContext = createContext(null);
 
+function modalReducer(state, action) {
+  switch (action.type) {
+    case 'open_restaurant_detail':
+      return {
+        ...state,
+        isRestaurantDetailModalOpen: true,
+      };
+    case 'close_restaurant_detail':
+      return {
+        ...state,
+        isRestaurantDetailModalOpen: false,
+      };
+    case 'open_add_restaurant':
+      return {
+        ...state,
+        isAddRestaurantModalOpen: true,
+      };
+    case 'close_add_restaurant':
+      return {
+        ...state,
+        isAddRestaurantModalOpen: false,
+      };
+    default:
+      throw new Error(`Unknown action: ${action.type}`);
+  }
+}
+
+const initialState = {
+  isRestaurantDetailModalOpen: false,
+  isAddRestaurantModalOpen: false,
+};
+
 export function ModalProvider({ children }) {
-  const [isRestaurantDetailModalOpen, setIsRestaurantDetailModalOpen] = useState(false);
-  const [isAddRestaurantModalOpen, setIsAddRestaurantModalOpen] = useState(false);
+  const [state, dispatch] = useReducer(modalReducer, initialState);
+
+  const setIsRestaurantDetailModalOpen = (isOpen) => {
+    dispatch({
+      type: isOpen ? 'open_restaurant_detail' : 'close_restaurant_detail',
+    });
+  };
+
+  const setIsAddRestaurantModalOpen = (isOpen) => {
+    dispatch({
+      type: isOpen ? 'open_add_restaurant' : 'close_add_restaurant',
+    });
+  };
 
   const value = useMemo(
     () => ({
-      isRestaurantDetailModalOpen,
+      isRestaurantDetailModalOpen: state.isRestaurantDetailModalOpen,
       setIsRestaurantDetailModalOpen,
-      isAddRestaurantModalOpen,
+
+      isAddRestaurantModalOpen: state.isAddRestaurantModalOpen,
       setIsAddRestaurantModalOpen,
     }),
-    [isRestaurantDetailModalOpen, isAddRestaurantModalOpen,
-      setIsRestaurantDetailModalOpen, setIsAddRestaurantModalOpen],
+    [state.isRestaurantDetailModalOpen, state.isAddRestaurantModalOpen],
   );
 
   return (
