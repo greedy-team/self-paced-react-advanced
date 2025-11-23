@@ -20,7 +20,7 @@ export const getRestaurantInfoList = async () => {
     return {
       success: false,
       data: null,
-      erorr: 'Network Error',
+      error: 'Network Error: 서버에 연결할 수 없습니다. 인터넷 연결을 확인하세요.',
     };
   }
 };
@@ -48,7 +48,7 @@ export const addNewRestaurantInfo = async (restaurantInfo) => {
   } catch (error) {
     return {
       success: false,
-      error: 'Network Error',
+      error: 'Network Error: 서버에 연결할 수 없습니다. 인터넷 연결을 확인하세요.',
     };
   }
 };

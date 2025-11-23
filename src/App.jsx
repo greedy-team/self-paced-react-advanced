@@ -40,7 +40,7 @@ function App() {
           <MainContent restaurantInfoList={restaurantInfoList} />
 
           <AsideContent>
-            <AddRestaurantModal addRestaurantInfo={addRestaurantInfo} />
+            <AddRestaurantModal onAddRestaurantInfo={addRestaurantInfo} />
             <RestaurantDetailModal />
           </AsideContent>
 
