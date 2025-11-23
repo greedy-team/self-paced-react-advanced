@@ -9,8 +9,11 @@ export function RestaurantDetailModalProvider({ children, restaurantInfoList }) 
     setClickedRestaurantID(restaurantID);
   }, []);
 
-  const restaurantInfo = restaurantInfoList.find(
-    (restaurant) => restaurant.id === clickedRestaurantID,
+  const restaurantInfo = useMemo(
+    () => (
+      restaurantInfoList.find((restaurant) => restaurant.id === clickedRestaurantID)
+    ),
+    [clickedRestaurantID, restaurantInfoList],
   );
   const isVisible = restaurantInfo !== undefined;
 
