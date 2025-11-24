@@ -1,8 +1,9 @@
 import {
-  createContext, useMemo, useContext, useReducer,
+  createContext, useContext, useReducer,
 } from 'react';
 
-const ModalContext = createContext(null);
+const ModalStateContext = createContext(null);
+const ModalDispatchContext = createContext(null);
 
 function modalReducer(state, action) {
   switch (action.type) {
@@ -39,42 +40,27 @@ const initialState = {
 export function ModalProvider({ children }) {
   const [state, dispatch] = useReducer(modalReducer, initialState);
 
-  const setIsRestaurantDetailModalOpen = (isOpen) => {
-    dispatch({
-      type: isOpen ? 'open_restaurant_detail' : 'close_restaurant_detail',
-    });
-  };
-
-  const setIsAddRestaurantModalOpen = (isOpen) => {
-    dispatch({
-      type: isOpen ? 'open_add_restaurant' : 'close_add_restaurant',
-    });
-  };
-
-  const value = useMemo(
-    () => ({
-      isRestaurantDetailModalOpen: state.isRestaurantDetailModalOpen,
-      setIsRestaurantDetailModalOpen,
-
-      isAddRestaurantModalOpen: state.isAddRestaurantModalOpen,
-      setIsAddRestaurantModalOpen,
-    }),
-    [state.isRestaurantDetailModalOpen, state.isAddRestaurantModalOpen],
-  );
-
   return (
-    <ModalContext.Provider value={value}>
-      {children}
-    </ModalContext.Provider>
+    <ModalStateContext.Provider value={state}>
+      <ModalDispatchContext.Provider value={dispatch}>
+        {children}
+      </ModalDispatchContext.Provider>
+    </ModalStateContext.Provider>
   );
 }
 
-export const useModalContext = () => {
-  const context = useContext(ModalContext);
+export function useModalState() {
+  const context = useContext(ModalStateContext);
   if (context === null) {
-    throw new Error('useModalContext는 ModalProvider 내에서 사용되어야 합니다.');
+    throw new Error('useModalState는 ModalProvider 내에서 사용되어야 합니다.');
   }
   return context;
-};
+}
 
-export default ModalContext;
+export function useModalDispatch() {
+  const context = useContext(ModalDispatchContext);
+  if (context === null) {
+    throw new Error('useModalDispatch는 ModalProvider 내에서 사용되어야 합니다.');
+  }
+  return context;
+}
