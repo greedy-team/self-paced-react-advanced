@@ -8,7 +8,7 @@ import {
   RestaurantName,
   RestaurantDescription,
 } from './RestaurantItem.styles';
-import { useModalDispatch } from '../../../contexts/ModalContext';
+import { useModalDispatch, RESTAURANT_MODAL_ACTION_TYPES } from '../../../contexts/ModalContext';
 import { useRestaurantContext } from '../../../contexts/RestaurantContext';
 
 function RestaurantItem({ restaurant }) {
@@ -16,7 +16,7 @@ function RestaurantItem({ restaurant }) {
   const { setSelectedRestaurant } = useRestaurantContext();
 
   const handleClick = () => {
-    dispatch({ type: 'open_restaurant_detail' });
+    dispatch({ type: RESTAURANT_MODAL_ACTION_TYPES.OPEN_RESTAURANT_DETAIL });
     setSelectedRestaurant(restaurant);
   };
 

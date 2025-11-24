@@ -5,24 +5,31 @@ import {
 const ModalStateContext = createContext(null);
 const ModalDispatchContext = createContext(null);
 
+export const RESTAURANT_MODAL_ACTION_TYPES = {
+  OPEN_RESTAURANT_DETAIL: 'open_restaurant_detail',
+  CLOSE_RESTAURANT_DETAIL: 'close_restaurant_detail',
+  OPEN_ADD_RESTAURANT: 'open_add_restaurant',
+  CLOSE_ADD_RESTAURANT: 'close_add_restaurant',
+};
+
 function modalReducer(state, action) {
   switch (action.type) {
-    case 'open_restaurant_detail':
+    case RESTAURANT_MODAL_ACTION_TYPES.OPEN_RESTAURANT_DETAIL:
       return {
         ...state,
         isRestaurantDetailModalOpen: true,
       };
-    case 'close_restaurant_detail':
+    case RESTAURANT_MODAL_ACTION_TYPES.CLOSE_RESTAURANT_DETAIL:
       return {
         ...state,
         isRestaurantDetailModalOpen: false,
       };
-    case 'open_add_restaurant':
+    case RESTAURANT_MODAL_ACTION_TYPES.OPEN_ADD_RESTAURANT:
       return {
         ...state,
         isAddRestaurantModalOpen: true,
       };
-    case 'close_add_restaurant':
+    case RESTAURANT_MODAL_ACTION_TYPES.CLOSE_ADD_RESTAURANT:
       return {
         ...state,
         isAddRestaurantModalOpen: false,

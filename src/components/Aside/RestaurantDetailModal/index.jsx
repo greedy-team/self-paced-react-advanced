@@ -5,7 +5,7 @@ import {
   ButtonContainer,
   Button,
 } from '../RestaurantModal.styles';
-import { useModalState, useModalDispatch } from '../../../contexts/ModalContext';
+import { useModalState, useModalDispatch, RESTAURANT_MODAL_ACTION_TYPES } from '../../../contexts/ModalContext';
 import { useRestaurantContext } from '../../../contexts/RestaurantContext';
 
 function RestaurantDetailModal() {
@@ -15,7 +15,7 @@ function RestaurantDetailModal() {
   const { selectedRestaurant } = useRestaurantContext();
 
   const handleClose = () => {
-    dispatch({ type: 'close_restaurant_detail' });
+    dispatch({ type: RESTAURANT_MODAL_ACTION_TYPES.CLOSE_RESTAURANT_DETAIL });
   };
 
   return (
