@@ -7,9 +7,15 @@ export default function ModalButton({
 }) {
   return (
     <ButtonContainer>
-      <Button variant={variant} {...props} className="text-caption">
-        {children}
-      </Button>
+      {variant === "primary" ? (
+        <PrimaryButton {...props} className="text-caption">
+          {children}
+        </PrimaryButton>
+      ) : (
+        <SecondaryButton {...props} className="text-caption">
+          {children}
+        </SecondaryButton>
+      )}
     </ButtonContainer>
   );
 }
@@ -30,16 +36,16 @@ const Button = styled.button`
   &:last-child {
     margin-right: 0;
   }
+`;
 
-  ${(props) =>
-    props.variant === "secondary"
-      ? `
-    border: 1px solid var(--grey-300);
-    background: transparent;
-    color: var(--grey-300);
-  `
-      : `
-    background: var(--primary-color);
-    color: var(--grey-100);
-  `}
+const PrimaryButton = styled(Button)`
+  background: var(--primary-color);
+  color: var(--grey-100);
+  border: none;
+`;
+
+const SecondaryButton = styled(Button)`
+  background: transparent;
+  color: var(--grey-300);
+  border: 1px solid var(--grey-300);
 `;
