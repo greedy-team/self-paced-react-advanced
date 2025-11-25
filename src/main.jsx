@@ -1,12 +1,15 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import App from "./App.jsx";
-import { RestaurantProvider } from "./contexts/RestaurantContext";
+import { RestaurantDataProvider } from "./contexts/RestaurantDataContext";
+import { RestaurantModalProvider } from "./contexts/RestaurantModalContext";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
-    <RestaurantProvider>
-      <App />
-    </RestaurantProvider>
+    <RestaurantDataProvider>
+      <RestaurantModalProvider>
+        <App />
+      </RestaurantModalProvider>
+    </RestaurantDataProvider>
   </StrictMode>
 );

@@ -6,10 +6,13 @@ import CategoryFilter from "./components/CategoryFilter";
 import RestaurantList from "./components/RestaurantList";
 import RestaurantDetailModal from "./components/RestaurantDetailModal";
 import AddRestaurantModal from "./components/AddRestaurantModal";
-import useRestaurantContext from "../hooks/useRestaurantContext";
+
+import useRestaurantDataContext from "./hooks/useRestaurantDataContext";
+import useRestaurantModalContext from "./hooks/useRestaurantModalContext";
 
 function App() {
-  const { selected, isAddModalOpen } = useRestaurantContext();
+  const { selected } = useRestaurantDataContext();
+  const { isAddModalOpen } = useRestaurantModalContext();
 
   return (
     <>
