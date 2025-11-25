@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { typography } from "../styles/common";
-import useRestaurantContext from "../hooks/useRestaurantContext";
+import useRestaurantDataContext from "../hooks/useRestaurantDataContext";
 
 const categoryIcon = {
   한식: "/category-korean.png",
@@ -12,7 +12,7 @@ const categoryIcon = {
 };
 
 export default function RestaurantList() {
-  const { filteredRestaurants, selectRestaurant } = useRestaurantContext();
+  const { filteredRestaurants, selectRestaurant } = useRestaurantDataContext();
 
   return (
     <List>

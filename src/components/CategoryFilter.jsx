@@ -1,10 +1,10 @@
 import styled from "styled-components";
-import useRestaurantContext from "../hooks/useRestaurantContext";
+import useRestaurantDataContext from "../hooks/useRestaurantDataContext";
 
 const OPTIONS = ["전체", "한식", "중식", "일식", "양식", "아시안", "기타"];
 
 export default function CategoryFilter() {
-  const { category, setCategory } = useRestaurantContext();
+  const { category, setCategory } = useRestaurantDataContext();
 
   return (
     <StyledSelect
