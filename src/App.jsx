@@ -12,19 +12,30 @@ function App() {
 
   return (
     <div>
-      <RestaurantDetailModalProvider restaurantInfoList={restaurantInfoList}>
-        <AddRestaurantModalProvider>
-          <MainContent restaurantInfoList={restaurantInfoList} />
+      <Composer
+        providers={[
+          [RestaurantDetailModalProvider, { restaurantInfoList }],
+          [AddRestaurantModalProvider, {}],
+        ]}
+      >
+        <MainContent restaurantInfoList={restaurantInfoList} />
 
-          <AsideContent>
-            <AddRestaurantModal onAddRestaurantInfo={addRestaurantInfo} />
-            <RestaurantDetailModal />
-          </AsideContent>
+        <AsideContent>
+          <AddRestaurantModal handleAddRestaurantInfo={addRestaurantInfo} />
+          <RestaurantDetailModal />
+        </AsideContent>
 
-        </AddRestaurantModalProvider>
-      </RestaurantDetailModalProvider>
+      </Composer>
     </div>
   );
+}
+
+function Composer({ providers, children }) {
+  return providers.reduceRight((acc, provider) => {
+    const [Component, props] = provider;
+    // eslint-disable-next-line react/jsx-props-no-spreading
+    return <Component {...props}>{acc}</Component>;
+  }, children);
 }
 
 export default App;

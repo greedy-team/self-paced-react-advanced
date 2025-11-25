@@ -15,7 +15,6 @@ const useRestaurantInfoList = () => {
 
   const addRestaurantInfo = useCallback(async (restaurantInfo) => {
     const response = await addNewRestaurantInfo(restaurantInfo);
-
     if (response.success) {
       fetchRestaurantInfoList();
     } else {

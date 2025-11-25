@@ -8,7 +8,7 @@ const optionList = categoryList.filter((value) => (value !== '전체')).map((val
   <option value={value} key={value}>{value}</option>
 ));
 
-export default function AddRestaurantModal({ onAddRestaurantInfo }) {
+export default function AddRestaurantModal({ handleAddRestaurantInfo }) {
   const {
     isVisible,
     closeAddRestaurantModal,
@@ -24,7 +24,7 @@ export default function AddRestaurantModal({ onAddRestaurantInfo }) {
       description: formData.get('description'),
       category: formData.get('category'),
     };
-    onAddRestaurantInfo(newRestaurant);
+    handleAddRestaurantInfo(newRestaurant);
     closeAddRestaurantModal();
   };
 
