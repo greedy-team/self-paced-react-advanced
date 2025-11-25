@@ -1,28 +1,16 @@
-import { useContext } from 'react';
 import styled from 'styled-components';
 import Modal from '../Modal/Modal';
-import { RestaurantDetailModalContext } from '../../../contexts/RestaurantDetailModalContext';
 
-export default function RestaurantDetailModal() {
-  const {
-    restaurantInfo,
-    isVisible,
-    updateClickedRestaurantID,
-  } = useContext(RestaurantDetailModalContext);
-
-  const closeModal = () => {
-    updateClickedRestaurantID(null);
-  };
-
+export default function RestaurantDetailModal({ isVisible, onClose, restaurantInfo }) {
   if (!isVisible) return null;
   return (
-    <Modal onClickBackdrop={closeModal} title={restaurantInfo.name}>
+    <Modal onClickBackdrop={onClose} title={restaurantInfo.name}>
       <DescriptionContainer>
         <Description>{restaurantInfo.description}</Description>
       </DescriptionContainer>
 
       <ButtonContainer>
-        <Button type="button" onClick={closeModal}>닫기</Button>
+        <Button type="button" onClick={onClose}>닫기</Button>
       </ButtonContainer>
     </Modal>
   );

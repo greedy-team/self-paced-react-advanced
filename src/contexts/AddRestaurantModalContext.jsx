@@ -3,7 +3,7 @@ import { createContext, useState, useCallback, useMemo } from 'react';
 export const AddRestaurantModalContext = createContext(null);
 
 export function AddRestaurantModalProvider({ children }) {
-  const [isVisible, setIsVisible] = useState(false);
+  const [isVisibleAddRestaurantModal, setIsVisible] = useState(false);
 
   const showAddRestaurantModal = useCallback(() => {
     setIsVisible(true);
@@ -15,11 +15,11 @@ export function AddRestaurantModalProvider({ children }) {
 
   const value = useMemo(
     () => ({
-      isVisible,
+      isVisibleAddRestaurantModal,
       showAddRestaurantModal,
       closeAddRestaurantModal,
     }),
-    [isVisible, showAddRestaurantModal, closeAddRestaurantModal],
+    [isVisibleAddRestaurantModal, showAddRestaurantModal, closeAddRestaurantModal],
   );
 
   return (

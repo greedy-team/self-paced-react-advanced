@@ -1,10 +1,16 @@
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import GlobalNavigationBar from './GlobalNavigationBar/GlobalNavigationBar';
 import CategoryFilter from './CategoryFilter/CategoryFilter';
 import RestaurantList from './RestaurantList/RestaurantList';
+import { RestaurantInfoListContext } from '../../contexts/RestaurantInfoListContext';
+import { AddRestaurantModalContext } from '../../contexts/AddRestaurantModalContext';
+import { RestaurantDetailModalContext } from '../../contexts/RestaurantDetailModalContext';
 
-export default function MainContent({ restaurantInfoList }) {
+export default function MainContent() {
   const [category, setCategory] = useState('전체');
+  const { restaurantInfoList } = useContext(RestaurantInfoListContext);
+  const { showAddRestaurantModal } = useContext(AddRestaurantModalContext);
+  const { updateClickedRestaurantID } = useContext(RestaurantDetailModalContext);
 
   const updateCategory = (categoryToSet) => {
     setCategory(categoryToSet);
@@ -18,10 +24,11 @@ export default function MainContent({ restaurantInfoList }) {
 
   return (
     <main>
-      <GlobalNavigationBar />
+      <GlobalNavigationBar onClickAddButton={showAddRestaurantModal} />
       <CategoryFilter category={category} onChangeCategory={updateCategory} />
       <RestaurantList
         restaurantInfoList={filteredRestaurantInfoList}
+        onClickItem={updateClickedRestaurantID}
       />
     </main>
   );

@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import RestaurantItem from './RestaurantItem/RestaurantItem';
 
-export default function RestaurantList({ restaurantInfoList }) {
+export default function RestaurantList({ restaurantInfoList, onClickItem }) {
   return (
     <ListContainer>
       <ul>
@@ -9,6 +9,7 @@ export default function RestaurantList({ restaurantInfoList }) {
           <RestaurantItem
             key={restaurantInfo.id}
             restaurantInfo={restaurantInfo}
+            onClickItem={onClickItem}
           />
         ))}
       </ul>
