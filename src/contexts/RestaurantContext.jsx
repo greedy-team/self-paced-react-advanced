@@ -3,19 +3,7 @@ import useModal from "../hooks/useModal";
 
 const API_URL = "http://localhost:3000/restaurants";
 
-const RestaurantContext = createContext({
-  restaurantList: [],
-  category: "전체",
-  filteredRestaurants: [],
-  selected: null,
-  isAddModalOpen: false,
-  setCategory: () => {},
-  openAddModal: () => {},
-  closeAddModal: () => {},
-  selectRestaurant: () => {},
-  deselectRestaurant: () => {},
-  addRestaurant: async () => {},
-});
+const RestaurantContext = createContext(null);
 
 export const RestaurantProvider = ({ children }) => {
   const [restaurantList, setRestaurantList] = useState([]);

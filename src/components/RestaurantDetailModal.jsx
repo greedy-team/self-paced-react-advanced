@@ -1,11 +1,10 @@
 import styled from "styled-components";
 import { typography, buttonBase, buttonVariants } from "../styles/common";
 import Modal from "./Modal.jsx";
-import { useContext } from "react";
-import RestaurantContext from "../contexts/RestaurantContext";
+import useRestaurantContext from "../hooks/useRestaurantContext";
 
 export default function RestaurantDetailModal() {
-  const { selected, deselectRestaurant } = useContext(RestaurantContext);
+  const { selected, deselectRestaurant } = useRestaurantContext();
 
   if (!selected) return null;
 

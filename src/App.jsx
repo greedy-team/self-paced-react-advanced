@@ -1,4 +1,3 @@
-import { useContext } from "react";
 import "./App.css";
 import styled from "styled-components";
 
@@ -7,10 +6,10 @@ import CategoryFilter from "./components/CategoryFilter";
 import RestaurantList from "./components/RestaurantList";
 import RestaurantDetailModal from "./components/RestaurantDetailModal";
 import AddRestaurantModal from "./components/AddRestaurantModal";
-import RestaurantContext from "./contexts/RestaurantContext";
+import useRestaurantContext from "../hooks/useRestaurantContext";
 
 function App() {
-  const { selected, isAddModalOpen } = useContext(RestaurantContext);
+  const { selected, isAddModalOpen } = useRestaurantContext();
 
   return (
     <>

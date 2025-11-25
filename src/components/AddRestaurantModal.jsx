@@ -7,11 +7,10 @@ import {
   buttonVariants,
 } from "../styles/common";
 import Modal from "./Modal.jsx";
-import { useContext } from "react";
-import RestaurantContext from "../contexts/RestaurantContext";
+import useRestaurantContext from "../hooks/useRestaurantContext";
 
 export default function AddRestaurantModal() {
-  const { addRestaurant, closeAddModal } = useContext(RestaurantContext);
+  const { addRestaurant, closeAddModal } = useRestaurantContext();
 
   const handleSubmit = (e) => {
     e.preventDefault();
