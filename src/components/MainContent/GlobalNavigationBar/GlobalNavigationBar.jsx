@@ -1,10 +1,10 @@
 import styled from 'styled-components';
 
-export default function GlobalNavigationBar({ showAddRestaurantModal }) {
+export default function GlobalNavigationBar({ onClickAddButton }) {
   return (
     <GNBContainer>
       <GNBTitle>점심 뭐 먹지</GNBTitle>
-      <GNBButton type="button" aria-label="음식점 추가" onClick={showAddRestaurantModal}>
+      <GNBButton type="button" aria-label="음식점 추가" onClick={onClickAddButton}>
         <img src="templates/add-button.png" alt="음식점 추가" />
       </GNBButton>
     </GNBContainer>

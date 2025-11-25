@@ -22,5 +22,7 @@ module.exports = {
       ["error",{ "required": { "some": ["nesting", "id"] } }],
     "import/no-extraneous-dependencies": 
       ["error",{devDependencies: ["**/vite.config.*", "**/vitest.config.*", "**/eslint.config.*", "**/*.config.js", ],},],
+    "object-curly-newline": 
+      ["error",{ "ImportDeclaration": { "minProperties": 10 } }],
   },
 };

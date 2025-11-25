@@ -9,12 +9,12 @@ const categoryImgMap = {
   기타: 'templates/category-etc.png',
 };
 
-export default function RestaurantItem({ restaurantInfo, updateClickedRestaurantID }) {
+export default function RestaurantItem({ restaurantInfo, onClickItem }) {
   return (
     <ListItem>
       <Button
         type="button"
-        onClick={() => { updateClickedRestaurantID(restaurantInfo.id); }}
+        onClick={() => { onClickItem(restaurantInfo.id); }}
       >
         <CategoryImgContainer>
           <CategoryImg
