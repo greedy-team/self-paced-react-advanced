@@ -7,9 +7,14 @@ import {
   buttonVariants,
 } from "../styles/common";
 import Modal from "./Modal.jsx";
+import useRestaurantDataContext from "../hooks/useRestaurantDataContext";
+import useRestaurantModalContext from "../hooks/useRestaurantModalContext";
 
-export default function AddRestaurantModal({ onAdd, onClose }) {
-  const handleSubmit = (e) => {
+export default function AddRestaurantModal() {
+  const { addRestaurant } = useRestaurantDataContext();
+  const { closeAddModal } = useRestaurantModalContext();
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const fd = new FormData(e.currentTarget);
     const category = fd.get("category");
@@ -20,15 +25,17 @@ export default function AddRestaurantModal({ onAdd, onClose }) {
       return;
     }
 
-    onAdd({
-      category: String(category),
-      name: String(name),
-      description: String(description),
+    await addRestaurant({
+      category,
+      name,
+      description,
     });
+
+    closeAddModal();
   };
 
   return (
-    <Modal onClose={onClose}>
+    <Modal onClose={closeAddModal}>
       <ModalTitle>새로운 음식점</ModalTitle>
 
       <form onSubmit={handleSubmit}>

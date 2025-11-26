@@ -1,19 +1,28 @@
 import styled from "styled-components";
 import { typography, buttonBase, buttonVariants } from "../styles/common";
 import Modal from "./Modal.jsx";
+import useRestaurantDataContext from "../hooks/useRestaurantDataContext.jsx";
 
-export default function RestaurantDetailModal({ restaurant, onClose }) {
+export default function RestaurantDetailModal() {
+  const { selected, deselectRestaurant } = useRestaurantDataContext();
+
+  if (!selected) return null;
+
   return (
-    <Modal onClose={onClose}>
-      <ModalTitle>{restaurant.name}</ModalTitle>
+    <Modal onClose={deselectRestaurant}>
+      <ModalTitle>{selected.name}</ModalTitle>
       <RestaurantInfo>
         <DescriptionText>
-          {restaurant.description || "상세 설명이 없습니다."}
+          {selected.description || "상세 설명이 없습니다."}
         </DescriptionText>
       </RestaurantInfo>
 
       <ButtonContainer>
-        <StyledButton variant="primary" type="button" onClick={onClose}>
+        <StyledButton
+          variant="primary"
+          type="button"
+          onClick={deselectRestaurant}
+        >
           확인
         </StyledButton>
       </ButtonContainer>
