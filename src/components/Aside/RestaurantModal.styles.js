@@ -13,14 +13,13 @@ export const FormItem = styled.div`
   margin-bottom: 36px;
 
   label {
-    color: ${props => props.theme.colors.grey400};
+    color: ${(props) => props.theme.colors.grey400};
     font-size: 14px;
     line-height: 20px;
     font-weight: 400;
 
-    ${props =>
-      props.$required &&
-      `
+    ${(props) => props.$required
+      && `
       &::after {
         padding-left: 4px;
         color: ${props.theme.colors.primary};
@@ -30,7 +29,7 @@ export const FormItem = styled.div`
   }
 
   .helpText {
-    color: ${props => props.theme.colors.grey300};
+    color: ${(props) => props.theme.colors.grey300};
     font-size: 14px;
     line-height: 20px;
     font-weight: 400;
@@ -41,7 +40,7 @@ export const FormItem = styled.div`
   select {
     padding: 8px;
     margin: 6px 0;
-    border: 1px solid ${props => props.theme.colors.grey200};
+    border: 1px solid ${(props) => props.theme.colors.grey200};
     border-radius: 8px;
     font-size: 16px;
   }
@@ -53,9 +52,9 @@ export const FormItem = styled.div`
   select {
     height: 44px;
     padding: 8px;
-    border: 1px solid ${props => props.theme.colors.grey200};
+    border: 1px solid ${(props) => props.theme.colors.grey200};
     border-radius: 8px;
-    color: ${props => props.theme.colors.grey300};
+    color: ${(props) => props.theme.colors.grey300};
   }
 
   input[name='name'],
@@ -65,7 +64,7 @@ export const FormItem = styled.div`
 `;
 
 export const HelpText = styled.span`
-  color: ${props => props.theme.colors.grey300};
+  color: ${(props) => props.theme.colors.grey300};
 `;
 
 export const ButtonContainer = styled.div`
@@ -86,7 +85,7 @@ export const Button = styled.button`
     margin-right: 0;
   }
 
-  ${props => {
+  ${(props) => {
     if (props.$variant === 'primary') {
       return `
         border: none;

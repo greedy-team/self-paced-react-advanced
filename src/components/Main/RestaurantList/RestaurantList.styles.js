@@ -7,6 +7,4 @@ export const RestaurantListContainer = styled.section`
   margin: 16px 0;
 `;
 
-export const RestaurantItemList = styled.ul.attrs({
-
-})``;
+export const RestaurantItemList = styled.ul.attrs({})``;

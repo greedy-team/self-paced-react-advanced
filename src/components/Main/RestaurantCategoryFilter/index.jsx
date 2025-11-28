@@ -3,7 +3,7 @@ import { CATEGORIES } from '../../../data/restaurantCategories';
 import RestaurantFilterContainer from './RestaurantCategoryFilter.styles';
 
 function RestaurantCategoryFilter({ setSelectedCategory }) {
-  const handleCategoryChange = e => {
+  const handleCategoryChange = (e) => {
     setSelectedCategory(e.target.value);
   };
   return (
