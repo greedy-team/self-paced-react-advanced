@@ -1,26 +1,29 @@
-import { useContext } from 'react';
 import RestaurantDetailModal from './RestaurantDetailModal/RestaurantDetailModal';
 import AddRestaurantModal from './AddRestaurantModal/AddRestaurantModal';
-import { AddRestaurantModalContext } from '../../contexts/AddRestaurantModalContext';
-import { RestaurantDetailModalContext } from '../../contexts/RestaurantDetailModalContext';
-import { RestaurantInfoListContext } from '../../contexts/RestaurantInfoListContext';
-import { useAddRestaurantModalStore } from '../../stores/useAddRestaurantModalStore';
-import { useRestaurantDetailModalStore } from '../../stores/useRestaurantDetailModalStore';
-
+import useRestaurantInfoListStore from '../../stores/useRestaurantInfoListStore';
+import useAddRestaurantModalStore from '../../stores/useAddRestaurantModalStore';
+import useRestaurantDetailModalStore from '../../stores/useRestaurantDetailModalStore';
 
 export default function AsideContent() {
   const {
-    isVisibleAddRestaurantModal,
-    closeAddRestaurantModal,
-  } = useContext(AddRestaurantModalContext);
+    restaurantInfoList,
+    addRestaurantInfo,
+  } = useRestaurantInfoListStore();
 
   const {
-    restaurantInfo,
-    isVisibleRestaurantDetailModal,
-    updateClickedRestaurantID,
-  } = useContext(RestaurantDetailModalContext);
+    isVisibleAddRestaurantModal,
+    closeAddRestaurantModal,
+  } = useAddRestaurantModalStore();
 
-  const { addRestaurantInfo } = useContext(RestaurantInfoListContext);
+  const {
+    clickedRestaurantID,
+    updateClickedRestaurantID,
+  } = useRestaurantDetailModalStore();
+
+  const clickedRestaurantInfo = restaurantInfoList.find(
+    (restaurant) => restaurant.id === clickedRestaurantID,
+  );
+  const isVisibleRestaurantDetailModal = clickedRestaurantInfo !== undefined;
 
   return (
     <aside>
@@ -32,7 +35,7 @@ export default function AsideContent() {
       <RestaurantDetailModal
         isVisible={isVisibleRestaurantDetailModal}
         onClose={() => updateClickedRestaurantID(null)}
-        restaurantInfo={restaurantInfo}
+        restaurantInfo={clickedRestaurantInfo}
       />
     </aside>
   );

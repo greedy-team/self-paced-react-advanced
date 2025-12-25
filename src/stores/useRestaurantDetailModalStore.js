@@ -1,10 +1,9 @@
 import { create } from 'zustand';
 
 const useRestaurantDetailStore = create((set) => ({
-  clickedRestaurantId: null,
+  clickedRestaurantID: null,
 
-  setClickedId: (id) => set({ clickedRestaurantId: id }),
-  clearClickedId: () => set({ clickedRestaurantId: null }),
+  updateClickedRestaurantID: (ID) => set({ clickedRestaurantID: ID }),
 }));
 
 export default useRestaurantDetailStore;

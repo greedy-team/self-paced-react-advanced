@@ -1,10 +1,10 @@
 import { create } from 'zustand';
 
 const useAddRestaurantModalStore = create((set) => ({
-  isVisible: false,
+  isVisibleAddRestaurantModal: false,
 
-  showModal: () => set({ isVisible: true }),
-  closeModal: () => set({ isVisible: false }),
+  showAddRestaurantModal: () => set({ isVisibleAddRestaurantModal: true }),
+  closeAddRestaurantModal: () => set({ isVisibleAddRestaurantModal: false }),
 }));
 
 export default useAddRestaurantModalStore;

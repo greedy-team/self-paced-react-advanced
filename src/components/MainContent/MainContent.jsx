@@ -1,16 +1,20 @@
-import { useState, useContext } from 'react';
+import { useState, useEffect } from 'react';
 import GlobalNavigationBar from './GlobalNavigationBar/GlobalNavigationBar';
 import CategoryFilter from './CategoryFilter/CategoryFilter';
 import RestaurantList from './RestaurantList/RestaurantList';
-import { RestaurantInfoListContext } from '../../contexts/RestaurantInfoListContext';
-import { AddRestaurantModalContext } from '../../contexts/AddRestaurantModalContext';
-import { RestaurantDetailModalContext } from '../../contexts/RestaurantDetailModalContext';
+import useRestaurantInfoListStore from '../../stores/useRestaurantInfoListStore';
+import useAddRestaurantModalStore from '../../stores/useAddRestaurantModalStore';
+import useRestaurantDetailModalStore from '../../stores/useRestaurantDetailModalStore';
 
 export default function MainContent() {
   const [category, setCategory] = useState('전체');
-  const { restaurantInfoList } = useContext(RestaurantInfoListContext);
-  const { showAddRestaurantModal } = useContext(AddRestaurantModalContext);
-  const { updateClickedRestaurantID } = useContext(RestaurantDetailModalContext);
+  const { restaurantInfoList, fetchRestaurantInfoList } = useRestaurantInfoListStore();
+  const { showAddRestaurantModal } = useAddRestaurantModalStore();
+  const { updateClickedRestaurantID } = useRestaurantDetailModalStore();
+
+  useEffect(() => {
+    fetchRestaurantInfoList();
+  }, [fetchRestaurantInfoList]);
 
   const updateCategory = (categoryToSet) => {
     setCategory(categoryToSet);
