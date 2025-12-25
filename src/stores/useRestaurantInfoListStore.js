@@ -7,7 +7,7 @@ const useRestaurantInfoListStore = create((set, get) => ({
   fetchRestaurantInfoList: async () => {
     const response = await getRestaurantInfoList();
     if (response.success) {
-      set(() => ({ restaurantInfoList: response.data }));
+      set({ restaurantInfoList: response.data });
     } else {
       alert(response.error);
     }
