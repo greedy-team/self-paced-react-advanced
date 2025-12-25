@@ -4,6 +4,9 @@ import AddRestaurantModal from './AddRestaurantModal/AddRestaurantModal';
 import { AddRestaurantModalContext } from '../../contexts/AddRestaurantModalContext';
 import { RestaurantDetailModalContext } from '../../contexts/RestaurantDetailModalContext';
 import { RestaurantInfoListContext } from '../../contexts/RestaurantInfoListContext';
+import { useAddRestaurantModalStore } from '../../stores/useAddRestaurantModalStore';
+import { useRestaurantDetailModalStore } from '../../stores/useRestaurantDetailModalStore';
+
 
 export default function AsideContent() {
   const {
