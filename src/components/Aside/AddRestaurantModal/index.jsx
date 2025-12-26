@@ -7,17 +7,19 @@ import {
   ButtonContainer,
   Button,
 } from '../RestaurantModal.styles';
-import { useModalState, useModalDispatch, RESTAURANT_MODAL_ACTION_TYPES } from '../../../contexts/ModalContext';
+
+import useModalStore from '../../../contexts/ModalStore';
 
 function AddRestaurantModal({ onAddRestaurant }) {
-  const { isAddRestaurantModalOpen } = useModalState();
-  const dispatch = useModalDispatch();
+  const isAddRestaurantModalOpen = useModalStore((state) => state.isAddRestaurantModalOpen);
+  const closeAddRestaurantModal = useModalStore((state) => state.closeAddRestaurantModal);
+
   const [category, setCategory] = useState('');
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
 
   const handleClose = () => {
-    dispatch({ type: RESTAURANT_MODAL_ACTION_TYPES.CLOSE_ADD_RESTAURANT });
+    closeAddRestaurantModal();
   };
 
   const handleAddRestaurant = () => {

@@ -8,15 +8,15 @@ import {
   RestaurantName,
   RestaurantDescription,
 } from './RestaurantItem.styles';
-import { useModalDispatch, RESTAURANT_MODAL_ACTION_TYPES } from '../../../contexts/ModalContext';
+import useModalStore from '../../../contexts/ModalStore';
 import { useRestaurantContext } from '../../../contexts/RestaurantContext';
 
 function RestaurantItem({ restaurant }) {
-  const dispatch = useModalDispatch();
   const { setSelectedRestaurant } = useRestaurantContext();
+  const openRestaurantDetailModal = useModalStore((state) => state.openRestaurantDetailModal);
 
   const handleClick = () => {
-    dispatch({ type: RESTAURANT_MODAL_ACTION_TYPES.OPEN_RESTAURANT_DETAIL });
+    openRestaurantDetailModal();
     setSelectedRestaurant(restaurant);
   };
 
