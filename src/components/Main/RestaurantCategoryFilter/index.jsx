@@ -4,6 +4,7 @@ import RestaurantFilterContainer from './RestaurantCategoryFilter.styles';
 import useRestaurantStore from '../../../stores/RestaurantStore';
 
 function RestaurantCategoryFilter() {
+  const selectedCategory = useRestaurantStore((state) => state.selectedCategory);
   const setSelectedCategory = useRestaurantStore((state) => state.setSelectedCategory);
 
   const handleCategoryChange = (e) => {
@@ -16,6 +17,7 @@ function RestaurantCategoryFilter() {
         label="음식점 카테고리 필터"
         options={CATEGORIES}
         onChange={handleCategoryChange}
+        value={selectedCategory}
       />
     </RestaurantFilterContainer>
   );
