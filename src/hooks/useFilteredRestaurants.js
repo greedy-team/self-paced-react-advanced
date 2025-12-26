@@ -1,11 +1,11 @@
 import { useMemo } from "react";
-import { useCategoryContext } from "../hooks/useContexts.js";
-import { useRestaurantContext } from "../hooks/useContexts.js";
 import getFilteredRestaurant from "../utils/getFilteredRestaurant.js";
+import { useRestaurants } from "./useRestaurants.js";
+import { useCategories } from "./useCategories.js";
 
 export default function useFilteredRestaurants() {
-  const { selectedCategory } = useCategoryContext();
-  const { restaurants } = useRestaurantContext();
+  const selectedCategory = useCategories((state) => state.selectedCategory);
+  const restaurants = useRestaurants((state) => state.restaurants);
 
   const filtered = useMemo(
     () => getFilteredRestaurant(restaurants, selectedCategory),

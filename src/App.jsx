@@ -1,11 +1,12 @@
 import "./App.css";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Header from "./components/Header/Header";
 import RestaurantCategoryFilter from "./components/restaurant/RestaurantCategoryFilter/RestaurantCategoryFilter";
 import RestaurantList from "./components/restaurant/RestaurantList/RestaurantList";
 import RestaurantDetailModal from "./components/modal/RestaurantDetailModal";
 import AddRestaurantModal from "./components/modal/AddRestaurantModal";
 import useModal from "./hooks/useModal";
+import { useRestaurants } from "./hooks/useRestaurants.js";
 
 function App() {
   const {
@@ -15,6 +16,11 @@ function App() {
     close: closeModal,
   } = useModal();
   const [selectedRestaurant, setSelectedRestaurant] = useState(null);
+  const fetchRestaurants = useRestaurants((state) => state.fetchRestaurants);
+
+  useEffect(() => {
+    fetchRestaurants();
+  }, [fetchRestaurants]);
 
   return (
     <>

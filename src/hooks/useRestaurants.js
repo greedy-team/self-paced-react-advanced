@@ -1,31 +1,23 @@
-import { useState, useEffect, useCallback } from "react";
 import { getRestaurants, postRestaurant } from "../api/restaurants";
+import { create } from "zustand";
 
-export default function useRestaurants() {
-  const [restaurants, setRestaurants] = useState([]);
-
-  const fetchRestaurants = useCallback(async () => {
+export const useRestaurants = create((set, get) => ({
+  restaurants: [],
+  fetchRestaurants: async () => {
     const data = await getRestaurants();
-    setRestaurants(data);
-  }, []);
+    set({ restaurants: data });
+  },
 
-  const addRestaurant = async (restaurant) => {
+  addRestaurant: async (restaurant) => {
     const newRestaurant = {
       ...restaurant,
       id: Date.now(),
     };
-
     await postRestaurant(newRestaurant);
-  };
+  },
 
-  const onAddRestaurant = async (restaurants) => {
-    await addRestaurant(restaurants);
-    await fetchRestaurants();
-  };
-
-  useEffect(() => {
-    fetchRestaurants();
-  }, [fetchRestaurants]);
-
-  return { restaurants, onAddRestaurant };
-}
+  onAddRestaurant: async (restaurant) => {
+    await get().addRestaurant(restaurant);
+    await get().fetchRestaurants();
+  },
+}));
