@@ -9,10 +9,10 @@ import {
   RestaurantDescription,
 } from './RestaurantItem.styles';
 import useModalStore from '../../../contexts/ModalStore';
-import { useRestaurantContext } from '../../../contexts/RestaurantContext';
+import useRestaurantStore from '../../../contexts/RestaurantStore';
 
 function RestaurantItem({ restaurant }) {
-  const { setSelectedRestaurant } = useRestaurantContext();
+  const setSelectedRestaurant = useRestaurantStore((state) => state.setSelectedRestaurant);
   const openRestaurantDetailModal = useModalStore((state) => state.openRestaurantDetailModal);
 
   const handleClick = () => {

@@ -6,13 +6,13 @@ import {
   Button,
 } from '../RestaurantModal.styles';
 import useModalStore from '../../../contexts/ModalStore';
-import { useRestaurantContext } from '../../../contexts/RestaurantContext';
+import useRestaurantStore from '../../../contexts/RestaurantStore';
 
 function RestaurantDetailModal() {
   const isRestaurantDetailModalOpen = useModalStore((state) => state.isRestaurantDetailModalOpen);
   const closeRestaurantDetailModal = useModalStore((state) => state.closeRestaurantDetailModal);
 
-  const { selectedRestaurant } = useRestaurantContext();
+  const selectedRestaurant = useRestaurantStore((state) => state.selectedRestaurant);
 
   const handleClose = () => {
     closeRestaurantDetailModal();
