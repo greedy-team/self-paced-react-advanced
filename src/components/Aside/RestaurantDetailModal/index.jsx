@@ -1,3 +1,4 @@
+import { useShallow } from 'zustand/react/shallow';
 import Modal from '../../UI/Modal';
 import {
   ModalTitle,
@@ -5,17 +6,21 @@ import {
   ButtonContainer,
   Button,
 } from '../RestaurantModal.styles';
-import { useModalState, useModalDispatch, RESTAURANT_MODAL_ACTION_TYPES } from '../../../contexts/ModalContext';
-import { useRestaurantContext } from '../../../contexts/RestaurantContext';
+import useModalStore from '../../../stores/ModalStore';
+import useRestaurantStore from '../../../stores/RestaurantStore';
 
 function RestaurantDetailModal() {
-  const { isRestaurantDetailModalOpen } = useModalState();
-  const dispatch = useModalDispatch();
+  const { isRestaurantDetailModalOpen, closeRestaurantDetailModal } = useModalStore(
+    useShallow((state) => ({
+      isRestaurantDetailModalOpen: state.isRestaurantDetailModalOpen,
+      closeRestaurantDetailModal: state.closeRestaurantDetailModal,
+    })),
+  );
 
-  const { selectedRestaurant } = useRestaurantContext();
+  const selectedRestaurant = useRestaurantStore((state) => state.selectedRestaurant);
 
   const handleClose = () => {
-    dispatch({ type: RESTAURANT_MODAL_ACTION_TYPES.CLOSE_RESTAURANT_DETAIL });
+    closeRestaurantDetailModal();
   };
 
   return (
