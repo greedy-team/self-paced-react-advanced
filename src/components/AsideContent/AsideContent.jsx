@@ -5,20 +5,22 @@ import useAddRestaurantModalStore from '../../stores/useAddRestaurantModalStore'
 import useRestaurantDetailModalStore from '../../stores/useRestaurantDetailModalStore';
 
 export default function AsideContent() {
-  const {
-    restaurantInfoList,
-    addRestaurantInfo,
-  } = useRestaurantInfoListStore();
+  const restaurantInfoList = useRestaurantInfoListStore((state) => state.restaurantInfoList);
+  const addRestaurantInfo = useRestaurantInfoListStore((state) => state.addRestaurantInfo);
 
-  const {
-    isVisibleAddRestaurantModal,
-    closeAddRestaurantModal,
-  } = useAddRestaurantModalStore();
+  const isVisibleAddRestaurantModal = useAddRestaurantModalStore(
+    (state) => state.isVisibleAddRestaurantModal,
+  );
+  const closeAddRestaurantModal = useAddRestaurantModalStore(
+    (state) => state.closeAddRestaurantModal,
+  );
 
-  const {
-    clickedRestaurantID,
-    updateClickedRestaurantID,
-  } = useRestaurantDetailModalStore();
+  const clickedRestaurantID = useRestaurantDetailModalStore(
+    (state) => state.clickedRestaurantID,
+  );
+  const updateClickedRestaurantID = useRestaurantDetailModalStore(
+    (state) => state.updateClickedRestaurantID,
+  );
 
   const clickedRestaurantInfo = restaurantInfoList.find(
     (restaurant) => restaurant.id === clickedRestaurantID,

@@ -8,10 +8,20 @@ import useRestaurantDetailModalStore from '../../stores/useRestaurantDetailModal
 import useCategoryStore from '../../stores/useCategoryStore';
 
 export default function MainContent() {
-  const { category, setCategory } = useCategoryStore();
-  const { restaurantInfoList, fetchRestaurantInfoList } = useRestaurantInfoListStore();
-  const { showAddRestaurantModal } = useAddRestaurantModalStore();
-  const { updateClickedRestaurantID } = useRestaurantDetailModalStore();
+  const category = useCategoryStore((state) => state.category);
+  const setCategory = useCategoryStore((state) => state.setCategory);
+
+  const restaurantInfoList = useRestaurantInfoListStore((state) => state.restaurantInfoList);
+  const fetchRestaurantInfoList = useRestaurantInfoListStore(
+    (state) => state.fetchRestaurantInfoList,
+  );
+
+  const showAddRestaurantModal = useAddRestaurantModalStore(
+    (state) => state.showAddRestaurantModal,
+  );
+  const updateClickedRestaurantID = useRestaurantDetailModalStore(
+    (state) => state.updateClickedRestaurantID,
+  );
 
   useEffect(() => {
     fetchRestaurantInfoList();
