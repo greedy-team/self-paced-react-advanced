@@ -10,7 +10,10 @@ const useRestaurantStore = create(
       setSelectedRestaurant: (restaurant) => set({ selectedRestaurant: restaurant }),
       setSelectedCategory: (category) => set({ selectedCategory: category }),
     }),
-    { name: 'restaurant-storage' },
+    {
+      name: 'restaurant-storage',
+      partialize: (state) => ({ selectedCategory: state.selectedCategory }),
+    },
   ),
 );
 
