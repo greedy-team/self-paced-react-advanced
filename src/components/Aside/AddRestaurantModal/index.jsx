@@ -9,7 +9,7 @@ import {
   Button,
 } from '../RestaurantModal.styles';
 
-import useModalStore from '../../../contexts/ModalStore';
+import useModalStore from '../../../stores/ModalStore';
 
 function AddRestaurantModal({ onAddRestaurant }) {
   const { isAddRestaurantModalOpen, closeAddRestaurantModal } = useModalStore(

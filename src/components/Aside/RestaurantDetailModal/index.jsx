@@ -6,8 +6,8 @@ import {
   ButtonContainer,
   Button,
 } from '../RestaurantModal.styles';
-import useModalStore from '../../../contexts/ModalStore';
-import useRestaurantStore from '../../../contexts/RestaurantStore';
+import useModalStore from '../../../stores/ModalStore';
+import useRestaurantStore from '../../../stores/RestaurantStore';
 
 function RestaurantDetailModal() {
   const { isRestaurantDetailModalOpen, closeRestaurantDetailModal } = useModalStore(

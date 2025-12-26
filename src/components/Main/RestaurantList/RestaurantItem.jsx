@@ -8,8 +8,8 @@ import {
   RestaurantName,
   RestaurantDescription,
 } from './RestaurantItem.styles';
-import useModalStore from '../../../contexts/ModalStore';
-import useRestaurantStore from '../../../contexts/RestaurantStore';
+import useModalStore from '../../../stores/ModalStore';
+import useRestaurantStore from '../../../stores/RestaurantStore';
 
 function RestaurantItem({ restaurant }) {
   const setSelectedRestaurant = useRestaurantStore((state) => state.setSelectedRestaurant);

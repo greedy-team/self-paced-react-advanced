@@ -1,6 +1,6 @@
 import Button from '../../UI/Button';
 import { Gnb, GnbTitle } from './HomeHeader.styles';
-import useModalStore from '../../../contexts/ModalStore';
+import useModalStore from '../../../stores/ModalStore';
 
 function HomeHeader() {
   const openAddRestaurantModal = useModalStore((state) => state.openAddRestaurantModal);
