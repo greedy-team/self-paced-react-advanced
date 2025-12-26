@@ -4,7 +4,7 @@ const useModalStore = create((set) => ({
   isRestaurantDetailModalOpen: false,
   isAddRestaurantModalOpen: false,
 
-  openRestaurantDetailModla: () => set({ isRestaurantDetailModalOpen: true }),
+  openRestaurantDetailModal: () => set({ isRestaurantDetailModalOpen: true }),
   closeRestaurantDetailModal: () => set({ isRestaurantDetailModalOpen: false }),
 
   openAddRestaurantModal: () => set({ isAddRestaurantModalOpen: true }),
