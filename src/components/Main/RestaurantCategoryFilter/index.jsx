@@ -1,11 +1,15 @@
 import Filter from '../../UI/Filter';
 import { CATEGORIES } from '../../../data/restaurantCategories';
 import RestaurantFilterContainer from './RestaurantCategoryFilter.styles';
+import useRestaurantStore from '../../../stores/RestaurantStore';
 
-function RestaurantCategoryFilter({ setSelectedCategory }) {
+function RestaurantCategoryFilter() {
+  const setSelectedCategory = useRestaurantStore((state) => state.setSelectedCategory);
+
   const handleCategoryChange = (e) => {
     setSelectedCategory(e.target.value);
   };
+
   return (
     <RestaurantFilterContainer>
       <Filter
