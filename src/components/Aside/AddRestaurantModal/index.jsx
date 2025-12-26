@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useShallow } from 'zustand/react/shallow';
 import Modal from '../../UI/Modal';
 import { CATEGORIES, CATEGORY_IMAGE } from '../../../data/restaurantCategories';
 import {
@@ -11,8 +12,12 @@ import {
 import useModalStore from '../../../contexts/ModalStore';
 
 function AddRestaurantModal({ onAddRestaurant }) {
-  const isAddRestaurantModalOpen = useModalStore((state) => state.isAddRestaurantModalOpen);
-  const closeAddRestaurantModal = useModalStore((state) => state.closeAddRestaurantModal);
+  const { isAddRestaurantModalOpen, closeAddRestaurantModal } = useModalStore(
+    useShallow((state) => ({
+      isAddRestaurantModalOpen: state.isAddRestaurantModalOpen,
+      closeAddRestaurantModal: state.closeAddRestaurantModal,
+    })),
+  );
 
   const [category, setCategory] = useState('');
   const [name, setName] = useState('');

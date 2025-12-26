@@ -1,3 +1,4 @@
+import { useShallow } from 'zustand/react/shallow';
 import Modal from '../../UI/Modal';
 import {
   ModalTitle,
@@ -9,8 +10,12 @@ import useModalStore from '../../../contexts/ModalStore';
 import useRestaurantStore from '../../../contexts/RestaurantStore';
 
 function RestaurantDetailModal() {
-  const isRestaurantDetailModalOpen = useModalStore((state) => state.isRestaurantDetailModalOpen);
-  const closeRestaurantDetailModal = useModalStore((state) => state.closeRestaurantDetailModal);
+  const { isRestaurantDetailModalOpen, closeRestaurantDetailModal } = useModalStore(
+    useShallow((state) => ({
+      isRestaurantDetailModalOpen: state.isRestaurantDetailModalOpen,
+      closeRestaurantDetailModal: state.closeRestaurantDetailModal,
+    })),
+  );
 
   const selectedRestaurant = useRestaurantStore((state) => state.selectedRestaurant);
 
