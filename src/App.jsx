@@ -1,5 +1,6 @@
 import "./App.css";
 import styled from "styled-components";
+import { useEffect } from "react";
 
 import Header from "./components/Header";
 import CategoryFilter from "./components/CategoryFilter";
@@ -11,9 +12,12 @@ import useRestaurantDataContext from "./hooks/useRestaurantDataContext";
 import useRestaurantModalContext from "./hooks/useRestaurantModalContext";
 
 function App() {
-  const { selected } = useRestaurantDataContext();
+  const { selected, fetchRestaurants } = useRestaurantDataContext();
   const { isAddModalOpen } = useRestaurantModalContext();
 
+  useEffect(() => {
+    fetchRestaurants();
+  }, [fetchRestaurants]);
   return (
     <>
       <Header />
