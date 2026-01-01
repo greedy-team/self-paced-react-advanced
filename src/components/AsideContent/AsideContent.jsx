@@ -1,12 +1,12 @@
 import RestaurantDetailModal from './RestaurantDetailModal/RestaurantDetailModal';
 import AddRestaurantModal from './AddRestaurantModal/AddRestaurantModal';
-import useRestaurantInfoListStore from '../../stores/useRestaurantInfoListStore';
 import useAddRestaurantModalStore from '../../stores/useAddRestaurantModalStore';
 import useRestaurantDetailModalStore from '../../stores/useRestaurantDetailModalStore';
+import { useRestaurantInfoListQuery, useAddRestaurantInfoMutation } from '../../hooks/useRestaurantInfoList';
 
 export default function AsideContent() {
-  const restaurantInfoList = useRestaurantInfoListStore((state) => state.restaurantInfoList);
-  const addRestaurantInfo = useRestaurantInfoListStore((state) => state.addRestaurantInfo);
+  const { data: restaurantInfoList, isLoading, isError } = useRestaurantInfoListQuery();
+  const { mutate: addRestaurantInfo } = useAddRestaurantInfoMutation();
 
   const isVisibleAddRestaurantModal = useAddRestaurantModalStore(
     (state) => state.isVisibleAddRestaurantModal,
@@ -22,7 +22,7 @@ export default function AsideContent() {
     (state) => state.updateClickedRestaurantID,
   );
 
-  const clickedRestaurantInfo = restaurantInfoList.find(
+  const clickedRestaurantInfo = restaurantInfoList?.find(
     (restaurant) => restaurant.id === clickedRestaurantID,
   );
   const isVisibleRestaurantDetailModal = clickedRestaurantInfo !== undefined;
@@ -34,11 +34,13 @@ export default function AsideContent() {
         onClose={closeAddRestaurantModal}
         handleAddRestaurantInfo={addRestaurantInfo}
       />
-      <RestaurantDetailModal
-        isVisible={isVisibleRestaurantDetailModal}
-        onClose={() => updateClickedRestaurantID(null)}
-        restaurantInfo={clickedRestaurantInfo}
-      />
+      {!isLoading && !isError && (
+        <RestaurantDetailModal
+          isVisible={isVisibleRestaurantDetailModal}
+          onClose={() => updateClickedRestaurantID(null)}
+          restaurantInfo={clickedRestaurantInfo}
+        />
+      )}
     </aside>
   );
 }
