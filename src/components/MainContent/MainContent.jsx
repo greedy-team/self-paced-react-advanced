@@ -8,7 +8,7 @@ import { useRestaurantInfoListQuery } from '../../hooks/useRestaurantInfoList';
 
 export default function MainContent() {
   const category = useCategoryStore((state) => state.category);
-  const setCategory = useCategoryStore((state) => state.setCategory);
+  const updateCategory = useCategoryStore((state) => state.setCategory);
 
   const {
     data: restaurantInfoList,
@@ -25,12 +25,8 @@ export default function MainContent() {
     (state) => state.updateClickedRestaurantID,
   );
 
-  const updateCategory = (categoryToSet) => {
-    setCategory(categoryToSet);
-  };
-
   const filteredRestaurantInfoList = (
-    category === '전체' ? restaurantInfoList : restaurantInfoList.filter(
+    category === '전체' ? restaurantInfoList : restaurantInfoList?.filter(
       (restaurantInfo) => (restaurantInfo.category === category),
     )
   );
