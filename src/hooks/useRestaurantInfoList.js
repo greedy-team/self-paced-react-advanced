@@ -14,6 +14,7 @@ export const useAddRestaurantInfoMutation = () => {
   const queryClient = useQueryClient();
 
   return useMutation({
+    mutationKey: ['addRestaurantInfo'],
     mutationFn: addNewRestaurantInfo,
 
     onMutate: async (newInfo) => {
