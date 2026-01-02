@@ -8,7 +8,7 @@ import restaurantApi from '../../../api/restaurantApi';
 import useRestaurantStore from '../../../stores/RestaurantStore';
 
 function RestaurantList() {
-  const { data: fetchedRestaurants, isLoading, error } = useQuery({
+  const { data: fetchedRestaurants = [], isLoading, error } = useQuery({
     queryKey: ['restaurants'],
     queryFn: restaurantApi.fetchAllRestaurants,
   });
