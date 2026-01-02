@@ -1,23 +1,31 @@
-import { useContext } from 'react';
 import RestaurantDetailModal from './RestaurantDetailModal/RestaurantDetailModal';
 import AddRestaurantModal from './AddRestaurantModal/AddRestaurantModal';
-import { AddRestaurantModalContext } from '../../contexts/AddRestaurantModalContext';
-import { RestaurantDetailModalContext } from '../../contexts/RestaurantDetailModalContext';
-import { RestaurantInfoListContext } from '../../contexts/RestaurantInfoListContext';
+import useRestaurantInfoListStore from '../../stores/useRestaurantInfoListStore';
+import useAddRestaurantModalStore from '../../stores/useAddRestaurantModalStore';
+import useRestaurantDetailModalStore from '../../stores/useRestaurantDetailModalStore';
 
 export default function AsideContent() {
-  const {
-    isVisibleAddRestaurantModal,
-    closeAddRestaurantModal,
-  } = useContext(AddRestaurantModalContext);
+  const restaurantInfoList = useRestaurantInfoListStore((state) => state.restaurantInfoList);
+  const addRestaurantInfo = useRestaurantInfoListStore((state) => state.addRestaurantInfo);
 
-  const {
-    restaurantInfo,
-    isVisibleRestaurantDetailModal,
-    updateClickedRestaurantID,
-  } = useContext(RestaurantDetailModalContext);
+  const isVisibleAddRestaurantModal = useAddRestaurantModalStore(
+    (state) => state.isVisibleAddRestaurantModal,
+  );
+  const closeAddRestaurantModal = useAddRestaurantModalStore(
+    (state) => state.closeAddRestaurantModal,
+  );
 
-  const { addRestaurantInfo } = useContext(RestaurantInfoListContext);
+  const clickedRestaurantID = useRestaurantDetailModalStore(
+    (state) => state.clickedRestaurantID,
+  );
+  const updateClickedRestaurantID = useRestaurantDetailModalStore(
+    (state) => state.updateClickedRestaurantID,
+  );
+
+  const clickedRestaurantInfo = restaurantInfoList.find(
+    (restaurant) => restaurant.id === clickedRestaurantID,
+  );
+  const isVisibleRestaurantDetailModal = clickedRestaurantInfo !== undefined;
 
   return (
     <aside>
@@ -29,7 +37,7 @@ export default function AsideContent() {
       <RestaurantDetailModal
         isVisible={isVisibleRestaurantDetailModal}
         onClose={() => updateClickedRestaurantID(null)}
-        restaurantInfo={restaurantInfo}
+        restaurantInfo={clickedRestaurantInfo}
       />
     </aside>
   );
