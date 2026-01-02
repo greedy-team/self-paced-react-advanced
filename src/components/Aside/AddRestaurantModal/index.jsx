@@ -1,5 +1,7 @@
 import { useState } from 'react';
 import { useShallow } from 'zustand/react/shallow';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import restaurantApi from '../../../api/restaurantApi';
 import Modal from '../../UI/Modal';
 import { CATEGORIES, CATEGORY_IMAGE } from '../../../data/restaurantCategories';
 import {
@@ -11,13 +13,21 @@ import {
 
 import useModalStore from '../../../stores/ModalStore';
 
-function AddRestaurantModal({ onAddRestaurant }) {
+function AddRestaurantModal() {
+  const queryClient = useQueryClient();
   const { isAddRestaurantModalOpen, closeAddRestaurantModal } = useModalStore(
     useShallow((state) => ({
       isAddRestaurantModalOpen: state.isAddRestaurantModalOpen,
       closeAddRestaurantModal: state.closeAddRestaurantModal,
     })),
   );
+
+  const mutation = useMutation({
+    mutationFn: (newRestaurant) => restaurantApi.postRestaurant(newRestaurant),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['restaurants'] });
+    },
+  });
 
   const [category, setCategory] = useState('');
   const [name, setName] = useState('');
@@ -35,7 +45,7 @@ function AddRestaurantModal({ onAddRestaurant }) {
       description,
       image: CATEGORY_IMAGE[category],
     };
-    onAddRestaurant(newRestaurant);
+    mutation.mutate(newRestaurant);
     handleClose();
   };
 
