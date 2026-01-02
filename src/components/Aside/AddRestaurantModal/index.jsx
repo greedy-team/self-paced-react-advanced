@@ -10,7 +10,7 @@ import {
   ButtonContainer,
   Button,
 } from '../RestaurantModal.styles';
-
+import queryKeys from '../../../constants/queryKeys';
 import useModalStore from '../../../stores/ModalStore';
 
 function AddRestaurantModal() {
@@ -30,21 +30,21 @@ function AddRestaurantModal() {
     mutationFn: (newRestaurant) => restaurantApi.postRestaurant(newRestaurant),
 
     onMutate: async (newRestaurant) => {
-      await queryClient.cancelQueries({ queryKey: ['restaurants'] });
-      const previousRestaurant = queryClient.getQueryData(['restaurants']);
+      await queryClient.cancelQueries({ queryKey: queryKeys.restaurants.all });
+      const previousRestaurant = queryClient.getQueryData(queryKeys.restaurants.all);
 
-      queryClient.setQueryData(['restaurants'], (prev = []) => [...prev, newRestaurant]);
+      queryClient.setQueryData(queryKeys.restaurants.all, (prev = []) => [...prev, newRestaurant]);
       handleClose();
 
       return { previousRestaurants: previousRestaurant };
     },
 
     onError: (err, newRestaurant, context) => {
-      queryClient.setQueryData(['restaurants'], context.previousRestaurants);
+      queryClient.setQueryData(queryKeys.restaurants.all, context.previousRestaurants);
     },
 
     onSettled: () => {
-      queryClient.invalidateQueries({ queryKey: ['restaurants'] });
+      queryClient.invalidateQueries({ queryKey: queryKeys.restaurants.all });
     },
   });
 
