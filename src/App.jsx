@@ -6,6 +6,7 @@ import GlobalStyle from './GlobalStyle';
 import RestaurantDetailModal from './components/Aside/RestaurantDetailModal';
 import AddRestaurantModal from './components/Aside/AddRestaurantModal';
 import restaurantApi from './api/restaurantApi';
+import useRestaurantStore from './stores/RestaurantStore';
 
 function App() {
   const [restaurants, setRestaurants] = useState([]);
@@ -19,7 +20,8 @@ function App() {
     fetchRestaurants();
   }, []);
 
-  const [selectedCategory, setSelectedCategory] = useState('전체');
+  const selectedCategory = useRestaurantStore((state) => state.selectedCategory);
+
   const filteredRestaurants = selectedCategory === '전체'
     ? restaurants
     : restaurants.filter((e) => e.category === selectedCategory);
@@ -36,7 +38,7 @@ function App() {
         <HomeHeader />
 
         <main>
-          <RestaurantCategoryFilter setSelectedCategory={setSelectedCategory} />
+          <RestaurantCategoryFilter />
           <RestaurantList restaurants={filteredRestaurants} />
         </main>
         <RestaurantDetailModal />

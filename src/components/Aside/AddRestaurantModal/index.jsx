@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useShallow } from 'zustand/react/shallow';
 import Modal from '../../UI/Modal';
 import { CATEGORIES, CATEGORY_IMAGE } from '../../../data/restaurantCategories';
 import {
@@ -7,17 +8,23 @@ import {
   ButtonContainer,
   Button,
 } from '../RestaurantModal.styles';
-import { useModalState, useModalDispatch, RESTAURANT_MODAL_ACTION_TYPES } from '../../../contexts/ModalContext';
+
+import useModalStore from '../../../stores/ModalStore';
 
 function AddRestaurantModal({ onAddRestaurant }) {
-  const { isAddRestaurantModalOpen } = useModalState();
-  const dispatch = useModalDispatch();
+  const { isAddRestaurantModalOpen, closeAddRestaurantModal } = useModalStore(
+    useShallow((state) => ({
+      isAddRestaurantModalOpen: state.isAddRestaurantModalOpen,
+      closeAddRestaurantModal: state.closeAddRestaurantModal,
+    })),
+  );
+
   const [category, setCategory] = useState('');
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
 
   const handleClose = () => {
-    dispatch({ type: RESTAURANT_MODAL_ACTION_TYPES.CLOSE_ADD_RESTAURANT });
+    closeAddRestaurantModal();
   };
 
   const handleAddRestaurant = () => {
