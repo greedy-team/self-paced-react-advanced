@@ -28,12 +28,23 @@ function AddRestaurantModal() {
 
   const postRestaurantMutation = useMutation({
     mutationFn: (newRestaurant) => restaurantApi.postRestaurant(newRestaurant),
-    onSuccess: (data) => {
-      queryClient.setQueryData(['restaurants'], (prevRestaurants = []) => [
-        ...prevRestaurants,
-        data,
-      ]);
+
+    onMutate: async (newRestaurant) => {
+      await queryClient.cancelQueries({ queryKey: ['restaurants'] });
+      const previousRestaurant = queryClient.getQueryData(['restaurants']);
+
+      queryClient.setQueryData(['restaurants'], (prev = []) => [...prev, newRestaurant]);
       handleClose();
+
+      return { previousRestaurants: previousRestaurant };
+    },
+
+    onError: (err, newRestaurant, context) => {
+      queryClient.setQueryData(['restaurants'], context.previousRestaurants);
+    },
+
+    onSettled: () => {
+      queryClient.invalidateQueries({ queryKey: ['restaurants'] });
     },
   });
 
