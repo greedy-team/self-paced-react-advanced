@@ -6,10 +6,11 @@ import {
 } from './RestaurantList.styles';
 import restaurantApi from '../../../api/restaurantApi';
 import useRestaurantStore from '../../../stores/RestaurantStore';
+import queryKeys from '../../../constants/queryKeys';
 
 function RestaurantList() {
   const { data: fetchedRestaurants = [], isLoading, error } = useQuery({
-    queryKey: ['restaurants'],
+    queryKey: queryKeys.restaurants.all,
     queryFn: restaurantApi.fetchAllRestaurants,
   });
 
