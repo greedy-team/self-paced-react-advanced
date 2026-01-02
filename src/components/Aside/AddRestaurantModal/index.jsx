@@ -22,7 +22,7 @@ function AddRestaurantModal() {
     })),
   );
 
-  const mutation = useMutation({
+  const postRestaurantMutation = useMutation({
     mutationFn: (newRestaurant) => restaurantApi.postRestaurant(newRestaurant),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['restaurants'] });
@@ -45,7 +45,7 @@ function AddRestaurantModal() {
       description,
       image: CATEGORY_IMAGE[category],
     };
-    mutation.mutate(newRestaurant);
+    postRestaurantMutation.mutate(newRestaurant);
     handleClose();
   };
 
