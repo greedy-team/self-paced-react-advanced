@@ -22,20 +22,21 @@ function AddRestaurantModal() {
     })),
   );
 
+  const handleClose = () => {
+    closeAddRestaurantModal();
+  };
+
   const postRestaurantMutation = useMutation({
     mutationFn: (newRestaurant) => restaurantApi.postRestaurant(newRestaurant),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['restaurants'] });
+      handleClose();
     },
   });
 
   const [category, setCategory] = useState('');
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
-
-  const handleClose = () => {
-    closeAddRestaurantModal();
-  };
 
   const handleAddRestaurant = () => {
     const newRestaurant = {
@@ -46,7 +47,6 @@ function AddRestaurantModal() {
       image: CATEGORY_IMAGE[category],
     };
     postRestaurantMutation.mutate(newRestaurant);
-    handleClose();
   };
 
   return (
