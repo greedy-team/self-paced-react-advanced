@@ -28,8 +28,11 @@ function AddRestaurantModal() {
 
   const postRestaurantMutation = useMutation({
     mutationFn: (newRestaurant) => restaurantApi.postRestaurant(newRestaurant),
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['restaurants'] });
+    onSuccess: (data) => {
+      queryClient.setQueryData(['restaurants'], (prevRestaurants = []) => [
+        ...prevRestaurants,
+        data,
+      ]);
       handleClose();
     },
   });
