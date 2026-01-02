@@ -1,7 +1,5 @@
 import { useState } from 'react';
 import { useShallow } from 'zustand/react/shallow';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
-import restaurantApi from '../../../api/restaurantApi';
 import Modal from '../../UI/Modal';
 import { CATEGORIES, CATEGORY_IMAGE } from '../../../data/restaurantCategories';
 import {
@@ -10,11 +8,10 @@ import {
   ButtonContainer,
   Button,
 } from '../RestaurantModal.styles';
-import queryKeys from '../../../constants/queryKeys';
 import useModalStore from '../../../stores/ModalStore';
+import useAddRestaurant from '../../../hooks/useAddRestaurant';
 
 function AddRestaurantModal() {
-  const queryClient = useQueryClient();
   const { isAddRestaurantModalOpen, closeAddRestaurantModal } = useModalStore(
     useShallow((state) => ({
       isAddRestaurantModalOpen: state.isAddRestaurantModalOpen,
@@ -26,27 +23,7 @@ function AddRestaurantModal() {
     closeAddRestaurantModal();
   };
 
-  const postRestaurantMutation = useMutation({
-    mutationFn: (newRestaurant) => restaurantApi.postRestaurant(newRestaurant),
-
-    onMutate: async (newRestaurant) => {
-      await queryClient.cancelQueries({ queryKey: queryKeys.restaurants.all });
-      const previousRestaurant = queryClient.getQueryData(queryKeys.restaurants.all);
-
-      queryClient.setQueryData(queryKeys.restaurants.all, (prev = []) => [...prev, newRestaurant]);
-      handleClose();
-
-      return { previousRestaurants: previousRestaurant };
-    },
-
-    onError: (err, newRestaurant, context) => {
-      queryClient.setQueryData(queryKeys.restaurants.all, context.previousRestaurants);
-    },
-
-    onSettled: () => {
-      queryClient.invalidateQueries({ queryKey: queryKeys.restaurants.all });
-    },
-  });
+  const postRestaurantMutation = useAddRestaurant(handleClose);
 
   const [category, setCategory] = useState('');
   const [name, setName] = useState('');

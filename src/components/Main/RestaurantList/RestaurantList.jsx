@@ -1,18 +1,13 @@
-import { useQuery } from '@tanstack/react-query';
 import RestaurantItem from './RestaurantItem';
 import {
   RestaurantListContainer,
   RestaurantItemList,
 } from './RestaurantList.styles';
-import restaurantApi from '../../../api/restaurantApi';
 import useRestaurantStore from '../../../stores/RestaurantStore';
-import queryKeys from '../../../constants/queryKeys';
+import useRestaurants from '../../../hooks/useRestaurants';
 
 function RestaurantList() {
-  const { data: fetchedRestaurants = [], isLoading, error } = useQuery({
-    queryKey: queryKeys.restaurants.all,
-    queryFn: restaurantApi.fetchAllRestaurants,
-  });
+  const { data: fetchedRestaurants = [], isLoading, error } = useRestaurants();
 
   const selectedCategory = useRestaurantStore((state) => state.selectedCategory);
 
