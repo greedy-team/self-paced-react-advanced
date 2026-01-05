@@ -3,7 +3,7 @@ import { toast } from 'react-toastify';
 import restaurantApi from '../api/restaurantApi';
 import queryKeys from '../constants/queryKeys';
 
-const useAddRestaurant = (handleClose) => {
+const useAddRestaurant = (handleClose, resetForm) => {
   const queryClient = useQueryClient();
 
   return useMutation({
@@ -25,6 +25,7 @@ const useAddRestaurant = (handleClose) => {
     },
 
     onSuccess: () => {
+      resetForm();
       toast.success('식당이 성공적으로 추가되었습니다! 🎉');
     },
 

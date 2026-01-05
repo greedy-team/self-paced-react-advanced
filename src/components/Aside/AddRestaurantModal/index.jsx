@@ -19,15 +19,21 @@ function AddRestaurantModal() {
     })),
   );
 
+  const [category, setCategory] = useState('');
+  const [name, setName] = useState('');
+  const [description, setDescription] = useState('');
+
   const handleClose = () => {
     closeAddRestaurantModal();
   };
 
-  const postRestaurantMutation = useAddRestaurant(handleClose);
+  const resetForm = () => {
+    setCategory('');
+    setName('');
+    setDescription('');
+  };
 
-  const [category, setCategory] = useState('');
-  const [name, setName] = useState('');
-  const [description, setDescription] = useState('');
+  const postRestaurantMutation = useAddRestaurant(handleClose, resetForm);
 
   const handleAddRestaurant = () => {
     const newRestaurant = {
