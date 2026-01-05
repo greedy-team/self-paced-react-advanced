@@ -34,6 +34,10 @@ function RestaurantList() {
       <>
         <div>
           데이터를 가져오지 못했어요. ❌
+          <br />
+          에러 메시지: `
+          {error.message}
+          `
         </div>
         <div>
           <Button style={{ width: 'auto' }} $variant="primary" onClick={() => refetch()}>
