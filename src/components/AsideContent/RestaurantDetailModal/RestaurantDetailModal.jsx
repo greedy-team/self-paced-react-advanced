@@ -3,10 +3,11 @@ import Modal from '../Modal/Modal';
 
 export default function RestaurantDetailModal({ isVisible, onClose, restaurantInfo }) {
   if (!isVisible) return null;
+
   return (
-    <Modal onClickBackdrop={onClose} title={restaurantInfo.name}>
+    <Modal onClickBackdrop={onClose} title={restaurantInfo.data.name}>
       <DescriptionContainer>
-        <Description>{restaurantInfo.description}</Description>
+        <Description>{restaurantInfo.data.description}</Description>
       </DescriptionContainer>
 
       <ButtonContainer>
