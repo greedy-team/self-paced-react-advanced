@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useShallow } from 'zustand/react/shallow';
+import { toast } from 'react-toastify';
 import Modal from '../../UI/Modal';
 import { CATEGORIES, CATEGORY_IMAGE } from '../../../data/restaurantCategories';
 import {
@@ -7,6 +8,7 @@ import {
   FormItem,
   ButtonContainer,
   Button,
+  HelpText,
 } from '../RestaurantModal.styles';
 import useModalStore from '../../../stores/ModalStore';
 import useAddRestaurant from '../../../hooks/useAddRestaurant';
@@ -43,6 +45,10 @@ function AddRestaurantModal() {
       description,
       image: CATEGORY_IMAGE[category],
     };
+    if (!category || !name) {
+      toast.error('필수 항목을 입력해 주세요.');
+      return;
+    }
     postRestaurantMutation.mutate(newRestaurant);
   };
 
@@ -92,7 +98,11 @@ function AddRestaurantModal() {
             value={description}
             onChange={(e) => setDescription(e.target.value)}
           />
-          <span className="helpText">메뉴 등 추가 정보를 입력해 주세요.</span>
+          {!category || !name ? (
+            <HelpText $error>카테고리와 이름은 필수입력사항입니다.</HelpText>
+          ) : (
+            <HelpText>메뉴 등 추가 정보를 입력해 주세요.</HelpText>
+          )}
         </FormItem>
 
         <ButtonContainer>

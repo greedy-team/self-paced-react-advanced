@@ -64,7 +64,10 @@ export const FormItem = styled.div`
 `;
 
 export const HelpText = styled.span`
-  color: ${(props) => props.theme.colors.grey300};
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: 400;
+  color: ${(props) => (props.$error ? props.theme.colors.primary : props.theme.colors.grey300)};
 `;
 
 export const ButtonContainer = styled.div`
