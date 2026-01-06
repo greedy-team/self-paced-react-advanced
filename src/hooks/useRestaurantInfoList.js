@@ -34,7 +34,10 @@ export const useAddRestaurantInfoMutation = () => {
     },
 
     onSettled: () => {
+      if (queryClient.isMutating({mutationKey: ['addRestaurant'] }) === 0) {
       queryClient.invalidateQueries({ queryKey: ['restaurantInfoList'] });
+
+      }
     },
   });
 };

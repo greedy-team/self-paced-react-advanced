@@ -1,13 +1,37 @@
 import styled from 'styled-components';
 import Modal from '../Modal/Modal';
+import useRestaurantDetailModalStore from '../../../stores/useRestaurantDetailModalStore';
+import { useRestaurantInfoListQuery } from '../../../hooks/useRestaurantInfoList';
 
-export default function RestaurantDetailModal({ isVisible, onClose, restaurantInfo }) {
+export default function RestaurantDetailModal() {
+  const { data: restaurantInfoList, isLoading, isError, error } = useRestaurantInfoListQuery();
+
+  const clickedRestaurantID = useRestaurantDetailModalStore(
+    (state) => state.clickedRestaurantID,
+  );
+  const updateClickedRestaurantID = useRestaurantDetailModalStore(
+    (state) => state.updateClickedRestaurantID,
+  );
+  const onClose = () => (updateClickedRestaurantID(null));
+
+  const clickedRestaurantInfo = restaurantInfoList?.find(
+    (restaurant) => restaurant.id === clickedRestaurantID,
+  );
+  const isVisible = clickedRestaurantID !== null;
+
+  const getRestaurantInfo = () => {
+    if (isLoading) return { name: '로딩중...', description: '' };
+    if (isError) return { name: 'Error!', description: error.message };
+    return clickedRestaurantInfo;
+  };
+  const restaurantInfo = getRestaurantInfo();
+
   if (!isVisible) return null;
 
   return (
-    <Modal onClickBackdrop={onClose} title={restaurantInfo.data.name}>
+    <Modal onClickBackdrop={onClose} title={restaurantInfo.name}>
       <DescriptionContainer>
-        <Description>{restaurantInfo.data.description}</Description>
+        <Description>{restaurantInfo.description}</Description>
       </DescriptionContainer>
 
       <ButtonContainer>
