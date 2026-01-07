@@ -110,6 +110,7 @@ function AddRestaurantModal() {
             $variant="primary"
             type="button"
             onClick={handleAddRestaurant}
+            disabled={postRestaurantMutation.isPending}
           >
             추가하기
           </Button>
