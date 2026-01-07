@@ -99,7 +99,7 @@ function AddRestaurantModal() {
             onChange={(e) => setDescription(e.target.value)}
           />
           {!category || !name ? (
-            <HelpText $error>카테고리와 이름은 필수입력사항입니다.</HelpText>
+            <HelpText>카테고리와 이름은 필수입력사항입니다.</HelpText>
           ) : (
             <HelpText>메뉴 등 추가 정보를 입력해 주세요.</HelpText>
           )}
