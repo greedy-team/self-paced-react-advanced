@@ -5,7 +5,7 @@ export default function useCategories() {
   const { selectedCategory, setCategory } = useCategoryStore(
     useShallow((state) => ({
       selectedCategory: state.selectedCategory,
-      setCategory: state.actions.setCategory,
+      setCategory: state.setCategory,
     }))
   );
 

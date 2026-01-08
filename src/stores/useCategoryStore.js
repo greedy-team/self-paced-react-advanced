@@ -5,9 +5,7 @@ export const useCategoryStore = create(
   persist(
     (set) => ({
       selectedCategory: "전체",
-      actions: {
-        setCategory: (category) => set({ selectedCategory: category }),
-      },
+      setCategory: (category) => set({ selectedCategory: category }),
     }),
     {
       name: "categories",
