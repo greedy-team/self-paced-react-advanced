@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useShallow } from 'zustand/react/shallow';
+import { toast } from 'react-toastify';
 import Modal from '../../UI/Modal';
 import { CATEGORIES, CATEGORY_IMAGE } from '../../../data/restaurantCategories';
 import {
@@ -7,11 +8,12 @@ import {
   FormItem,
   ButtonContainer,
   Button,
+  HelpText,
 } from '../RestaurantModal.styles';
-
 import useModalStore from '../../../stores/ModalStore';
+import useAddRestaurant from '../../../hooks/useAddRestaurant';
 
-function AddRestaurantModal({ onAddRestaurant }) {
+function AddRestaurantModal() {
   const { isAddRestaurantModalOpen, closeAddRestaurantModal } = useModalStore(
     useShallow((state) => ({
       isAddRestaurantModalOpen: state.isAddRestaurantModalOpen,
@@ -27,6 +29,14 @@ function AddRestaurantModal({ onAddRestaurant }) {
     closeAddRestaurantModal();
   };
 
+  const resetForm = () => {
+    setCategory('');
+    setName('');
+    setDescription('');
+  };
+
+  const postRestaurantMutation = useAddRestaurant(handleClose, resetForm);
+
   const handleAddRestaurant = () => {
     const newRestaurant = {
       id: crypto.randomUUID(),
@@ -35,8 +45,11 @@ function AddRestaurantModal({ onAddRestaurant }) {
       description,
       image: CATEGORY_IMAGE[category],
     };
-    onAddRestaurant(newRestaurant);
-    handleClose();
+    if (!category || !name) {
+      toast.error('필수 항목을 입력해 주세요.');
+      return;
+    }
+    postRestaurantMutation.mutate(newRestaurant);
   };
 
   return (
@@ -85,7 +98,11 @@ function AddRestaurantModal({ onAddRestaurant }) {
             value={description}
             onChange={(e) => setDescription(e.target.value)}
           />
-          <span className="helpText">메뉴 등 추가 정보를 입력해 주세요.</span>
+          {!category || !name ? (
+            <HelpText>카테고리와 이름은 필수입력사항입니다.</HelpText>
+          ) : (
+            <HelpText>메뉴 등 추가 정보를 입력해 주세요.</HelpText>
+          )}
         </FormItem>
 
         <ButtonContainer>
@@ -93,6 +110,7 @@ function AddRestaurantModal({ onAddRestaurant }) {
             $variant="primary"
             type="button"
             onClick={handleAddRestaurant}
+            disabled={postRestaurantMutation.isPending}
           >
             추가하기
           </Button>

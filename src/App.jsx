@@ -1,48 +1,29 @@
-import { useState, useEffect } from 'react';
+import { ToastContainer } from 'react-toastify';
 import HomeHeader from './components/Header/HomeHeader';
 import RestaurantCategoryFilter from './components/Main/RestaurantCategoryFilter';
 import RestaurantList from './components/Main/RestaurantList/RestaurantList';
 import GlobalStyle from './GlobalStyle';
 import RestaurantDetailModal from './components/Aside/RestaurantDetailModal';
 import AddRestaurantModal from './components/Aside/AddRestaurantModal';
-import restaurantApi from './api/restaurantApi';
-import useRestaurantStore from './stores/RestaurantStore';
+import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
-  const [restaurants, setRestaurants] = useState([]);
-
-  const fetchRestaurants = async () => {
-    const fetchedRestaurants = await restaurantApi.fetchAllRestaurants();
-    setRestaurants(fetchedRestaurants);
-  };
-
-  useEffect(() => {
-    fetchRestaurants();
-  }, []);
-
-  const selectedCategory = useRestaurantStore((state) => state.selectedCategory);
-
-  const filteredRestaurants = selectedCategory === '전체'
-    ? restaurants
-    : restaurants.filter((e) => e.category === selectedCategory);
-
-  const handleAddRestaurant = async (restaurant) => {
-    await restaurantApi.postRestaurant(restaurant);
-    fetchRestaurants();
-  };
-
   return (
     <>
+      <ToastContainer
+        position="top-center"
+        autoClose={4000}
+        hideProgressBar
+      />
       <GlobalStyle />
       <div>
         <HomeHeader />
-
         <main>
           <RestaurantCategoryFilter />
-          <RestaurantList restaurants={filteredRestaurants} />
+          <RestaurantList />
         </main>
         <RestaurantDetailModal />
-        <AddRestaurantModal onAddRestaurant={handleAddRestaurant} />
+        <AddRestaurantModal />
       </div>
     </>
   );

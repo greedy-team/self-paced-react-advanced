@@ -3,17 +3,47 @@ import {
   RestaurantListContainer,
   RestaurantItemList,
 } from './RestaurantList.styles';
+import useRestaurantStore from '../../../stores/RestaurantStore';
+import useRestaurants from '../../../hooks/useRestaurants';
+import { Button } from '../../Aside/RestaurantModal.styles';
 
-function RestaurantList({ restaurants }) {
-  return (
-    <RestaurantListContainer>
-      <RestaurantItemList>
-        {restaurants.map((restaurant) => (
-          <RestaurantItem key={restaurant.id} restaurant={restaurant} />
-        ))}
-      </RestaurantItemList>
-    </RestaurantListContainer>
-  );
+function RestaurantList() {
+  const {
+    data: fetchedRestaurants, error, refetch,
+  } = useRestaurants();
+
+  const selectedCategory = useRestaurantStore((state) => state.selectedCategory);
+
+  if (fetchedRestaurants) {
+    const filteredRestaurants = selectedCategory === '전체'
+      ? fetchedRestaurants
+      : fetchedRestaurants.filter((restaurant) => restaurant.category === selectedCategory);
+
+    return (
+      <RestaurantListContainer>
+        <RestaurantItemList>
+          {filteredRestaurants.map((restaurant) => (
+            <RestaurantItem key={restaurant.id} restaurant={restaurant} />
+          ))}
+        </RestaurantItemList>
+      </RestaurantListContainer>
+    );
+  }
+  if (error) {
+    return (
+      <>
+        <div>
+          데이터를 불러오는 중 문제가 발생했습니다. 잠시 후 다시 시도해주세요.
+        </div>
+        <div>
+          <Button style={{ width: 'auto' }} $variant="primary" onClick={() => refetch()}>
+            재시도
+          </Button>
+        </div>
+      </>
+    );
+  }
+  return <div>로딩 중... ⏳</div>;
 }
 
 export default RestaurantList;
