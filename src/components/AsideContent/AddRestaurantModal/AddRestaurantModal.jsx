@@ -1,12 +1,23 @@
 import styled, { css } from 'styled-components';
 import Modal from '../Modal/Modal';
 import categoryList from '../../../Data/categoryList';
+import useAddRestaurantModalStore from '../../../stores/useAddRestaurantModalStore';
+import { useAddRestaurantInfoMutation } from '../../../hooks/useRestaurantInfoList';
 
 const optionList = categoryList.filter((value) => (value !== '전체')).map((value) => (
   <option value={value} key={value}>{value}</option>
 ));
 
-export default function AddRestaurantModal({ isVisible, onClose, handleAddRestaurantInfo }) {
+export default function AddRestaurantModal() {
+  const { mutate: addRestaurantInfo } = useAddRestaurantInfoMutation();
+
+  const isVisible = useAddRestaurantModalStore(
+    (state) => state.isAddRestaurantModalVisible,
+  );
+  const closeModal = useAddRestaurantModalStore(
+    (state) => state.closeAddRestaurantModal,
+  );
+
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -17,13 +28,13 @@ export default function AddRestaurantModal({ isVisible, onClose, handleAddRestau
       description: formData.get('description'),
       category: formData.get('category'),
     };
-    handleAddRestaurantInfo(newRestaurant);
-    onClose();
+    addRestaurantInfo(newRestaurant);
+    closeModal();
   };
 
   if (!isVisible) return null;
   return (
-    <Modal onClickBackdrop={onClose} title="새로운 음식점">
+    <Modal onClickBackdrop={closeModal} title="새로운 음식점">
       <form onSubmit={handleSubmit}>
         <FormItem required>
           <Label htmlFor="category">카테고리</Label>

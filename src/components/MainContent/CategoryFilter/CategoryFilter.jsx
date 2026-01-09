@@ -1,7 +1,10 @@
 import styled from 'styled-components';
 import categoryList from '../../../Data/categoryList';
+import useCategoryStore from '../../../stores/useCategoryStore';
 
-export default function CategoryFilter({ category, onChangeCategory }) {
+export default function CategoryFilter({ category }) {
+  const updateCategory = useCategoryStore((state) => state.setCategory);
+
   const optionList = categoryList.map((value) => (
     <option value={value} key={value}>{value}</option>
   ));
@@ -12,7 +15,7 @@ export default function CategoryFilter({ category, onChangeCategory }) {
         name="category"
         id="category-filter"
         value={category}
-        onChange={(e) => onChangeCategory(e.target.value)}
+        onChange={(e) => updateCategory(e.target.value)}
         aria-label="음식점 카테고리 필터"
       >
         {optionList}

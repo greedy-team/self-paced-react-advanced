@@ -1,10 +1,15 @@
 import styled from 'styled-components';
+import useAddRestaurantModalStore from '../../../stores/useAddRestaurantModalStore';
 
-export default function GlobalNavigationBar({ onClickAddButton }) {
+export default function GlobalNavigationBar() {
+  const showAddRestaurantModal = useAddRestaurantModalStore(
+    (state) => state.showAddRestaurantModal,
+  );
+
   return (
     <GNBContainer>
       <GNBTitle>점심 뭐 먹지</GNBTitle>
-      <GNBButton type="button" aria-label="음식점 추가" onClick={onClickAddButton}>
+      <GNBButton type="button" aria-label="음식점 추가" onClick={showAddRestaurantModal}>
         <img src="templates/add-button.png" alt="음식점 추가" />
       </GNBButton>
     </GNBContainer>
