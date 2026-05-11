@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 // import '../styles/AddRestaurantModal.css';
 import foodCategory from "../../data/foodCategory";
 import styled from "styled-components";
-const OpendModal = styled.div`
+const OpenModal = styled.div`
   display: block;
 `;
 
@@ -53,7 +53,6 @@ const NameInput = styled.input`
 
 const ButtonContainer = styled.div`
   display: flex;
-  text-color: white;
 `;
 
 const Button = styled.button`
@@ -108,7 +107,7 @@ const Textarea = styled.textarea`
 `;
 function AddRestaurantModal({ setAddModal }) {
   return (
-    <OpendModal>
+    <OpenModal>
       <ModalBackdrop />
       <ModalContainer>
         <ModalTitle>새로운 음식점</ModalTitle>
@@ -126,7 +125,7 @@ function AddRestaurantModal({ setAddModal }) {
           </FormItem>
 
           <FormItem>
-            <Label htmlFor="name" className="required">
+            <Label htmlFor="name" className="required" >
               이름
             </Label>
             <NameInput type="text" name="name" id="name" required />
@@ -153,7 +152,7 @@ function AddRestaurantModal({ setAddModal }) {
           </ButtonContainer>
         </form>
       </ModalContainer>
-    </OpendModal>
+    </OpenModal>
   );
 }
 AddRestaurantModal.propTypes = {
