@@ -1,12 +1,29 @@
-import PropTypes from 'prop-types';
-import '../styles/default.css';
-import '../styles/CategoryFilter.css';
-import foodCategory from '../../data/foodCategory';
+import PropTypes from "prop-types";
+import styled from "styled-components";
+import foodCategory from "../../data/foodCategory";
 
+const RestaurantFilterContainer = styled.section`
+  display: flex;
+  justify-content: space-between;
+
+  padding: 0 16px;
+  margin-top: 24px;
+`;
+const SelectedCategory = styled.select`
+  height: 44px;
+  min-width: 125px;
+
+  border: 1px solid #d0d5dd;
+  border-radius: 8px;
+  background: transparent;
+
+  font-size: 16px;
+  padding: 8px;
+`;
 function CategoryFilter({ category, setCategory }) {
   return (
-    <section className="restaurant-filter-container">
-      <select
+    <RestaurantFilterContainer>
+      <SelectedCategory
         name="category"
         id="category-filter"
         className="restaurant-filter"
@@ -18,8 +35,8 @@ function CategoryFilter({ category, setCategory }) {
         {foodCategory.map((r) => (
           <option value={r}>{r}</option>
         ))}
-      </select>
-    </section>
+      </SelectedCategory>
+    </RestaurantFilterContainer>
   );
 }
 
