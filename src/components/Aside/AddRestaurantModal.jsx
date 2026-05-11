@@ -1,54 +1,159 @@
-import PropTypes from 'prop-types';
-import '../styles/default.css';
-import '../styles/AddRestaurantModal.css';
-import foodCategory from '../../data/foodCategory';
+import PropTypes from "prop-types";
+// import '../styles/default.css';
+// import '../styles/AddRestaurantModal.css';
+import foodCategory from "../../data/foodCategory";
+import styled from "styled-components";
+const OpendModal = styled.div`
+  display: block;
+`;
 
+const ModalBackdrop = styled.div`
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+
+  background: rgba(0, 0, 0, 0.35);
+`;
+
+const ModalContainer = styled.div`
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+
+  padding: 32px 16px;
+
+  border-radius: 8px 8px 0px 0px;
+  background: #ffffff;
+`;
+
+const ModalTitle = styled.h2`
+  margin-bottom: 36px;
+`;
+
+const FormItem = styled.div`
+  display: flex;
+  flex-direction: column;
+
+  margin-bottom: 36px;
+  padding-left: 4px;
+`;
+
+const NameInput = styled.input`
+  height: 44px;
+  padding: 8px;
+  margin: 6px 0;
+
+  border: 1px solid #d0d5dd;
+  border-radius: 8px;
+
+  font-size: 16px;
+`;
+
+const ButtonContainer = styled.div`
+  display: flex;
+  text-color: white;
+`;
+
+const Button = styled.button`
+  width: 100%;
+  height: 44px;
+
+  margin-right: 16px;
+
+  border: none;
+  border-radius: 8px;
+
+  font-weight: 600;
+  cursor: pointer;
+  background: #ec4a0a;
+
+  color: #ffffff;
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: 400;
+`;
+
+const Label = styled.label`
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: 400;
+
+  &.required::after {
+    content: "*";
+    padding-left: 4px;
+    color: #ec4a0a;
+  }
+`;
+
+const Select = styled.select`
+  padding: 8px;
+  margin: 6px 0;
+
+  border: 1px solid #d0d5dd;
+  border-radius: 8px;
+
+  font-size: 16px;
+`;
+
+const Textarea = styled.textarea`
+  padding: 8px;
+  margin: 6px 0;
+
+  border: 1px solid #d0d5dd;
+  border-radius: 8px;
+
+  font-size: 16px;
+`;
 function AddRestaurantModal({ setAddModal }) {
   return (
-    <div className="modal modal--open">
-      <div className="modal-backdrop" />
-      <div className="modal-container">
-        <h2 className="modal-title text-title">새로운 음식점</h2>
+    <OpendModal>
+      <ModalBackdrop />
+      <ModalContainer>
+        <ModalTitle>새로운 음식점</ModalTitle>
         <form>
-          <div className="form-item form-item--required">
-            <label htmlFor="category" className="text-caption">
+          <FormItem>
+            <Label htmlFor="category" className="required">
               카테고리
-            </label>
-            <select id="category" name="category" required>
+            </Label>
+            <Select id="category" name="category" required>
               <option value="">선택해 주세요</option>
               {foodCategory.map((r) => (
                 <option value={r}>{r}</option>
               ))}
-            </select>
-          </div>
+            </Select>
+          </FormItem>
 
-          <div className="form-item form-item--required">
-            <label htmlFor="name" className="text-caption">
+          <FormItem>
+            <Label htmlFor="name" className="required">
               이름
-            </label>
-            <input type="text" name="name" id="name" required />
-          </div>
+            </Label>
+            <NameInput type="text" name="name" id="name" required />
+          </FormItem>
 
-          <div className="form-item">
-            <label htmlFor="description" className="text-caption">
+          <FormItem>
+            <Label htmlFor="description" className="text-caption">
               설명
-            </label>
-            <textarea name="description" id="description" cols="30" rows="5" />
-            <span className="help-text text-caption">메뉴 등 추가 정보를 입력해 주세요.</span>
-          </div>
+            </Label>
+            <Textarea name="description" id="description" cols="30" rows="5" />
+            <span className="help-text text-caption">
+              메뉴 등 추가 정보를 입력해 주세요.
+            </span>
+          </FormItem>
 
-          <div className="button-container">
-            <button
+          <ButtonContainer>
+            <Button
               type="button"
               onClick={() => setAddModal(false)}
               className="button button--primary text-caption"
             >
               추가하기
-            </button>
-          </div>
+            </Button>
+          </ButtonContainer>
         </form>
-      </div>
-    </div>
+      </ModalContainer>
+    </OpendModal>
   );
 }
 AddRestaurantModal.propTypes = {
