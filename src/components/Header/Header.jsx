@@ -2,7 +2,6 @@ import PropTypes from "prop-types";
 import addButton from "../../../templates/add-button.png";
 import styled from "styled-components";
 
-
 const HeaderWrapper = styled.header`
   display: flex;
   justify-content: space-between;
@@ -35,13 +34,13 @@ const AddBUttonImage = styled.img`
   height: 40px;
   object-fit: contain;
 `;
-function Header({ setAddModal }) {
+function Header({ setIsAddModal }) {
   return (
     <HeaderWrapper>
       <Title>점심 뭐 먹지</Title>
       <AddButton
         type="button"
-        onClick={() => setAddModal(true)}
+        onClick={() => setIsAddModal(true)}
         className="gnb__button"
         aria-label="음식점추가"
       >

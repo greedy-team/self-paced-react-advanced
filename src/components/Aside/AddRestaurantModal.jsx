@@ -1,32 +1,10 @@
 import PropTypes from "prop-types";
+import { useRef } from "react";
 // import '../styles/default.css';
 // import '../styles/AddRestaurantModal.css';
 import foodCategory from "../../data/foodCategory";
 import styled from "styled-components";
-const OpenModal = styled.div`
-  display: block;
-`;
-
-const ModalBackdrop = styled.div`
-  position: fixed;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-
-  background: rgba(0, 0, 0, 0.35);
-`;
-
-const ModalContainer = styled.div`
-  position: fixed;
-  bottom: 0;
-  width: 100%;
-
-  padding: 32px 16px;
-
-  border-radius: 8px 8px 0px 0px;
-  background: #ffffff;
-`;
+import Modal from "../Modal";
 
 const ModalTitle = styled.h2`
   margin-bottom: 36px;
@@ -105,57 +83,72 @@ const Textarea = styled.textarea`
 
   font-size: 16px;
 `;
-function AddRestaurantModal({ setAddModal }) {
+function AddRestaurantModal({ handleClickAddRestaurant }) {
+  const nameRef = useRef();
+  const categoryRef = useRef();
+  const descriptionRef = useRef();
+
+  const handleAdd = () => {
+    if (!nameRef.current.value || !categoryRef.current.value) {
+      alert("카테고리와 이름은 필수 입력값입니다.");
+      return;
+    }
+    const newRestaurant = {
+      category: categoryRef.current.value,
+      name: nameRef.current.value,
+      description: descriptionRef.current.value,
+    };
+    handleClickAddRestaurant(newRestaurant);
+  };
   return (
-    <OpenModal>
-      <ModalBackdrop />
-      <ModalContainer>
-        <ModalTitle>새로운 음식점</ModalTitle>
-        <form>
-          <FormItem>
-            <Label htmlFor="category" className="required">
-              카테고리
-            </Label>
-            <Select id="category" name="category" required>
-              <option value="">선택해 주세요</option>
-              {foodCategory.map((r) => (
-                <option value={r}>{r}</option>
-              ))}
-            </Select>
-          </FormItem>
+    <Modal>
+      <ModalTitle>음식점 추가하기</ModalTitle>
+      <form>
+        <FormItem className="form-item form-item--required">
+          <Label htmlFor="category" className="text-caption">
+            카테고리
+          </Label>
+          <Select id="category" name="category" required ref={categoryRef}>
+            <option value="">선택해 주세요</option>
+            {foodCategory.map((r) => (
+              <option value={r}>{r}</option>
+            ))}
+          </Select>
+        </FormItem>
 
-          <FormItem>
-            <Label htmlFor="name" className="required" >
-              이름
-            </Label>
-            <NameInput type="text" name="name" id="name" required />
-          </FormItem>
+        <FormItem className="form-item form-item--required">
+          <Label htmlFor="name" className="text-caption">
+            이름
+          </Label>
+          <NameInput type="text" name="name" id="name" required ref={nameRef} />
+        </FormItem>
 
-          <FormItem>
-            <Label htmlFor="description" className="text-caption">
-              설명
-            </Label>
-            <Textarea name="description" id="description" cols="30" rows="5" />
-            <span className="help-text text-caption">
-              메뉴 등 추가 정보를 입력해 주세요.
-            </span>
-          </FormItem>
+        <FormItem className="form-item">
+          <Label htmlFor="description" className="text-caption">
+            설명
+          </Label>
+          <Textarea
+            name="description"
+            id="description"
+            cols="30"
+            rows="5"
+            ref={descriptionRef}
+          />
+          <span className="help-text text-caption">
+            메뉴 등 추가 정보를 입력해 주세요.
+          </span>
+        </FormItem>
 
-          <ButtonContainer>
-            <Button
-              type="button"
-              onClick={() => setAddModal(false)}
-              className="button button--primary text-caption"
-            >
-              추가하기
-            </Button>
-          </ButtonContainer>
-        </form>
-      </ModalContainer>
-    </OpenModal>
+        <ButtonContainer>
+          <Button type="submit" onClick={() => handleAdd()}>
+            추가하기
+          </Button>
+        </ButtonContainer>
+      </form>
+    </Modal>
   );
 }
 AddRestaurantModal.propTypes = {
-  setAddModal: PropTypes.func.isRequired,
+  handleClickAddRestaurant: PropTypes.func.isRequired,
 };
 export default AddRestaurantModal;
