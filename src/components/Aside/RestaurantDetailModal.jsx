@@ -1,7 +1,5 @@
 import PropTypes from "prop-types";
 import styled from "styled-components";
-import "../styles/default.css";
-//import '../styles/RestaurantDetailModal.css';
 
 const OpendModal = styled.div`
   display: block;
@@ -25,7 +23,7 @@ const ModalContainer = styled.div`
   padding: 32px 16px;
 
   border-radius: 8px 8px 0px 0px;
-  background: var(--grey-100);
+  background: #ffffff;
 `;
 
 const ModalTitle = styled.h2`
@@ -55,6 +53,13 @@ const Button = styled.button`
 
   color: #ffffff;
 `;
+
+const Description = styled.p`
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 400;
+`;
+
 function RestaurantDetailModal({ setDetailModal, selectedRestaurant }) {
   return (
     <OpendModal>
@@ -68,9 +73,7 @@ function RestaurantDetailModal({ setDetailModal, selectedRestaurant }) {
       <ModalContainer>
         <ModalTitle>{selectedRestaurant.name}</ModalTitle>
         <RestaurantInfo>
-          <p className="restaurant-info__description text-body">
-            {selectedRestaurant.description}
-          </p>
+          <Description>{selectedRestaurant.description}</Description>
         </RestaurantInfo>
         <ButtonContainer>
           <Button type="button" onClick={() => setDetailModal(false)}>
