@@ -1,30 +1,6 @@
 import PropTypes from "prop-types";
 import styled from "styled-components";
-
-const OpendModal = styled.div`
-  display: block;
-`;
-
-const ModalBackdrop = styled.div`
-  position: fixed;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-
-  background: rgba(0, 0, 0, 0.35);
-`;
-
-const ModalContainer = styled.div`
-  position: fixed;
-  bottom: 0;
-  width: 100%;
-
-  padding: 32px 16px;
-
-  border-radius: 8px 8px 0px 0px;
-  background: #ffffff;
-`;
+import Modal from "../Modal";
 
 const ModalTitle = styled.h2`
   margin-bottom: 36px;
@@ -60,32 +36,22 @@ const Description = styled.p`
   font-weight: 400;
 `;
 
-function RestaurantDetailModal({ setDetailModal, selectedRestaurant }) {
+function RestaurantDetailModal({ setIsDetailModal, selectedRestaurant }) {
   return (
-    <OpendModal>
-      <ModalBackdrop
-        role="button"
-        tabIndex={0}
-        aria-label="모달 닫기"
-        onKeyDown={() => setDetailModal(false)}
-        onClick={() => setDetailModal(false)}
-      />
-      <ModalContainer>
-        <ModalTitle>{selectedRestaurant.name}</ModalTitle>
-        <RestaurantInfo>
-          <Description>{selectedRestaurant.description}</Description>
-        </RestaurantInfo>
-        <ButtonContainer>
-          <Button type="button" onClick={() => setDetailModal(false)}>
-            닫기
-          </Button>
-        </ButtonContainer>
-      </ModalContainer>
-    </OpendModal>
+    <Modal onClose={() => setIsDetailModal(false)}>
+      <ModalTitle>{selectedRestaurant.name}</ModalTitle>
+      <RestaurantInfo>
+        <Description>{selectedRestaurant.description}</Description>
+      </RestaurantInfo>
+      <ButtonContainer>
+        <Button onClick={() => setIsDetailModal(false)}>닫기</Button>
+      </ButtonContainer>
+    </Modal>
   );
 }
+
 RestaurantDetailModal.propTypes = {
-  setDetailModal: PropTypes.func.isRequired,
+  setIsDetailModal: PropTypes.func.isRequired,
   selectedRestaurant: PropTypes.shape({
     name: PropTypes.string,
     description: PropTypes.string,

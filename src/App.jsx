@@ -1,5 +1,4 @@
-import { useState } from 'react';
-import restaurants from './data/restaurants';
+import { useState, useEffect } from 'react';
 import Header from './components/Header/Header';
 import CategoryFilter from './components/Main/CategoryFilter';
 import RestaurantList from './components/Main/RestaurantList';
@@ -10,27 +9,40 @@ function App() {
   // 상태값
   const [category, setCategory] = useState('전체');
 
-  const [detailModal, setDetailModal] = useState(false);
+  const [isDetailModal, setIsDetailModal] = useState(false);
 
-  const [filteredRestaurantDetail, setFilteredRestaurantDetail] = useState(null);
+  const [selectedRestaurantId, setSelectedRestaurantId] = useState(null);
 
-  const [addModal, setAddModal] = useState(false);
+  const [isAddModal, setIsAddModal] = useState(false);
 
+  const [totalRestaurants, setTotalRestaurants] = useState([]);
+
+  useEffect(() => {
+    fetch('http://localhost:3000/restaurants')
+      .then((res) => res.json())
+      .then((data) => setTotalRestaurants(data));
+  }, []);
   // 파생값
   const filteredRestaurants =
-    category === '전체' ? restaurants : restaurants.filter((r) => r.category === category);
+    category === '전체'
+      ? totalRestaurants
+      : totalRestaurants.filter((r) => r.category === category);
 
-  const selectedRestaurant = restaurants.find((r) => r.id === filteredRestaurantDetail);
+  const selectedRestaurant = totalRestaurants.find((r) => r.id === selectedRestaurantId);
 
   //  핸들러
   const handleClickRestaurantList = (r) => {
-    setDetailModal(true);
-    setFilteredRestaurantDetail(r.id);
+    setIsDetailModal(true);
+    setSelectedRestaurantId(r.id);
   };
 
+  const handleClickAddRestaurant = (newRestaurant) => {
+    setIsAddModal(false);
+    setTotalRestaurants((prev) => [...prev, newRestaurant]);
+  };
   return (
     <>
-      <Header setAddModal={setAddModal} />
+      <Header setIsAddModal={setIsAddModal} />
       <main>
         <CategoryFilter category={category} setCategory={setCategory} />
         <RestaurantList
@@ -39,13 +51,13 @@ function App() {
         />
       </main>
       <aside>
-        {detailModal && (
+        {isDetailModal && (
           <RestaurantDetailModal
-            setDetailModal={setDetailModal}
+            setIsDetailModal={setIsDetailModal}
             selectedRestaurant={selectedRestaurant}
           />
         )}
-        {addModal && <AddRestaurantModal setAddModal={setAddModal} />}
+        {isAddModal && <AddRestaurantModal handleClickAddRestaurant={handleClickAddRestaurant} />}
       </aside>
     </>
   );
