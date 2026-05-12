@@ -33,7 +33,9 @@ function CategoryFilter({ category, setCategory }) {
       >
         <option value="전체">전체</option>
         {foodCategory.map((r) => (
-          <option value={r}>{r}</option>
+          <option key={r} value={r}>
+            {r}
+          </option>
         ))}
       </SelectedCategory>
     </RestaurantFilterContainer>

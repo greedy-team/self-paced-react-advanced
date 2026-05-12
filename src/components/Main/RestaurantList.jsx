@@ -17,7 +17,7 @@ const categoryImage = {
   기타: etc,
 };
 
-const ResaurantListContainer = styled.section`
+const RestaurantListContainer = styled.section`
   display: flex;
   flex-direction: column;
 
@@ -25,7 +25,15 @@ const ResaurantListContainer = styled.section`
   margin: 16px 0;
 `;
 
-const RestuarantCategory = styled.div`
+const Restaurant = styled.div`
+  display: flex;
+  align-items: flex-start;
+
+  padding: 16px 8px;
+
+  border-bottom: 1px solid #e9eaed;
+`;
+const RestaurantCategory = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -55,10 +63,6 @@ const RestaurantName = styled.h3`
   margin: 0;
 `;
 
-const RestaurantDistance = styled.p`
-  color: #ec4a0a;
-`;
-
 const RestaurantDescription = styled.p`
   display: -webkit-box;
 
@@ -72,10 +76,10 @@ const RestaurantDescription = styled.p`
 
 function RestaurantList({ filteredRestaurants, handleClickRestaurantList }) {
   return (
-    <ResaurantListContainer>
+    <RestaurantListContainer>
       <ul className="restaurant-list">
         {filteredRestaurants.map((r) => (
-          <div
+          <Restaurant
             key={r.id}
             role="button"
             tabIndex={0}
@@ -86,21 +90,21 @@ function RestaurantList({ filteredRestaurants, handleClickRestaurantList }) {
             onKeyDown={() => handleClickRestaurantList(r)}
             className="restaurant"
           >
-            <RestuarantCategory>
+            <RestaurantCategory>
               <IconImage
                 src={categoryImage[r.category]}
                 alt={r.category}
                 className="category-icon"
               />
-            </RestuarantCategory>
+            </RestaurantCategory>
             <RestaurantInfo>
               <RestaurantName>{r.name}</RestaurantName>
               <RestaurantDescription>{r.description}</RestaurantDescription>
             </RestaurantInfo>
-          </div>
+          </Restaurant>
         ))}
       </ul>
-    </ResaurantListContainer>
+    </RestaurantListContainer>
   );
 }
 
