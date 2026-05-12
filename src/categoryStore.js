@@ -1,8 +1,18 @@
 import { create } from "zustand";
+import { persist } from "zustand/middleware";
 
-const useCategoryStore = create((set) => ({
-  category: "전체",
-  setCategory: (category) => set({ category }),
-}));
+const useCategoryStore = create(
+  persist(
+    (set) => ({
+      category: "전체",
+      setCategory: (category) => set({ category }),
+    }),
+    { name: "category-storage" },
+  ),
+);
 
 export default useCategoryStore;
+// {
+//   category: "전체",
+//   setCategory: (category) => set({ category }),
+// }
