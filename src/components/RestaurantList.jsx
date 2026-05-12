@@ -1,9 +1,17 @@
-import styles from "./RestaurantList.module.css";
+import styled from "styled-components";
 import RestaurantItem from "./RestaurantItem";
+
+const Container = styled.section`
+  display: flex;
+  flex-direction: column;
+
+  padding: 0 16px;
+  margin: 16px 0;
+`;
 
 export default function RestaurantList({ restaurants, onRestaurantClick }) {
   return (
-    <section className={styles.container}>
+    <Container>
       <ul className="restaurant-list">
         {restaurants.map((restaurant) => (
           <RestaurantItem
@@ -13,6 +21,6 @@ export default function RestaurantList({ restaurants, onRestaurantClick }) {
           />
         ))}
       </ul>
-    </section>
+    </Container>
   );
 }
