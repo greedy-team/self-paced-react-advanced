@@ -1,4 +1,4 @@
-import "./CategoryFilter.css";
+import styled from "styled-components";
 
 import { CATEGORY_LIST } from "../../RestaurantData";
 
@@ -6,11 +6,10 @@ export default function CategoryFilter({ category, setCategory }) {
   const filterCategories = ["전체", ...CATEGORY_LIST];
 
   return (
-    <section className="restaurant-filter-container">
-      <select
+    <FilterContainer>
+      <CategorySelect
         name="category"
         id="category-filter"
-        className="restaurant-filter"
         aria-label="음식점 카테고리 필터"
         value={category}
         onChange={(e) => setCategory(e.target.value)}
@@ -20,7 +19,28 @@ export default function CategoryFilter({ category, setCategory }) {
             {item}
           </option>
         ))}
-      </select>
-    </section>
+      </CategorySelect>
+    </FilterContainer>
   );
 }
+
+const FilterContainer = styled.section`
+  display: flex;
+  justify-content: space-between;
+
+  padding: 0 16px;
+  margin-top: 24px;
+`;
+
+const CategorySelect = styled.select`
+  height: 44px;
+  min-width: 125px;
+
+  border: 1px solid #d0d5dd;
+  border-radius: 8px;
+  background: transparent;
+
+  font-size: 16px;
+
+  padding: 8px;
+`;
