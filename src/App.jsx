@@ -1,15 +1,15 @@
-import { useState, useEffect, useContext } from "react";
+import { useState, useEffect } from "react";
 import Header from "./components/Header/Header";
 import CategoryFilter from "./components/Main/CategoryFilter";
 import RestaurantList from "./components/Main/RestaurantList";
 import RestaurantDetailModal from "./components/Aside/RestaurantDetailModal";
 import AddRestaurantModal from "./components/Aside/AddRestaurantModal";
-import UserContext from "./UserContext";
+import useCategoryStore from "./categoryStore";
 
 function App() {
   // 상태값
   //const [category, setCategory] = useState("전체");
-  const { category } = useContext(UserContext);
+  const { category } = useCategoryStore();
 
   const [isDetailModal, setIsDetailModal] = useState(false);
 

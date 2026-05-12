@@ -1,8 +1,7 @@
-import { useContext } from "react";
-import PropTypes from "prop-types";
+
 import styled from "styled-components";
 import foodCategory from "../../data/foodCategory";
-import UserContext from "../../UserContext";
+import useCategoryStore from "../../categoryStore";
 
 const RestaurantFilterContainer = styled.section`
   display: flex;
@@ -23,7 +22,7 @@ const SelectedCategory = styled.select`
   padding: 8px;
 `;
 function CategoryFilter() {
-  const { category, setCategory } = useContext(UserContext);
+  const { category, setCategory } = useCategoryStore();
   return (
     <RestaurantFilterContainer>
       <SelectedCategory
