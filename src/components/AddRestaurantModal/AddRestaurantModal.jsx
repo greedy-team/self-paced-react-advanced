@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { CATEGORY_LIST } from "../../RestaurantData";
 import Modal from "../Modal/Modal";
 
-export default function AddRestaurantModal({ onClose, handleAddRestaurant }) {
+export default function AddRestaurantModal({ onClose, onAdd }) {
   const [form, setForm] = useState({
     category: "",
     name: "",
@@ -20,7 +20,7 @@ export default function AddRestaurantModal({ onClose, handleAddRestaurant }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    handleAddRestaurant({
+    onAdd({
       ...form,
       id: Date.now(),
     });
