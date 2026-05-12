@@ -40,11 +40,23 @@ function App() {
       });
       return res.json();
     },
-    onSuccess: (newRestaurant) => {
-      queryClient.setQueryData(["restaurants"], (oldData) => [
+    onMutate: (newRestaurant) => {
+      const prevData = queryClient.getQueryData(["restaurants"]);
+      queryClient.setQueryData(["restaurants"], (oldData = []) => [
         ...oldData,
-        newRestaurant,
+        { ...newRestaurant, id: Date.now() },
       ]);
+
+      return { prevData };
+    },
+    onError: (error, newRestaurant, context) => {
+      queryClient.setQueryData(["restaurants"], context.prevData);
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: ["restaurants"],
+      });
+      
     },
   });
 
