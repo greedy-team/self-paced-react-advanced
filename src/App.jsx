@@ -5,6 +5,7 @@ import RestaurantList from "./components/Main/RestaurantList";
 import RestaurantDetailModal from "./components/Aside/RestaurantDetailModal";
 import AddRestaurantModal from "./components/Aside/AddRestaurantModal";
 import useCategoryStore from "./categoryStore";
+import { useQuery } from "@tanstack/react-query";
 
 function App() {
   // 상태값
@@ -19,11 +20,20 @@ function App() {
 
   const [totalRestaurants, setTotalRestaurants] = useState([]);
 
+  const fetchRestaurants = async () => {
+    const res = await fetch("http://localhost:3000/restaurants");
+    return res.json();
+  };
+  const { data } = useQuery({
+    queryKey: ["restaurants"],
+    queryFn: fetchRestaurants,
+  });
   useEffect(() => {
-    fetch("http://localhost:3000/restaurants")
-      .then((res) => res.json())
-      .then((data) => setTotalRestaurants(data));
-  }, []);
+    if (data) {
+      setTotalRestaurants(data);
+    }
+  }, [data]);
+
   // 파생값
   const filteredRestaurants =
     category === "전체"

@@ -12,7 +12,3 @@ const useCategoryStore = create(
 );
 
 export default useCategoryStore;
-// {
-//   category: "전체",
-//   setCategory: (category) => set({ category }),
-// }
