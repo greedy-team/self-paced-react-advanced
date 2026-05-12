@@ -1,5 +1,5 @@
 import { useState } from "react";
-import "./AddRestaurantModal.css";
+import styled from "styled-components";
 import { CATEGORY_LIST } from "../../RestaurantData";
 import Modal from "../Modal/Modal";
 
@@ -30,11 +30,9 @@ export default function AddRestaurantModal({ onClose, handleAddRestaurant }) {
   return (
     <Modal title="새로운 음식점" onClose={onClose}>
       <form onSubmit={handleSubmit}>
-        <div className="form-item form-item--required">
-          <label htmlFor="category" className="text-caption">
-            카테고리
-          </label>
-          <select
+        <FormItem $required>
+          <Label htmlFor="category">카테고리</Label>
+          <Select
             name="category"
             id="category"
             value={form.category}
@@ -47,14 +45,12 @@ export default function AddRestaurantModal({ onClose, handleAddRestaurant }) {
                 {category}
               </option>
             ))}
-          </select>
-        </div>
+          </Select>
+        </FormItem>
 
-        <div className="form-item form-item--required">
-          <label htmlFor="name" className="text-caption">
-            이름
-          </label>
-          <input
+        <FormItem $required>
+          <Label htmlFor="name">이름</Label>
+          <Input
             type="text"
             name="name"
             id="name"
@@ -62,31 +58,111 @@ export default function AddRestaurantModal({ onClose, handleAddRestaurant }) {
             onChange={handleChange}
             required
           />
-        </div>
+        </FormItem>
 
-        <div className="form-item">
-          <label htmlFor="description" className="text-caption">
-            설명
-          </label>
-          <textarea
+        <FormItem>
+          <Label htmlFor="description">설명</Label>
+          <Textarea
             name="description"
             id="description"
             value={form.description}
             onChange={handleChange}
             cols="30"
             rows="5"
-          ></textarea>
-          <span className="help-text text-caption">
-            메뉴 등 추가 정보를 입력해 주세요.
-          </span>
-        </div>
+          ></Textarea>
+          <HelpText>메뉴 등 추가 정보를 입력해 주세요.</HelpText>
+        </FormItem>
 
-        <div className="button-container">
-          <button className="button button--primary text-caption">
+        <ButtonContainer>
+          <StyledButton $variant="primary" type="submit">
             추가하기
-          </button>
-        </div>
+          </StyledButton>
+        </ButtonContainer>
       </form>
     </Modal>
   );
 }
+
+const FormItem = styled.div`
+  display: flex;
+  flex-direction: column;
+
+  margin-bottom: 36px;
+
+  label::after {
+    ${(props) =>
+      props.$required &&
+      `
+      padding-left: 4px;
+      color: var(--primary-color);
+      content: "*";
+  `}
+  }
+`;
+
+const Label = styled.label`
+  color: var(--grey-400);
+  font-size: 14px;
+`;
+
+const Input = styled.input`
+  height: 44px;
+
+  padding: 8px;
+  margin: 6px 0;
+
+  border: 1px solid var(--grey-200);
+  border-radius: 8px;
+
+  font-size: 16px;
+`;
+
+const Select = styled.select`
+  height: 44px;
+
+  padding: 8px;
+
+  border: 1px solid var(--grey-200);
+  border-radius: 8px;
+
+  color: var(--grey-300);
+`;
+
+const Textarea = styled.textarea`
+  resize: none;
+`;
+
+const HelpText = styled.span`
+  color: var(--grey-300);
+`;
+
+const ButtonContainer = styled.div`
+  display: flex;
+`;
+
+const StyledButton = styled.button`
+  width: 100%;
+  height: 44px;
+  margin-right: 16px;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+
+  &:last-child {
+    margin-right: 0;
+  }
+  ${(props) =>
+    props.$variant === "primary" &&
+    `
+    background: var(--primary-color);
+    color: var(--grey-100);
+  `}
+  ${(props) =>
+    props.$variant === "secondary" &&
+    `
+    border: 1px solid var(--grey-300);
+    background: transparent;
+    color: var(--grey-300);
+  `}
+`;
