@@ -28,7 +28,7 @@ const AddButton = styled.button`
   cursor: pointer;
 `;
 
-const AddBUttonImage = styled.img`
+const AddButtonImage = styled.img`
   display: block;
   width: 40px;
   height: 40px;
@@ -44,7 +44,7 @@ function Header({ setIsAddModal }) {
         className="gnb__button"
         aria-label="음식점추가"
       >
-        <AddBUttonImage src={addButton} alt="음식점 추가" />
+        <AddButtonImage src={addButton} alt="음식점 추가" />
       </AddButton>
     </HeaderWrapper>
   );

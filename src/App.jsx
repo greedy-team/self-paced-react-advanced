@@ -1,13 +1,13 @@
-import { useState, useEffect } from 'react';
-import Header from './components/Header/Header';
-import CategoryFilter from './components/Main/CategoryFilter';
-import RestaurantList from './components/Main/RestaurantList';
-import RestaurantDetailModal from './components/Aside/RestaurantDetailModal';
-import AddRestaurantModal from './components/Aside/AddRestaurantModal';
+import { useState, useEffect } from "react";
+import Header from "./components/Header/Header";
+import CategoryFilter from "./components/Main/CategoryFilter";
+import RestaurantList from "./components/Main/RestaurantList";
+import RestaurantDetailModal from "./components/Aside/RestaurantDetailModal";
+import AddRestaurantModal from "./components/Aside/AddRestaurantModal";
 
 function App() {
   // 상태값
-  const [category, setCategory] = useState('전체');
+  const [category, setCategory] = useState("전체");
 
   const [isDetailModal, setIsDetailModal] = useState(false);
 
@@ -18,17 +18,24 @@ function App() {
   const [totalRestaurants, setTotalRestaurants] = useState([]);
 
   useEffect(() => {
-    fetch('http://localhost:3000/restaurants')
-      .then((res) => res.json())
-      .then((data) => setTotalRestaurants(data));
+    async function fetchRestaurants() {
+      const res = await fetch("http://localhost:3000/restaurants");
+      const data = await res.json();
+
+      setTotalRestaurants(data);
+    }
+
+    fetchRestaurants();
   }, []);
   // 파생값
   const filteredRestaurants =
-    category === '전체'
+    category === "전체"
       ? totalRestaurants
       : totalRestaurants.filter((r) => r.category === category);
 
-  const selectedRestaurant = totalRestaurants.find((r) => r.id === selectedRestaurantId);
+  const selectedRestaurant = totalRestaurants.find(
+    (r) => r.id === selectedRestaurantId,
+  );
 
   //  핸들러
   const handleClickRestaurantList = (r) => {
@@ -57,7 +64,11 @@ function App() {
             selectedRestaurant={selectedRestaurant}
           />
         )}
-        {isAddModal && <AddRestaurantModal handleClickAddRestaurant={handleClickAddRestaurant} />}
+        {isAddModal && (
+          <AddRestaurantModal
+            handleClickAddRestaurant={handleClickAddRestaurant}
+          />
+        )}
       </aside>
     </>
   );

@@ -32,9 +32,9 @@ function CategoryFilter({ category, setCategory }) {
         onChange={(e) => setCategory(e.target.value)}
       >
         <option value="전체">전체</option>
-        {foodCategory.map((r) => (
-          <option key={r} value={r}>
-            {r}
+        {foodCategory.map((categoryName) => (
+          <option key={categoryName} value={categoryName}>
+            {categoryName}
           </option>
         ))}
       </SelectedCategory>
