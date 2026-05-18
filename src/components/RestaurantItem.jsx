@@ -32,8 +32,6 @@ const Category = styled.div`
   align-items: center;
   width: 64px;
   height: 64px;
-  min-width: 64px;
-  min-height: 64px;
 
   margin-right: 16px;
 
