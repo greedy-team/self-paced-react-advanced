@@ -1,13 +1,5 @@
 import styled from "styled-components";
 
-const ModalRoot = styled.div`
-  display: none;
-`;
-
-const ModalOpen = styled(ModalRoot)`
-  display: block;
-`;
-
 const Backdrop = styled.div`
   position: fixed;
   top: 0;
@@ -31,9 +23,9 @@ const Container = styled.div`
 
 export default function Modal({ onClose, children }) {
   return (
-    <ModalOpen>
+    <>
       <Backdrop onClick={onClose}></Backdrop>
       <Container>{children}</Container>
-    </ModalOpen>
+    </>
   );
 }
