@@ -1,34 +1,6 @@
 import styled from "styled-components";
+import Modal from "./Modal";
 import { ALL_CATEGORIES } from "../constants/categories";
-
-const Modal = styled.div`
-  display: none;
-`;
-
-const ModalOpen = styled(Modal)`
-  display: block;
-`;
-
-const Backdrop = styled.div`
-  position: fixed;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-
-  background: rgba(0, 0, 0, 0.35);
-`;
-
-const Container = styled.div`
-  position: fixed;
-  bottom: 0;
-  width: 100%;
-
-  padding: 32px 16px;
-
-  border-radius: 8px 8px 0px 0px;
-  background: var(--grey-100);
-`;
 
 const Title = styled.h2`
   margin-bottom: 36px;
@@ -133,57 +105,58 @@ const PrimaryButton = styled(Button)`
 `;
 
 export default function AddRestaurantModal({ onAddRestaurant, onClose }) {
+  async function handleSubmit(e) {
+    e.preventDefault();
+    const formData = new FormData(e.target);
+    const restaurant = {
+      id: crypto.randomUUID(),
+      category: formData.get("category"),
+      name: formData.get("name"),
+      description: formData.get("description"),
+    };
+    try {
+      await onAddRestaurant(restaurant);
+      onClose();
+    } catch (error) {
+      alert(error.message);
+    }
+  }
+
   return (
-    <ModalOpen>
-      <Backdrop onClick={onClose} />
-      <Container>
-        <Title>새로운 음식점</Title>
-        <form
-          onSubmit={async (e) => {
-            e.preventDefault();
-            const formData = new FormData(e.target);
-            const restaurant = {
-              id: crypto.randomUUID(),
-              category: formData.get("category"),
-              name: formData.get("name"),
-              description: formData.get("description"),
-            };
-            await onAddRestaurant(restaurant);
-            onClose();
-          }}
-        >
-          <RequiredFormItem>
-            <label htmlFor="category">카테고리</label>
-            <select name="category" id="category" required>
-              {ALL_CATEGORIES.map((c) => (
-                <option key={c} value={c}>
-                  {c}
-                </option>
-              ))}
-            </select>
-          </RequiredFormItem>
+    <Modal onClose={onClose}>
+      <Title>새로운 음식점</Title>
+      <form onSubmit={handleSubmit}>
+        <RequiredFormItem>
+          <label htmlFor="category">카테고리</label>
+          <select name="category" id="category" required>
+            {ALL_CATEGORIES.map((c) => (
+              <option key={c} value={c}>
+                {c}
+              </option>
+            ))}
+          </select>
+        </RequiredFormItem>
 
-          <RequiredFormItem>
-            <label htmlFor="name">이름</label>
-            <input type="text" name="name" id="name" required />
-          </RequiredFormItem>
+        <RequiredFormItem>
+          <label htmlFor="name">이름</label>
+          <input type="text" name="name" id="name" required />
+        </RequiredFormItem>
 
-          <FormItem>
-            <label htmlFor="description">설명</label>
-            <textarea
-              name="description"
-              id="description"
-              cols="30"
-              rows="5"
-            ></textarea>
-            <HelpText>메뉴 등 추가 정보를 입력해 주세요.</HelpText>
-          </FormItem>
+        <FormItem>
+          <label htmlFor="description">설명</label>
+          <textarea
+            name="description"
+            id="description"
+            cols="30"
+            rows="5"
+          ></textarea>
+          <HelpText>메뉴 등 추가 정보를 입력해 주세요.</HelpText>
+        </FormItem>
 
-          <ButtonContainer>
-            <PrimaryButton type="submit">추가하기</PrimaryButton>
-          </ButtonContainer>
-        </form>
-      </Container>
-    </ModalOpen>
+        <ButtonContainer>
+          <PrimaryButton type="submit">추가하기</PrimaryButton>
+        </ButtonContainer>
+      </form>
+    </Modal>
   );
 }

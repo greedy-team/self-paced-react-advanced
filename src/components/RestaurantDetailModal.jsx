@@ -1,33 +1,5 @@
 import styled from "styled-components";
-
-const Modal = styled.div`
-  display: none;
-`;
-
-const ModalOpen = styled(Modal)`
-  display: block;
-`;
-
-const Backdrop = styled.div`
-  position: fixed;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-
-  background: rgba(0, 0, 0, 0.35);
-`;
-
-const Container = styled.div`
-  position: fixed;
-  bottom: 0;
-  width: 100%;
-
-  padding: 32px 16px;
-
-  border-radius: 8px 8px 0px 0px;
-  background: var(--grey-100);
-`;
+import Modal from "./Modal";
 
 const Title = styled.h2`
   margin-bottom: 36px;
@@ -84,17 +56,14 @@ const PrimaryButton = styled(Button)`
 
 export default function RestaurantDetailModal({ restaurant, onClose }) {
   return (
-    <ModalOpen>
-      <Backdrop onClick={onClose} />
-      <Container>
-        <Title>{restaurant.name}</Title>
-        <Info>
-          <Description>{restaurant.description}</Description>
-        </Info>
-        <ButtonContainer>
-          <PrimaryButton onClick={onClose}>닫기</PrimaryButton>
-        </ButtonContainer>
-      </Container>
-    </ModalOpen>
+    <Modal onClose={onClose}>
+      <Title>{restaurant.name}</Title>
+      <Info>
+        <Description>{restaurant.description}</Description>
+      </Info>
+      <ButtonContainer>
+        <PrimaryButton onClick={onClose}>닫기</PrimaryButton>
+      </ButtonContainer>
+    </Modal>
   );
 }
