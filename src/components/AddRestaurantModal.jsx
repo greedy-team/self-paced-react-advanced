@@ -120,8 +120,8 @@ export default function AddRestaurantModal({
     try {
       await onAddRestaurant(restaurant);
       onCloseAddModal();
-    } catch (error) {
-      alert(error.message);
+    } catch {
+      // 실패 alert는 App에서 처리하므로 모달은 닫지 않고 유지
     }
   }
 
