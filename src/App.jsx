@@ -9,9 +9,8 @@ import { useState, useEffect } from "react";
 const BASE_URL = "http://localhost:3000/restaurants";
 
 function App() {
-  const [isAddModalOpen, setIsAddModalOpen] = useState(false);
+  const [activeModal, setActiveModal] = useState(null); //add, detail, null
   const [category, setCategory] = useState("전체");
-  const [isDetailModalOpen, setIsDetailModalOpen] = useState(false);
   const [selectedRestaurant, setSelectedRestaurant] = useState(null);
   const [restaurants, setRestaurants] = useState([]);
 
@@ -58,11 +57,32 @@ function App() {
       ? restaurants
       : restaurants.filter((restaurant) => restaurant.category === category);
 
+  function renderModal() {
+    switch (activeModal) {
+      case "detail":
+        return (
+          <RestaurantDetailModal
+            restaurant={selectedRestaurant}
+            onCloseDetailModal={() => setActiveModal(null)}
+          />
+        );
+      case "add":
+        return (
+          <AddRestaurantModal
+            onAddRestaurant={addRestaurant}
+            onCloseAddModal={() => setActiveModal(null)}
+          />
+        );
+      default:
+        return null;
+    }
+  }
+
   return (
     <>
       <Header
         category={category}
-        onOpenAddModal={() => setIsAddModalOpen(true)}
+        onOpenAddModal={() => setActiveModal("add")}
       />
       <main>
         <CategoryFilter category={category} onChangeCategory={setCategory} />
@@ -70,24 +90,11 @@ function App() {
           restaurants={filteredRestaurants}
           onRestaurantClick={(restaurant) => {
             setSelectedRestaurant(restaurant);
-            setIsDetailModalOpen(true);
+            setActiveModal("detail");
           }}
         />
       </main>
-      <aside>
-        {isDetailModalOpen ? (
-          <RestaurantDetailModal
-            restaurant={selectedRestaurant}
-            onCloseDetailModal={() => setIsDetailModalOpen(false)}
-          />
-        ) : null}
-        {isAddModalOpen ? (
-          <AddRestaurantModal
-            onAddRestaurant={addRestaurant}
-            onCloseAddModal={() => setIsAddModalOpen(false)}
-          />
-        ) : null}
-      </aside>
+      <aside>{renderModal()}</aside>
     </>
   );
 }
