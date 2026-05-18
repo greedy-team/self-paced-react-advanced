@@ -38,14 +38,14 @@ const AddButton = styled.button`
   }
 `;
 
-export default function Header({ category, onAddClick }) {
+export default function Header({ category, onOpenAddModal }) {
   return (
     <Gnb>
       <Title>점심 뭐 먹지{category !== "전체" ? ` - ${category}` : ""}</Title>
       <AddButton
         type="button"
         aria-label="음식점 추가"
-        onClick={() => onAddClick()}
+        onClick={() => onOpenAddModal()}
       >
         <img src={addButton} alt="음식점 추가" />
       </AddButton>

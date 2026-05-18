@@ -60,7 +60,10 @@ function App() {
 
   return (
     <>
-      <Header category={category} onAddClick={() => setIsAddModalOpen(true)} />
+      <Header
+        category={category}
+        onOpenAddModal={() => setIsAddModalOpen(true)}
+      />
       <main>
         <CategoryFilter category={category} onChangeCategory={setCategory} />
         <RestaurantList
@@ -75,13 +78,13 @@ function App() {
         {isDetailModalOpen ? (
           <RestaurantDetailModal
             restaurant={selectedRestaurant}
-            onClose={() => setIsDetailModalOpen(false)}
+            onCloseDetailModal={() => setIsDetailModalOpen(false)}
           />
         ) : null}
         {isAddModalOpen ? (
           <AddRestaurantModal
             onAddRestaurant={addRestaurant}
-            onClose={() => setIsAddModalOpen(false)}
+            onCloseAddModal={() => setIsAddModalOpen(false)}
           />
         ) : null}
       </aside>

@@ -104,7 +104,10 @@ const PrimaryButton = styled(Button)`
   color: var(--grey-100);
 `;
 
-export default function AddRestaurantModal({ onAddRestaurant, onClose }) {
+export default function AddRestaurantModal({
+  onAddRestaurant,
+  onCloseAddModal,
+}) {
   async function handleSubmit(e) {
     e.preventDefault();
     const formData = new FormData(e.target);
@@ -116,14 +119,14 @@ export default function AddRestaurantModal({ onAddRestaurant, onClose }) {
     };
     try {
       await onAddRestaurant(restaurant);
-      onClose();
+      onCloseAddModal();
     } catch (error) {
       alert(error.message);
     }
   }
 
   return (
-    <Modal onClose={onClose}>
+    <Modal onClose={onCloseAddModal}>
       <Title>새로운 음식점</Title>
       <form onSubmit={handleSubmit}>
         <RequiredFormItem>

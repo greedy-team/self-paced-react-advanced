@@ -54,15 +54,18 @@ const PrimaryButton = styled(Button)`
   color: var(--grey-100);
 `;
 
-export default function RestaurantDetailModal({ restaurant, onClose }) {
+export default function RestaurantDetailModal({
+  restaurant,
+  onCloseDetailModal,
+}) {
   return (
-    <Modal onClose={onClose}>
+    <Modal onClose={onCloseDetailModal}>
       <Title>{restaurant.name}</Title>
       <Info>
         <Description>{restaurant.description}</Description>
       </Info>
       <ButtonContainer>
-        <PrimaryButton onClick={onClose}>닫기</PrimaryButton>
+        <PrimaryButton onClick={onCloseDetailModal}>닫기</PrimaryButton>
       </ButtonContainer>
     </Modal>
   );
