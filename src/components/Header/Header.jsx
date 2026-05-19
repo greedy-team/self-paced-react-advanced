@@ -28,6 +28,9 @@ const HeaderWrapper = styled.header`
 
 const Title = styled.h1`
   color: #fcfcfd;
+  font-size: 20px;
+  line-height: 24px;
+  font-weight: 600;
 `;
 
 const AddButton = styled.button`

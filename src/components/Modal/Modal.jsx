@@ -32,4 +32,11 @@ const ModalContainer = styled.div`
   background: var(--grey-100);
 `;
 
-const ModalTitle = styled.h2``;
+const ModalTitle = styled.h2`
+  margin-bottom: 36px;
+
+  font-size: 20px;
+  line-height: 24px;
+  font-weight: 600;
+  color: var(--grey-500);
+`;
