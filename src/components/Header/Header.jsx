@@ -1,14 +1,10 @@
 import styled from "styled-components";
 
-export default function Header({ setIsAddModalOpen }) {
+export default function Header({ onOpenModal }) {
   return (
     <HeaderWrapper>
       <Title>점심 뭐 먹지</Title>
-      <AddButton
-        type="button"
-        onClick={setIsAddModalOpen}
-        aria-label="음식점 추가"
-      >
+      <AddButton type="button" onClick={onOpenModal} aria-label="음식점 추가">
         <img src="/add-button.png" alt="음식점 추가" />
       </AddButton>
     </HeaderWrapper>

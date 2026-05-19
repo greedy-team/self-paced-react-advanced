@@ -70,7 +70,7 @@ function App() {
 
   return (
     <>
-      <Header setIsAddModalOpen={() => setIsAddModalOpen(true)} />
+      <Header onOpenModal={() => setIsAddModalOpen(true)} />
       <main>
         <CategoryFilter category={category} setCategory={setCategory} />
         <RestaurantList
