@@ -158,11 +158,4 @@ const StyledButton = styled.button`
     background: var(--primary-color);
     color: var(--grey-100);
   `}
-  ${(props) =>
-    props.$variant === "secondary" &&
-    `
-    border: 1px solid var(--grey-300);
-    background: transparent;
-    color: var(--grey-300);
-  `}
 `;

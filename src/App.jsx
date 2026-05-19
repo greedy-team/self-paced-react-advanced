@@ -75,7 +75,7 @@ function App() {
       <aside>
         {isDetailModalOpen && (
           <RestaurantDetailModal
-            restaurants={selectedRestaurant}
+            restaurant={selectedRestaurant}
             onClose={() => setIsDetailModalOpen(false)}
           />
         )}

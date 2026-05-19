@@ -1,11 +1,11 @@
 import styled from "styled-components";
 import Modal from "../Modal/Modal";
 
-export default function RestaurantDetailModal({ restaurants, onClose }) {
+export default function RestaurantDetailModal({ restaurant, onClose }) {
   return (
-    <Modal title={restaurants.name} onClose={onClose}>
+    <Modal title={restaurant.name} onClose={onClose}>
       <InfoWrapper>
-        <Description>{restaurants.description}</Description>
+        <Description>{restaurant.description}</Description>
         <ButtonContainer>
           <CloseButton onClick={onClose}>닫기</CloseButton>
         </ButtonContainer>

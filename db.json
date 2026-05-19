@@ -41,6 +41,12 @@
       "name": "cscs",
       "description": "csc",
       "id": "Zpi7a4idLsQ"
+    },
+    {
+      "category": "한식",
+      "name": "감자탕",
+      "description": "맛있겠다",
+      "id": "D73pcmhudKI"
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"

@@ -4,11 +4,11 @@ import RestaurantItem from "./RestaurantItem";
 export default function RestaurantList({ restaurants, onOpenModal }) {
   return (
     <RestaurantListContainer>
-      <RestaurantListUl>
+      <ul>
         {restaurants.map((item) => (
           <RestaurantItem key={item.id} item={item} onOpenModal={onOpenModal} />
         ))}
-      </RestaurantListUl>
+      </ul>
     </RestaurantListContainer>
   );
 }
@@ -20,5 +20,3 @@ const RestaurantListContainer = styled.section`
   padding: 0 16px;
   margin: 16px 0;
 `;
-
-const RestaurantListUl = styled.ul``;
