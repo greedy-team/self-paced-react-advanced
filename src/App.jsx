@@ -23,10 +23,17 @@ function App() {
   const fetchRestaurants = async () => {
     try {
       const response = await fetch(BASE_URL);
+
+      if (!response.ok) {
+        throw new Error("서버 요청 실패");
+      }
+
       const data = await response.json();
       setRestaurants(data);
     } catch (error) {
       console.error(error);
+
+      alert("음식점 목록을 불러오는 데 실패했습니다.");
     }
   };
 

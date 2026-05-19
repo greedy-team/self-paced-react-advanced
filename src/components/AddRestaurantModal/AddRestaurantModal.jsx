@@ -22,9 +22,8 @@ export default function AddRestaurantModal({ onClose, onAdd }) {
     e.preventDefault();
     onAdd({
       ...form,
-      id: Date.now(),
+      id: crypto.randomUUID(),
     });
-    onClose();
   };
 
   return (
