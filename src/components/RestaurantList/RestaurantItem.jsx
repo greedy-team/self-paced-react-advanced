@@ -64,7 +64,3 @@ const Description = styled.p`
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
 `;
-
-const RestaurantDistance = styled.span`
-  color: var(--primary-color);
-`;
