@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import styled from "styled-components";
 import RestaurantItem from "./RestaurantItem";
 
@@ -20,3 +21,9 @@ const RestaurantListContainer = styled.section`
   padding: 0 16px;
   margin: 16px 0;
 `;
+
+RestaurantList.propTypes = {
+  restaurants: PropTypes.array.isRequired,
+  category: PropTypes.string.isRequired,
+  onOpenModal: PropTypes.func.isRequired,
+};

@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import styled from "styled-components";
 import Modal from "../Modal/Modal";
 
@@ -38,3 +39,11 @@ const CloseButton = styled.button`
   background: var(--primary-color);
   color: var(--grey-100);
 `;
+
+RestaurantDetailModal.propTypes = {
+  restaurant: PropTypes.shape({
+    name: PropTypes.string.isRequired,
+    description: PropTypes.string.isRequired,
+  }).isRequired,
+  onClose: PropTypes.func.isRequired,
+};

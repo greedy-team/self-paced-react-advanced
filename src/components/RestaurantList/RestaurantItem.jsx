@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import styled from "styled-components";
 import { CATEGORY_IMAGE } from "../../RestaurantData";
 
@@ -64,3 +65,12 @@ const Description = styled.p`
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
 `;
+
+RestaurantItem.propTypes = {
+  item: PropTypes.shape({
+    category: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
+    description: PropTypes.string.isRequired,
+  }).isRequired,
+  onOpenModal: PropTypes.func.isRequired,
+};

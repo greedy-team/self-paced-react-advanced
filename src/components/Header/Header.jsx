@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import PropTypes from "prop-types";
 
 export default function Header({ onOpenModal }) {
   return (
@@ -46,3 +47,7 @@ const AddButton = styled.button`
     object-fit: contain;
   }
 `;
+
+Header.propTypes = {
+  onOpenModal: PropTypes.func.isRequired,
+};

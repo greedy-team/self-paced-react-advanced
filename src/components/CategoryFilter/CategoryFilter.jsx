@@ -1,5 +1,5 @@
 import styled from "styled-components";
-
+import PropTypes from "prop-types";
 import { CATEGORY_LIST } from "../../RestaurantData";
 
 export default function CategoryFilter({ category, setCategory }) {
@@ -44,3 +44,8 @@ const CategorySelect = styled.select`
 
   padding: 8px;
 `;
+
+CategoryFilter.propTypes = {
+  category: PropTypes.string.isRequired,
+  setCategory: PropTypes.func.isRequired,
+};

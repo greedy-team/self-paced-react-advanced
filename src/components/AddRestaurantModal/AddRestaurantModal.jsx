@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import { useState } from "react";
 import styled from "styled-components";
 import { CATEGORY_LIST } from "../../RestaurantData";
@@ -158,3 +159,8 @@ const StyledButton = styled.button`
     color: var(--grey-100);
   `}
 `;
+
+AddRestaurantModal.propTypes = {
+  onClose: PropTypes.func.isRequired,
+  onAdd: PropTypes.func.isRequired,
+};

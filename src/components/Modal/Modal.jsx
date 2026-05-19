@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import styled from "styled-components";
 
 export default function Modal({ title, children, onClose }) {
@@ -40,3 +41,9 @@ const ModalTitle = styled.h2`
   font-weight: 600;
   color: var(--grey-500);
 `;
+
+Modal.propTypes = {
+  title: PropTypes.string.isRequired,
+  children: PropTypes.node.isRequired,
+  onClose: PropTypes.func.isRequired,
+};
