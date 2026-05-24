@@ -16,7 +16,7 @@ function App() {
 
   const [totalRestaurants, setTotalRestaurants] = useState([]);
 
-  const { category, setCategory } = useContext(UserContext);
+  const { category } = useContext(UserContext);
 
   useEffect(() => {
     async function fetchRestaurants() {
