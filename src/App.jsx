@@ -1,9 +1,10 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import Header from "./components/Header/Header";
 import CategoryFilter from "./components/Main/CategoryFilter";
 import RestaurantList from "./components/Main/RestaurantList";
 import RestaurantDetailModal from "./components/Aside/RestaurantDetailModal";
 import AddRestaurantModal from "./components/Aside/AddRestaurantModal";
+import { UserContext } from "./UserContext";
 
 function App() {
   // 상태값
@@ -14,6 +15,8 @@ function App() {
   const [isAddModal, setIsAddModal] = useState(false);
 
   const [totalRestaurants, setTotalRestaurants] = useState([]);
+
+  const { category, setCategory } = useContext(UserContext);
 
   useEffect(() => {
     async function fetchRestaurants() {
