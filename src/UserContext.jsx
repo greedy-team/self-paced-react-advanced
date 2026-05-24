@@ -12,6 +12,6 @@ export function UserProvider({ children }) {
   );
 }
 
-UserContext.propTypes = {
+UserProvider.propTypes = {
   children: PropTypes.node.isRequired,
 };
