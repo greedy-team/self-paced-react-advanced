@@ -1,0 +1,17 @@
+import { createContext, useState } from "react";
+import PropTypes from "prop-types";
+
+export const UserContext = createContext();
+
+export function UserProvider({ children }) {
+  const [category, setCategory] = useState("전체");
+  return (
+    <UserContext.Provider value={{ category, setCategory }}>
+      {children}
+    </UserContext.Provider>
+  );
+}
+
+UserContext.propTypes = {
+  children: PropTypes.node.isRequired,
+};
