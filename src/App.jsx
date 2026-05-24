@@ -52,7 +52,7 @@ function App() {
     <>
       <Header setIsAddModal={setIsAddModal} />
       <main>
-        <CategoryFilter category={category} setCategory={setCategory} />
+        <CategoryFilter />
         <RestaurantList
           filteredRestaurants={filteredRestaurants}
           handleClickRestaurantList={handleClickRestaurantList}
