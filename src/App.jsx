@@ -7,8 +7,6 @@ import AddRestaurantModal from "./components/Aside/AddRestaurantModal";
 
 function App() {
   // 상태값
-  const [category, setCategory] = useState("전체");
-
   const [isDetailModal, setIsDetailModal] = useState(false);
 
   const [selectedRestaurantId, setSelectedRestaurantId] = useState(null);
