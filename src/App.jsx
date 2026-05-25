@@ -1,12 +1,12 @@
 import "./App.css";
 import styled from "styled-components";
 import { RestaurantProvider } from "./contexts/RestaurantContext.jsx";
-import GlobalStyle from "./styles/GlobalStyle"; // 1단계에서 만든 전역 스타일
+import GlobalStyle from "./styles/GlobalStyle";
 
 import Header from "./Header.jsx";
 import CategoryFilter from "./CategoryFilter.jsx";
 import RestaurantList from "./RestaurantList.jsx";
-import ModalRenderer from "./ModalRenderer.jsx"; // 새로 만든 모달 렌더러
+import ModalRenderer from "./ModalRenderer.jsx";
 
 const MainContainer = styled.main`
   display: flex;
