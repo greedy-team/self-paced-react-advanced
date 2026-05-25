@@ -21,6 +21,8 @@
 
 **createContext로 선언(생성)하고, Provider로 제공(공급)하고, useContext로 소비(사용)하면 됨**
 
+### 현재 프로젝트에서는 main.jsx에서만 import Provider 로 감싸고 나머지는 Context 에서 useContext 부분을 import 해서 사용
+
 # WHERE?
 
 ## Modal
