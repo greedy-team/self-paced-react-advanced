@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import "./App.css";
-
 import Header from "./components/Header/Header";
 import CategoryFilter from "./components/CategoryFilter/CategoryFilter";
 import RestaurantList from "./components/RestaurantList/RestaurantList";
@@ -11,8 +10,6 @@ const BASE_URL = "http://localhost:3000/restaurants";
 
 function App() {
   const [restaurants, setRestaurants] = useState([]);
-
-  const [category, setCategory] = useState("전체");
 
   const [isDetailModalOpen, setIsDetailModalOpen] = useState(false);
 
@@ -41,14 +38,6 @@ function App() {
     fetchRestaurants();
   }, []);
 
-  const filteredRestaurants = restaurants.filter((restaurant) => {
-    if (category === "전체") {
-      return true;
-    }
-    const SameCategory = restaurant.category === category;
-    return SameCategory;
-  });
-
   const handleAddRestaurant = async (newRestaurant) => {
     const res = await fetch(BASE_URL, {
       method: "POST",
@@ -72,10 +61,9 @@ function App() {
     <>
       <Header onOpenModal={() => setIsAddModalOpen(true)} />
       <main>
-        <CategoryFilter category={category} setCategory={setCategory} />
+        <CategoryFilter />
         <RestaurantList
-          restaurants={filteredRestaurants}
-          category={category}
+          restaurants={restaurants}
           onOpenModal={handleOpenModal}
         />
       </main>

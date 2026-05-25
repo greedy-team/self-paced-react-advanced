@@ -1,12 +1,24 @@
 import PropTypes from "prop-types";
 import styled from "styled-components";
 import RestaurantItem from "./RestaurantItem";
+import { useContext } from "react";
+import { CategoryContext } from "../../context/CategoryContext";
 
 export default function RestaurantList({ restaurants, onOpenModal }) {
+  const { category } = useContext(CategoryContext);
+
+  const filteredRestaurants = restaurants.filter((restaurant) => {
+    if (category === "전체") {
+      return true;
+    }
+    const SameCategory = restaurant.category === category;
+    return SameCategory;
+  });
+
   return (
     <RestaurantListContainer>
       <ul>
-        {restaurants.map((item) => (
+        {filteredRestaurants.map((item) => (
           <RestaurantItem key={item.id} item={item} onOpenModal={onOpenModal} />
         ))}
       </ul>
@@ -24,6 +36,5 @@ const RestaurantListContainer = styled.section`
 
 RestaurantList.propTypes = {
   restaurants: PropTypes.array.isRequired,
-  category: PropTypes.string.isRequired,
   onOpenModal: PropTypes.func.isRequired,
 };
