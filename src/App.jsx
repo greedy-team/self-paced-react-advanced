@@ -5,13 +5,14 @@ import RestaurantList from "./components/RestaurantList";
 import RestaurantDetailModal from "./components/RestaurantDetailModal";
 import AddRestaurantModal from "./components/AddRestaurantModal";
 import useRestaurants from "./hooks/useRestaurants";
+import { useModalContext } from "./contexts/ModalContext";
 
 import { useState } from "react";
 
 function App() {
-  const [activeModal, setActiveModal] = useState(null); //add, detail, null
+  const { activeModal, setActiveModal, setSelectedRestaurant } =
+    useModalContext();
   const [category, setCategory] = useState("전체");
-  const [selectedRestaurant, setSelectedRestaurant] = useState(null);
   const { restaurants, addRestaurant } = useRestaurants();
 
   const filteredRestaurants =
@@ -22,19 +23,9 @@ function App() {
   function renderModal() {
     switch (activeModal) {
       case "detail":
-        return (
-          <RestaurantDetailModal
-            restaurant={selectedRestaurant}
-            onCloseDetailModal={() => setActiveModal(null)}
-          />
-        );
+        return <RestaurantDetailModal />;
       case "add":
-        return (
-          <AddRestaurantModal
-            onAddRestaurant={addRestaurant}
-            onCloseAddModal={() => setActiveModal(null)}
-          />
-        );
+        return <AddRestaurantModal onAddRestaurant={addRestaurant} />;
       default:
         return null;
     }
@@ -42,10 +33,7 @@ function App() {
 
   return (
     <>
-      <Header
-        category={category}
-        onOpenAddModal={() => setActiveModal("add")}
-      />
+      <Header category={category} />
       <main>
         <CategoryFilter category={category} onChangeCategory={setCategory} />
         <RestaurantList

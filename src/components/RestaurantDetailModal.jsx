@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import Modal from "./Modal";
+import { useModalContext } from "../contexts/ModalContext";
 
 const Title = styled.h2`
   margin-bottom: 36px;
@@ -54,18 +55,17 @@ const PrimaryButton = styled(Button)`
   color: var(--grey-100);
 `;
 
-export default function RestaurantDetailModal({
-  restaurant,
-  onCloseDetailModal,
-}) {
+export default function RestaurantDetailModal() {
+  const { selectedRestaurant, setActiveModal } = useModalContext();
+
   return (
-    <Modal onClose={onCloseDetailModal}>
-      <Title>{restaurant.name}</Title>
+    <Modal onClose={() => setActiveModal(null)}>
+      <Title>{selectedRestaurant.name}</Title>
       <Info>
-        <Description>{restaurant.description}</Description>
+        <Description>{selectedRestaurant.description}</Description>
       </Info>
       <ButtonContainer>
-        <PrimaryButton onClick={onCloseDetailModal}>닫기</PrimaryButton>
+        <PrimaryButton onClick={() => setActiveModal(null)}>닫기</PrimaryButton>
       </ButtonContainer>
     </Modal>
   );
