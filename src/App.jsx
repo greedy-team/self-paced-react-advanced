@@ -1,59 +1,47 @@
 import "./App.css";
-import { useState } from "react";
 import styled from "styled-components";
+import { useContext } from "react";
+import { RestaurantProvider, RestaurantContext } from "./contexts/RestaurantContext.jsx";
 
 import Header from "./Header.jsx";
 import CategoryFilter from "./CategoryFilter.jsx";
 import RestaurantList from "./RestaurantList.jsx";
 import RestaurantDetailModal from "./RestaurantDetailModal.jsx";
 import AddRestaurantModal from "./AddRestaurantModal.jsx";
-import useRestaurants from "./hooks/useRestaurants.js";
 
 const MainContainer = styled.main`
   display: flex;
   flex-direction: column;
-  max-width: 600px; /* PC에서도 모바일 비율 유지 위함 */
+  max-width: 600px;
   margin: 0 auto;
   background-color: var(--grey-100);
   min-height: 100vh;
 `;
 
-function App() {
-  const { restaurants, addRestaurant } = useRestaurants();
-  const [category, setCategory] = useState("전체");
-  const [selectedRestaurant, setSelectedRestaurant] = useState(null);
-  const [isAddModalOpen, setIsAddModalOpen] = useState(false);
-
-  const filteredRestaurants =
-    category === "전체"
-      ? restaurants
-      : restaurants.filter((restaurant) => restaurant.category === category);
+// 컨텍스트의 상태에 따라 모달을 렌더링하는 내부 컴포넌트
+function AppContent() {
+  const { selectedRestaurant, isAddModalOpen } = useContext(RestaurantContext);
 
   return (
     <>
-      <Header setIsAddModalOpen={setIsAddModalOpen} />
+      <Header /> {/* Props 제거 */}
       <MainContainer>
-        <CategoryFilter category={category} setCategory={setCategory} />
-        <RestaurantList
-          restaurants={filteredRestaurants}
-          setSelectedRestaurant={setSelectedRestaurant}
-        />
+        <CategoryFilter /> {/* Props 제거 */}
+        <RestaurantList /> {/* Props 제거 */}
       </MainContainer>
       <aside>
-        {selectedRestaurant && (
-          <RestaurantDetailModal
-            restaurant={selectedRestaurant}
-            setSelectedRestaurant={setSelectedRestaurant}
-          />
-        )}
-        {isAddModalOpen && (
-          <AddRestaurantModal
-            onAddRestaurant={addRestaurant}
-            setIsAddModalOpen={setIsAddModalOpen}
-          />
-        )}
+        {selectedRestaurant && <RestaurantDetailModal />}
+        {isAddModalOpen && <AddRestaurantModal />}
       </aside>
     </>
+  );
+}
+
+function App() {
+  return (
+    <RestaurantProvider>
+      <AppContent />
+    </RestaurantProvider>
   );
 }
 
