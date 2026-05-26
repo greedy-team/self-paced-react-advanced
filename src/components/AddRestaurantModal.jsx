@@ -2,6 +2,7 @@ import styled from "styled-components";
 import Modal from "./Modal";
 import { ALL_CATEGORIES } from "../constants/categories";
 import { useModalContext } from "../contexts/ModalContext";
+import { useRestaurantContext } from "../contexts/RestaurantContext";
 
 const Title = styled.h2`
   margin-bottom: 36px;
@@ -105,8 +106,9 @@ const PrimaryButton = styled(Button)`
   color: var(--grey-100);
 `;
 
-export default function AddRestaurantModal({ onAddRestaurant }) {
+export default function AddRestaurantModal() {
   const { setActiveModal } = useModalContext();
+  const { addRestaurant } = useRestaurantContext();
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -118,7 +120,7 @@ export default function AddRestaurantModal({ onAddRestaurant }) {
       description: formData.get("description"),
     };
     try {
-      await onAddRestaurant(restaurant);
+      await addRestaurant(restaurant);
       setActiveModal(null);
     } catch {
       // 실패 alert는 App에서 처리하므로 모달은 닫지 않고 유지

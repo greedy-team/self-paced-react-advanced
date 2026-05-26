@@ -5,18 +5,17 @@ import RestaurantList from "./components/RestaurantList";
 import RestaurantDetailModal from "./components/RestaurantDetailModal";
 import AddRestaurantModal from "./components/AddRestaurantModal";
 import { useModalContext } from "./contexts/ModalContext";
-import { useRestaurantContext } from "./contexts/RestaurantContext";
 
 function App() {
+  // 모달 분기해야해서 못 뻄
   const { activeModal } = useModalContext();
-  const { addRestaurant } = useRestaurantContext();
 
   function renderModal() {
     switch (activeModal) {
       case "detail":
         return <RestaurantDetailModal />;
       case "add":
-        return <AddRestaurantModal onAddRestaurant={addRestaurant} />;
+        return <AddRestaurantModal />;
       default:
         return null;
     }
