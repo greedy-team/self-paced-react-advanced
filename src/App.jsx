@@ -10,8 +10,7 @@ import { useModalContext } from "./contexts/ModalContext";
 import { useState } from "react";
 
 function App() {
-  const { activeModal, setActiveModal, setSelectedRestaurant } =
-    useModalContext();
+  const { activeModal } = useModalContext();
   const [category, setCategory] = useState("전체");
   const { restaurants, addRestaurant } = useRestaurants();
 
@@ -36,13 +35,7 @@ function App() {
       <Header category={category} />
       <main>
         <CategoryFilter category={category} onChangeCategory={setCategory} />
-        <RestaurantList
-          restaurants={filteredRestaurants}
-          onRestaurantClick={(restaurant) => {
-            setSelectedRestaurant(restaurant);
-            setActiveModal("detail");
-          }}
-        />
+        <RestaurantList restaurants={filteredRestaurants} />
       </main>
       <aside>{renderModal()}</aside>
     </>

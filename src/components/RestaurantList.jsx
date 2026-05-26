@@ -9,16 +9,12 @@ const Container = styled.section`
   margin: 16px 0;
 `;
 
-export default function RestaurantList({ restaurants, onRestaurantClick }) {
+export default function RestaurantList({ restaurants }) {
   return (
     <Container>
       <ul className="restaurant-list">
         {restaurants.map((restaurant) => (
-          <RestaurantItem
-            key={restaurant.id}
-            restaurant={restaurant}
-            onClick={() => onRestaurantClick(restaurant)}
-          />
+          <RestaurantItem key={restaurant.id} restaurant={restaurant} />
         ))}
       </ul>
     </Container>
