@@ -32,7 +32,7 @@ function App() {
 
   return (
     <>
-      <Header category={category} />
+      <Header />
       <main>
         <CategoryFilter category={category} onChangeCategory={setCategory} />
         <RestaurantList restaurants={filteredRestaurants} />
