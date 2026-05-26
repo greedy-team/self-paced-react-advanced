@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import RestaurantItem from "./RestaurantItem";
+import { useRestaurantContext } from "../contexts/RestaurantContext";
 
 const Container = styled.section`
   display: flex;
@@ -9,11 +10,12 @@ const Container = styled.section`
   margin: 16px 0;
 `;
 
-export default function RestaurantList({ restaurants }) {
+export default function RestaurantList() {
+  const { filteredRestaurants } = useRestaurantContext();
   return (
     <Container>
       <ul className="restaurant-list">
-        {restaurants.map((restaurant) => (
+        {filteredRestaurants.map((restaurant) => (
           <RestaurantItem key={restaurant.id} restaurant={restaurant} />
         ))}
       </ul>

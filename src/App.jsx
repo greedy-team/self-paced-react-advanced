@@ -4,20 +4,12 @@ import CategoryFilter from "./components/CategoryFilter";
 import RestaurantList from "./components/RestaurantList";
 import RestaurantDetailModal from "./components/RestaurantDetailModal";
 import AddRestaurantModal from "./components/AddRestaurantModal";
-import useRestaurants from "./hooks/useRestaurants";
 import { useModalContext } from "./contexts/ModalContext";
-
-import { useState } from "react";
+import { useRestaurantContext } from "./contexts/RestaurantContext";
 
 function App() {
   const { activeModal } = useModalContext();
-  const [category, setCategory] = useState("전체");
-  const { restaurants, addRestaurant } = useRestaurants();
-
-  const filteredRestaurants =
-    category === "전체"
-      ? restaurants
-      : restaurants.filter((restaurant) => restaurant.category === category);
+  const { addRestaurant } = useRestaurantContext();
 
   function renderModal() {
     switch (activeModal) {
@@ -34,8 +26,8 @@ function App() {
     <>
       <Header />
       <main>
-        <CategoryFilter category={category} onChangeCategory={setCategory} />
-        <RestaurantList restaurants={filteredRestaurants} />
+        <CategoryFilter />
+        <RestaurantList />
       </main>
       <aside>{renderModal()}</aside>
     </>
