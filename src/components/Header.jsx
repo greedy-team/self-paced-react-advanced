@@ -41,17 +41,13 @@ const AddButton = styled.button`
 `;
 
 export default function Header() {
-  const { setActiveModal } = useModalContext();
+  const { openAddModal } = useModalContext();
   const { category } = useRestaurantContext();
 
   return (
     <Gnb>
       <Title>점심 뭐 먹지{category !== "전체" ? ` - ${category}` : ""}</Title>
-      <AddButton
-        type="button"
-        aria-label="음식점 추가"
-        onClick={() => setActiveModal("add")}
-      >
+      <AddButton type="button" aria-label="음식점 추가" onClick={openAddModal}>
         <img src={addButton} alt="음식점 추가" />
       </AddButton>
     </Gnb>

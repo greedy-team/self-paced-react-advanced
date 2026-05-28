@@ -6,11 +6,27 @@ export default function ModalProvider({ children }) {
   const [activeModal, setActiveModal] = useState(null);
   const [selectedRestaurant, setSelectedRestaurant] = useState(null);
 
+  const openDetailModal = (restaurant) => {
+    setSelectedRestaurant(restaurant);
+    setActiveModal("detail");
+  };
+
+  const openAddModal = () => {
+    setActiveModal("add");
+  };
+
+  const closeModal = () => {
+    //openDetailModal과 일관성을 위해서 selectedRestaurant도 초기화
+    setSelectedRestaurant(null);
+    setActiveModal(null);
+  };
+
   const value = {
     activeModal,
-    setActiveModal,
     selectedRestaurant,
-    setSelectedRestaurant,
+    openDetailModal,
+    openAddModal,
+    closeModal,
   };
 
   return (

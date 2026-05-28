@@ -56,16 +56,16 @@ const PrimaryButton = styled(Button)`
 `;
 
 export default function RestaurantDetailModal() {
-  const { selectedRestaurant, setActiveModal } = useModalContext();
+  const { selectedRestaurant, closeModal } = useModalContext();
 
   return (
-    <Modal onClose={() => setActiveModal(null)}>
+    <Modal onClose={closeModal}>
       <Title>{selectedRestaurant.name}</Title>
       <Info>
         <Description>{selectedRestaurant.description}</Description>
       </Info>
       <ButtonContainer>
-        <PrimaryButton onClick={() => setActiveModal(null)}>닫기</PrimaryButton>
+        <PrimaryButton onClick={closeModal}>닫기</PrimaryButton>
       </ButtonContainer>
     </Modal>
   );

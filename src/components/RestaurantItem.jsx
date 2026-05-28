@@ -76,11 +76,10 @@ const Description = styled.p`
 `;
 
 export default function RestaurantItem({ restaurant }) {
-  const { setActiveModal, setSelectedRestaurant } = useModalContext();
+  const { openDetailModal } = useModalContext();
 
   function handleClick() {
-    setSelectedRestaurant(restaurant);
-    setActiveModal("detail");
+    openDetailModal(restaurant);
   }
   return (
     <Restaurant onClick={handleClick}>
