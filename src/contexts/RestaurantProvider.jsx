@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { RestaurantContext } from "./RestaurantContext";
 import useRestaurants from "../hooks/useRestaurants";
 
@@ -6,10 +6,13 @@ export default function RestaurantProvider({ children }) {
   const [category, setCategory] = useState("전체");
   const { restaurants, addRestaurant } = useRestaurants();
 
-  const filteredRestaurants =
-    category === "전체"
+  // console.log("RestaurantProvider 렌더링", { category, restaurants });
+  const filteredRestaurants = useMemo(() => {
+    // console.log("filteredRestaurants 계산", { category, restaurants });
+    return category === "전체"
       ? restaurants
       : restaurants.filter((restaurant) => restaurant.category === category);
+  }, [category, restaurants]);
 
   const value = {
     category,
