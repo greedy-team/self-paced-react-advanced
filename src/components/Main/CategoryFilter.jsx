@@ -1,4 +1,3 @@
-import PropTypes from "prop-types";
 import { useContext } from "react";
 import { UserContext } from "../../UserContext";
 import styled from "styled-components";
@@ -45,10 +44,5 @@ function CategoryFilter() {
     </RestaurantFilterContainer>
   );
 }
-
-CategoryFilter.propTypes = {
-  category: PropTypes.string.isRequired,
-  setCategory: PropTypes.func.isRequired,
-};
 
 export default CategoryFilter;
