@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 import styled from "styled-components";
 import { useContext } from "react";
-import { UserContext } from "../../UserContext";
+import { useCategory } from "../../UserContext";
 
 import korean from "../../../templates/category-korean.png";
 import chinese from "../../../templates/category-chinese.png";
@@ -77,7 +77,7 @@ const RestaurantDescription = styled.p`
 `;
 
 function RestaurantList({ totalRestaurants, handleClickRestaurantList }) {
-  const { category } = useContext(UserContext);
+  const { category } = useCategory();
 
   const filteredRestaurants =
     category === "전체"

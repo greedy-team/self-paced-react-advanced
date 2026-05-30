@@ -1,5 +1,4 @@
-import { useContext } from "react";
-import { UserContext } from "../../UserContext";
+import { useCategory } from "../../UserContext";
 import styled from "styled-components";
 import foodCategory from "../../data/foodCategory";
 
@@ -22,7 +21,7 @@ const SelectedCategory = styled.select`
   padding: 8px;
 `;
 function CategoryFilter() {
-  const { category, setCategory } = useContext(UserContext);
+  const { category, setCategory } = useCategory();
 
   return (
     <RestaurantFilterContainer>
