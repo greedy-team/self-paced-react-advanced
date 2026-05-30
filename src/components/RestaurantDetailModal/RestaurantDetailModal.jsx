@@ -43,7 +43,6 @@ const CloseButton = styled.button`
 RestaurantDetailModal.propTypes = {
   restaurant: PropTypes.shape({
     name: PropTypes.string.isRequired,
-    description: PropTypes.string.isRequired,
   }).isRequired,
   onClose: PropTypes.func.isRequired,
 };
