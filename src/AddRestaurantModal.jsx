@@ -129,7 +129,7 @@ export default function AddRestaurantModal() {
     const description = form.description.value;
 
     const newRestaurant = {
-      id: `a${Date.now()}`,
+      id: crypto.randomUUID(),
       category,
       name,
       description,
