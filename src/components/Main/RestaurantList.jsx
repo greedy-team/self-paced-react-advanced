@@ -1,5 +1,7 @@
 import PropTypes from "prop-types";
 import styled from "styled-components";
+import { useContext } from "react";
+import { UserContext } from "../../UserContext";
 
 import korean from "../../../templates/category-korean.png";
 import chinese from "../../../templates/category-chinese.png";
@@ -74,7 +76,13 @@ const RestaurantDescription = styled.p`
   -webkit-box-orient: vertical;
 `;
 
-function RestaurantList({ filteredRestaurants, handleClickRestaurantList }) {
+function RestaurantList({ totalRestaurants, handleClickRestaurantList }) {
+  const { category } = useContext(UserContext);
+
+  const filteredRestaurants =
+    category === "전체"
+      ? totalRestaurants
+      : totalRestaurants.filter((r) => r.category === category);
   return (
     <RestaurantListContainer>
       <ul className="restaurant-list">
@@ -109,7 +117,7 @@ function RestaurantList({ filteredRestaurants, handleClickRestaurantList }) {
 }
 
 RestaurantList.propTypes = {
-  filteredRestaurants: PropTypes.arrayOf(
+  totalRestaurants: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.string,
       name: PropTypes.string,
