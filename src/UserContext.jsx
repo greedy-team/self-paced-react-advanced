@@ -6,7 +6,7 @@ export const UserContext = createContext({
   setCategory: () => {},
 });
 
-export function UserProvider({ children }) {
+export function CategoryProvider({ children }) {
   const [category, setCategory] = useState("전체");
   return (
     <UserContext.Provider value={{ category, setCategory }}>
@@ -15,6 +15,6 @@ export function UserProvider({ children }) {
   );
 }
 
-UserProvider.propTypes = {
+CategoryProvider.propTypes = {
   children: PropTypes.node.isRequired,
 };
