@@ -1,9 +1,6 @@
 import "./App.css";
 import styled from "styled-components";
-import {
-  RestaurantProvider,
-  useRestaurantUI,
-} from "./contexts/RestaurantContext.jsx";
+import { useRestaurantStore } from "./stores/useRestaurantStore.js";
 
 import Header from "./Header.jsx";
 import CategoryFilter from "./CategoryFilter.jsx";
@@ -21,7 +18,10 @@ const MainContainer = styled.main`
 `;
 
 function AppContent() {
-  const { selectedRestaurant, isAddModalOpen } = useRestaurantUI();
+  const selectedRestaurant = useRestaurantStore(
+    (state) => state.selectedRestaurant,
+  );
+  const isAddModalOpen = useRestaurantStore((state) => state.isAddModalOpen);
 
   return (
     <>
@@ -39,11 +39,7 @@ function AppContent() {
 }
 
 function App() {
-  return (
-    <RestaurantProvider>
-      <AppContent />
-    </RestaurantProvider>
-  );
+  return <AppContent />;
 }
 
 export default App;
