@@ -51,6 +51,6 @@ function Header({ setIsAddModal }) {
 }
 
 Header.propTypes = {
-  setAddModal: PropTypes.func.isRequired,
+  setIsAddModal: PropTypes.func.isRequired,
 };
 export default Header;
