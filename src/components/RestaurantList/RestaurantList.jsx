@@ -7,13 +7,9 @@ import { CategoryContext } from "../../context/CategoryContext";
 export default function RestaurantList({ restaurants, onOpenModal }) {
   const { category } = useContext(CategoryContext);
 
-  const filteredRestaurants = restaurants.filter((restaurant) => {
-    if (category === "전체") {
-      return true;
-    }
-    const SameCategory = restaurant.category === category;
-    return SameCategory;
-  });
+  const filteredRestaurants = restaurants.filter(
+    (restaurant) => category === "전체" || restaurant.category === category,
+  );
 
   return (
     <RestaurantListContainer>
