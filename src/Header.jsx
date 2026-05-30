@@ -1,6 +1,6 @@
-import React, { useContext } from 'react';
-import styled from 'styled-components';
-import { RestaurantContext } from './contexts/RestaurantContext';
+import React from "react";
+import styled from "styled-components";
+import { useRestaurantUI } from "./contexts/RestaurantContext";
 
 // Button 컴포넌트
 const Button = styled.button`
@@ -37,7 +37,7 @@ const Title = styled.h1`
 `;
 
 export default function Header() {
-  const { setIsAddModalOpen } = useContext(RestaurantContext);
+  const { setIsAddModalOpen } = useRestaurantUI();
 
   const handleClickAddButton = () => {
     setIsAddModalOpen(true);
