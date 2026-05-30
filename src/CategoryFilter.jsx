@@ -1,4 +1,3 @@
-import React from "react";
 import styled from "styled-components";
 import { useRestaurantStore } from "./stores/useRestaurantStore.js";
 import { CATEGORIES } from "./constants/categories";

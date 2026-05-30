@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import "./App.css";
 import styled from "styled-components";
 import { useRestaurantStore } from "./stores/useRestaurantStore.js";
@@ -17,11 +18,18 @@ const MainContainer = styled.main`
   min-height: 100vh;
 `;
 
-function AppContent() {
+function App() {
   const selectedRestaurant = useRestaurantStore(
     (state) => state.selectedRestaurant,
   );
   const isAddModalOpen = useRestaurantStore((state) => state.isAddModalOpen);
+  const fetchRestaurants = useRestaurantStore(
+    (state) => state.fetchRestaurants,
+  );
+
+  useEffect(() => {
+    fetchRestaurants();
+  }, [fetchRestaurants]);
 
   return (
     <>
@@ -36,10 +44,6 @@ function AppContent() {
       </aside>
     </>
   );
-}
-
-function App() {
-  return <AppContent />;
 }
 
 export default App;

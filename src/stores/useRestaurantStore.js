@@ -1,14 +1,13 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
-import { initialRestaurants } from "../constants/initialRestaurants.js";
 
 const RESTAURANTS_API_URL = "http://localhost:3000/restaurants";
 
 export const useRestaurantStore = create(
   persist(
-    (set, get) => ({
+    (set) => ({
       // --- Data 상태 ---
-      restaurants: initialRestaurants,
+      restaurants: [],
 
       // 데이터 조회 액션
       fetchRestaurants: async () => {
