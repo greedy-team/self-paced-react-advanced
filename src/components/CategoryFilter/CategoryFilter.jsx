@@ -1,10 +1,10 @@
 import styled from "styled-components";
 import { useContext } from "react";
 import { CategoryContext } from "../../context/CategoryContext";
+import { FILTER_CATEGORIES } from "../../RestaurantData";
 
 export default function CategoryFilter() {
-  const { category, setCategory, filterCategories } =
-    useContext(CategoryContext);
+  const { category, setCategory } = useContext(CategoryContext);
 
   return (
     <FilterContainer>
@@ -15,7 +15,7 @@ export default function CategoryFilter() {
         value={category}
         onChange={(e) => setCategory(e.target.value)}
       >
-        {filterCategories.map((item) => (
+        {FILTER_CATEGORIES.map((item) => (
           <option key={item} value={item}>
             {item}
           </option>
