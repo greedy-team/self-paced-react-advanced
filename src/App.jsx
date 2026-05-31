@@ -50,9 +50,7 @@ function App() {
         throw new Error("서버에 식당을 추가하는 데 실패했습니다.");
       }
 
-      const data = await res.json();
-
-      setRestaurants((prev) => [...prev, data]);
+      await fetchRestaurants();
 
       setIsAddModalOpen(false);
     } catch (error) {
