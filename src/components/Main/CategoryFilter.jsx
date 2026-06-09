@@ -1,4 +1,4 @@
-import PropTypes from "prop-types";
+import { useCategory } from "../../UserContext";
 import styled from "styled-components";
 import foodCategory from "../../data/foodCategory";
 
@@ -20,7 +20,9 @@ const SelectedCategory = styled.select`
   font-size: 16px;
   padding: 8px;
 `;
-function CategoryFilter({ category, setCategory }) {
+function CategoryFilter() {
+  const { category, setCategory } = useCategory();
+
   return (
     <RestaurantFilterContainer>
       <SelectedCategory
@@ -41,10 +43,5 @@ function CategoryFilter({ category, setCategory }) {
     </RestaurantFilterContainer>
   );
 }
-
-CategoryFilter.propTypes = {
-  category: PropTypes.string.isRequired,
-  setCategory: PropTypes.func.isRequired,
-};
 
 export default CategoryFilter;

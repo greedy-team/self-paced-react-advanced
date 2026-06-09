@@ -7,8 +7,6 @@ import AddRestaurantModal from "./components/Aside/AddRestaurantModal";
 
 function App() {
   // 상태값
-  const [category, setCategory] = useState("전체");
-
   const [isDetailModal, setIsDetailModal] = useState(false);
 
   const [selectedRestaurantId, setSelectedRestaurantId] = useState(null);
@@ -28,10 +26,7 @@ function App() {
     fetchRestaurants();
   }, []);
   // 파생값
-  const filteredRestaurants =
-    category === "전체"
-      ? totalRestaurants
-      : totalRestaurants.filter((r) => r.category === category);
+  
 
   const selectedRestaurant = totalRestaurants.find(
     (r) => r.id === selectedRestaurantId,
@@ -51,9 +46,9 @@ function App() {
     <>
       <Header setIsAddModal={setIsAddModal} />
       <main>
-        <CategoryFilter category={category} setCategory={setCategory} />
+        <CategoryFilter />
         <RestaurantList
-          filteredRestaurants={filteredRestaurants}
+          totalRestaurants={totalRestaurants}
           handleClickRestaurantList={handleClickRestaurantList}
         />
       </main>
