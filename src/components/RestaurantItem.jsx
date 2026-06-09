@@ -6,6 +6,8 @@ import categoryJapanese from "../assets/category-japanese.png";
 import categoryKorean from "../assets/category-korean.png";
 import categoryWestern from "../assets/category-western.png";
 
+import { useModalContext } from "../contexts/ModalContext";
+
 const categoryImages = {
   한식: categoryKorean,
   중식: categoryChinese,
@@ -73,9 +75,14 @@ const Description = styled.p`
   font-weight: 400;
 `;
 
-export default function RestaurantItem({ restaurant, onClick }) {
+export default function RestaurantItem({ restaurant }) {
+  const { openDetailModal } = useModalContext();
+
+  function handleClick() {
+    openDetailModal(restaurant);
+  }
   return (
-    <Restaurant onClick={onClick}>
+    <Restaurant onClick={handleClick}>
       <Category>
         <CategoryIcon
           src={categoryImages[restaurant.category]}

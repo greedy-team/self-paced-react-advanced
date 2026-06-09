@@ -1,5 +1,7 @@
 import styled from "styled-components";
 import addButton from "../assets/add-button.png";
+import { useModalContext } from "../contexts/ModalContext";
+import { useRestaurantContext } from "../contexts/RestaurantContext";
 
 const Gnb = styled.header`
   display: flex;
@@ -38,15 +40,14 @@ const AddButton = styled.button`
   }
 `;
 
-export default function Header({ category, onOpenAddModal }) {
+export default function Header() {
+  const { openAddModal } = useModalContext();
+  const { category } = useRestaurantContext();
+
   return (
     <Gnb>
       <Title>점심 뭐 먹지{category !== "전체" ? ` - ${category}` : ""}</Title>
-      <AddButton
-        type="button"
-        aria-label="음식점 추가"
-        onClick={() => onOpenAddModal()}
-      >
+      <AddButton type="button" aria-label="음식점 추가" onClick={openAddModal}>
         <img src={addButton} alt="음식점 추가" />
       </AddButton>
     </Gnb>

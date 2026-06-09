@@ -1,7 +1,8 @@
 import styled from "styled-components";
 import Modal from "./Modal";
 import { ALL_CATEGORIES } from "../constants/categories";
-
+import { useRestaurantContext } from "../contexts/RestaurantContext";
+import { useModalContext } from "../contexts/ModalContext";
 const Title = styled.h2`
   margin-bottom: 36px;
 
@@ -104,10 +105,10 @@ const PrimaryButton = styled(Button)`
   color: var(--grey-100);
 `;
 
-export default function AddRestaurantModal({
-  onAddRestaurant,
-  onCloseAddModal,
-}) {
+export default function AddRestaurantModal() {
+  const { addRestaurant } = useRestaurantContext();
+  const { closeModal } = useModalContext();
+
   async function handleSubmit(e) {
     e.preventDefault();
     const formData = new FormData(e.target);
@@ -118,15 +119,15 @@ export default function AddRestaurantModal({
       description: formData.get("description"),
     };
     try {
-      await onAddRestaurant(restaurant);
-      onCloseAddModal();
+      await addRestaurant(restaurant);
+      closeModal();
     } catch {
       // 실패 alert는 App에서 처리하므로 모달은 닫지 않고 유지
     }
   }
 
   return (
-    <Modal onClose={onCloseAddModal}>
+    <Modal onClose={closeModal}>
       <Title>새로운 음식점</Title>
       <form onSubmit={handleSubmit}>
         <RequiredFormItem>
