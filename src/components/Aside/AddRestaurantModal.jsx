@@ -1,7 +1,5 @@
 import PropTypes from "prop-types";
 import { useRef } from "react";
-// import '../styles/default.css';
-// import '../styles/AddRestaurantModal.css';
 import foodCategory from "../../data/foodCategory";
 import styled from "styled-components";
 import Modal from "../Modal";
