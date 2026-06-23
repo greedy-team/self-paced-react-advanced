@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import addButton from "../assets/add-button.png";
 import useModalStore from "../store/useModalStore";
-import { useRestaurantContext } from "../contexts/RestaurantContext";
+import useRestaurantStore from "../store/useRestaurantStore";
 
 const Gnb = styled.header`
   display: flex;
@@ -42,7 +42,7 @@ const AddButton = styled.button`
 
 export default function Header() {
   const openAddModal = useModalStore((state) => state.openAddModal);
-  const { category } = useRestaurantContext();
+  const category = useRestaurantStore((state) => state.category);
 
   return (
     <Gnb>

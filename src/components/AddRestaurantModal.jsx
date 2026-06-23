@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import Modal from "./Modal";
 import { ALL_CATEGORIES } from "../constants/categories";
-import { useRestaurantContext } from "../contexts/RestaurantContext";
+import useRestauranStore from "../store/useRestaurantStore";
 import useModalStore from "../store/useModalStore";
 
 const Title = styled.h2`
@@ -107,7 +107,7 @@ const PrimaryButton = styled(Button)`
 `;
 
 export default function AddRestaurantModal() {
-  const { addRestaurant } = useRestaurantContext();
+  const addRestaurant = useRestauranStore((state) => state.addRestaurant);
   const closeModal = useModalStore((state) => state.closeModal);
 
   async function handleSubmit(e) {
