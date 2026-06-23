@@ -1,9 +1,9 @@
-import { useModalContext } from "../contexts/ModalContext";
 import RestaurantDetailModal from "./RestaurantDetailModal";
 import AddRestaurantModal from "./AddRestaurantModal";
+import useModalStore from "../store/useModalStore";
 
 export default function ModalRenderer() {
-  const { activeModal } = useModalContext();
+  const activeModal = useModalStore((state) => state.activeModal);
   switch (activeModal) {
     case "detail":
       return <RestaurantDetailModal />;

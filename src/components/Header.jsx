@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import addButton from "../assets/add-button.png";
-import { useModalContext } from "../contexts/ModalContext";
+import useModalStore from "../store/useModalStore";
 import { useRestaurantContext } from "../contexts/RestaurantContext";
 
 const Gnb = styled.header`
@@ -41,7 +41,7 @@ const AddButton = styled.button`
 `;
 
 export default function Header() {
-  const { openAddModal } = useModalContext();
+  const openAddModal = useModalStore((state) => state.openAddModal);
   const { category } = useRestaurantContext();
 
   return (

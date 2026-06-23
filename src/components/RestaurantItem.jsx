@@ -6,7 +6,7 @@ import categoryJapanese from "../assets/category-japanese.png";
 import categoryKorean from "../assets/category-korean.png";
 import categoryWestern from "../assets/category-western.png";
 
-import { useModalContext } from "../contexts/ModalContext";
+import useModalStore from "../store/useModalStore";
 
 const categoryImages = {
   한식: categoryKorean,
@@ -76,7 +76,7 @@ const Description = styled.p`
 `;
 
 export default function RestaurantItem({ restaurant }) {
-  const { openDetailModal } = useModalContext();
+  const openDetailModal = useModalStore((state) => state.openDetailModal);
 
   function handleClick() {
     openDetailModal(restaurant);
