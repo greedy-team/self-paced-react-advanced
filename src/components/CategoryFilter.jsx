@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { ALL_CATEGORIES } from "../constants/categories";
-import { useRestaurantContext } from "../contexts/RestaurantContext";
+import useRestaurantStore from "../store/useRestaurantStore";
 
 const Container = styled.section`
   display: flex;
@@ -26,7 +26,9 @@ const Filter = styled.select`
 `;
 
 export default function CategoryFilter() {
-  const { category, setCategory } = useRestaurantContext();
+  const category = useRestaurantStore((state) => state.category);
+  const setCategory = useRestaurantStore((state) => state.setCategory);
+
   return (
     <Container>
       <Filter
