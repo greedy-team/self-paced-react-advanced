@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 import styled from "styled-components";
 import RestaurantItem from "./RestaurantItem";
-import { UseCategoryStore } from "../../store/UseCategoryStore";
+import { UseCategoryStore } from "../../store/useCategoryStore";
 
 export default function RestaurantList({ restaurants, onOpenModal }) {
   const category = UseCategoryStore((state) => state.category);

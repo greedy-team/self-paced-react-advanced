@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { UseCategoryStore } from "../../store/UseCategoryStore";
+import { UseCategoryStore } from "../../store/useCategoryStore";
 import { FILTER_CATEGORIES } from "../../RestaurantData";
 
 export default function CategoryFilter() {
