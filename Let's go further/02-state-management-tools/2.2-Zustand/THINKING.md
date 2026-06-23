@@ -120,6 +120,22 @@ activeModal, selectedRestaurant 상태와 openDetailModal, openAddModal, closeMo
 
 persist 미들웨어로 category 만 localStorage 에 저장. (restaurants 는 서버에서 다시 받으니 제외)
 
+# 추가로 알게 된 것
+
+set, get은 Zustand의 create()가 전달해 주는 스토어 관리 함수
+
+- set: 스토어 상태를 변경합니다.
+  - set({ category }) → category만 변경
+  - set({ restaurants: data }) → 음식점 목록 변경
+  - 기존 상태와 얕게 병합되므로 다른 상태는 유지
+
+- get: 현재 스토어 전체를 가져옵니다. 상태뿐 아니라 액션 함수도 포함
+  - get().fetchRestaurants() → 현재 스토어의 fetchRestaurants 실행
+
+즉, 아래 코드는 음식점 추가 후 목록을 다시 조회
+
+await get().fetchRestaurants();
+
 # 참고
 
 - [Zustand 공식 문서](https://zustand.docs.pmnd.rs/)
