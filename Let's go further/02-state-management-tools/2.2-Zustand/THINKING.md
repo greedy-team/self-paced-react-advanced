@@ -116,10 +116,6 @@ restaurants, category 상태와 setCategory, fetchRestaurants, addRestaurant act
 activeModal, selectedRestaurant 상태와 openDetailModal, openAddModal, closeModal action 을 담음.
 -> ModalProvider 의 useState 로직을 set 호출로 그대로 옮김.
 
-## category 새로고침 유지 (선택)
-
-persist 미들웨어로 category 만 localStorage 에 저장. (restaurants 는 서버에서 다시 받으니 제외)
-
 # 추가로 알게 된 것
 
 set, get은 Zustand의 create()가 전달해 주는 스토어 관리 함수
