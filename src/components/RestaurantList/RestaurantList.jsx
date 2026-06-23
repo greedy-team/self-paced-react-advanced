@@ -1,10 +1,17 @@
 import PropTypes from "prop-types";
 import styled from "styled-components";
 import RestaurantItem from "./RestaurantItem";
+<<<<<<< HEAD
 import { UseCategoryStore } from "../../store/useCategoryStore";
 
 export default function RestaurantList({ restaurants, onOpenModal }) {
   const category = UseCategoryStore((state) => state.category);
+=======
+import { useCategoryStore } from "../../store/useCategoryStore";
+
+export default function RestaurantList({ restaurants, onOpenModal }) {
+  const category = useCategoryStore((state) => state.category);
+>>>>>>> 146db27 (refactor: CategoryFilter 및 RestaurantList 컴포넌트 Zustand 연동)
 
   const filteredRestaurants = restaurants.filter(
     (restaurant) => category === "전체" || restaurant.category === category,
