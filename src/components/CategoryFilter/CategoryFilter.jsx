@@ -1,9 +1,10 @@
 import styled from "styled-components";
-import PropTypes from "prop-types";
-import { CATEGORY_LIST } from "../../RestaurantData";
+import { UseCategoryStore } from "../../store/UseCategoryStore";
+import { FILTER_CATEGORIES } from "../../RestaurantData";
 
-export default function CategoryFilter({ category, setCategory }) {
-  const filterCategories = ["전체", ...CATEGORY_LIST];
+export default function CategoryFilter() {
+  const category = UseCategoryStore((state) => state.category);
+  const setCategory = UseCategoryStore((state) => state.setCategory);
 
   return (
     <FilterContainer>
@@ -14,7 +15,7 @@ export default function CategoryFilter({ category, setCategory }) {
         value={category}
         onChange={(e) => setCategory(e.target.value)}
       >
-        {filterCategories.map((item) => (
+        {FILTER_CATEGORIES.map((item) => (
           <option key={item} value={item}>
             {item}
           </option>
@@ -44,8 +45,3 @@ const CategorySelect = styled.select`
 
   padding: 8px;
 `;
-
-CategoryFilter.propTypes = {
-  category: PropTypes.string.isRequired,
-  setCategory: PropTypes.func.isRequired,
-};
