@@ -12,8 +12,7 @@ import AddRestaurantModal from "./AddRestaurantModal.jsx";
 const MainContainer = styled.main`
   display: flex;
   flex-direction: column;
-  max-width: 600px;
-  margin: 0 auto;
+  margin: 0;
   background-color: var(--grey-100);
   min-height: 100vh;
 `;
