@@ -8,3 +8,5 @@ export const CATEGORY_IMAGE = {
 };
 
 export const CATEGORY_LIST = ["한식", "중식", "일식", "양식", "아시안", "기타"];
+
+export const FILTER_CATEGORIES = ["전체", ...CATEGORY_LIST];

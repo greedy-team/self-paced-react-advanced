@@ -129,6 +129,11 @@ const Select = styled.select`
 `;
 
 const Textarea = styled.textarea`
+  padding: 8px;
+  margin: 6px 0;
+  border: 1px solid var(--grey-200);
+  border-radius: 8px;
+  font-size: 16px;
   resize: none;
 `;
 

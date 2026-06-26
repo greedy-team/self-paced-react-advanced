@@ -53,6 +53,18 @@
       "name": "ㅊㄴ",
       "description": "ㄴㅊ",
       "id": "T7X5oSf_jrA"
+    },
+    {
+      "category": "아시안",
+      "name": "ㄴㄴ",
+      "description": "ㄴㄴ",
+      "id": "mKgSG0G9J54"
+    },
+    {
+      "category": "중식",
+      "name": "짜장면",
+      "description": "짬뽕",
+      "id": "zGgzse6TCdY"
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"
