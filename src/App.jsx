@@ -44,5 +44,6 @@ function App() {
       </aside>
     </>
   );
+}
 
 export default App;
