@@ -1,37 +1,10 @@
 import styled from "styled-components";
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-import { UseCategoryStore } from "../../store/useCategoryStore";
-import { FILTER_CATEGORIES } from "../../RestaurantData";
-
-export default function CategoryFilter() {
-  const category = UseCategoryStore((state) => state.category);
-  const setCategory = UseCategoryStore((state) => state.setCategory);
-=======
 import { useCategoryStore } from "../../store/useCategoryStore";
 import { FILTER_CATEGORIES } from "../../RestaurantData";
 
 export default function CategoryFilter() {
   const category = useCategoryStore((state) => state.category);
   const setCategory = useCategoryStore((state) => state.setCategory);
->>>>>>> 146db27 (refactor: CategoryFilter 및 RestaurantList 컴포넌트 Zustand 연동)
-=======
-import { UseCategoryStore } from "../../store/UseCategoryStore";
-import { FILTER_CATEGORIES } from "../../RestaurantData";
-
-export default function CategoryFilter() {
-  const category = UseCategoryStore((state) => state.category);
-  const setCategory = UseCategoryStore((state) => state.setCategory);
->>>>>>> 67818a5 (fix: 스토어 임포트 경로 대소문자 불일치 수정 및 누락된 의존성 추가)
-=======
-import { useCategoryStore } from "../../store/useCategoryStore";
-import { FILTER_CATEGORIES } from "../../RestaurantData";
-
-export default function CategoryFilter() {
-  const category = useCategoryStore((state) => state.category);
-  const setCategory = useCategoryStore((state) => state.setCategory);
->>>>>>> 8d5072d (refactor: 커스텀 훅 네이밍 컨벤션 적용 및 파일 충돌 해결)
 
   return (
     <FilterContainer>
