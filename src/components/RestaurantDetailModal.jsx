@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import Modal from "./Modal";
-import useModalStore from "../store/useModalStore";
+import { useSelectedRestaurant, useCloseModal } from "../store/useModalStore";
 
 const Title = styled.h2`
   margin-bottom: 36px;
@@ -56,8 +56,8 @@ const PrimaryButton = styled(Button)`
 `;
 
 export default function RestaurantDetailModal() {
-  const selectedRestaurant = useModalStore((state) => state.selectedRestaurant);
-  const closeModal = useModalStore((state) => state.closeModal);
+  const selectedRestaurant = useSelectedRestaurant();
+  const closeModal = useCloseModal();
 
   return (
     <Modal onClose={closeModal}>
