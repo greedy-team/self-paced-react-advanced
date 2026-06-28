@@ -1,6 +1,7 @@
 import { useCategory } from "../../CategoryStore";
 import styled from "styled-components";
 import foodCategory from "../../data/foodCategory";
+import "../styles/default.css";
 
 const RestaurantFilterContainer = styled.section`
   display: flex;
