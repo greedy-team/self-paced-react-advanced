@@ -21,8 +21,8 @@ const SelectedCategory = styled.select`
   padding: 8px;
 `;
 function CategoryFilter() {
-  const { category, setCategory } = useCategory();
-
+  const category = useCategory((state) => state.category);
+  const setCategory = useCategory((state) => state.setCategory);
   return (
     <RestaurantFilterContainer>
       <SelectedCategory

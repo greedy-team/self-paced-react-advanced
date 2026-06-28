@@ -76,7 +76,7 @@ const RestaurantDescription = styled.p`
 `;
 
 function RestaurantList({ totalRestaurants, handleClickRestaurantList }) {
-  const { category } = useCategory();
+  const category = useCategory((state) => state.category);
 
   const filteredRestaurants =
     category === "전체"
