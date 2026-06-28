@@ -1,4 +1,4 @@
-import { useCategory } from "../../Zustand";
+import { useCategory } from "../../CategoryStore";
 import styled from "styled-components";
 import foodCategory from "../../data/foodCategory";
 

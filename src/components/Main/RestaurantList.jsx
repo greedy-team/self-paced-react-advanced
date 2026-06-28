@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 import styled from "styled-components";
-import { useCategory } from "../../Zustand";
+import { useCategory } from "../../CategoryStore";
 
 import korean from "../../../templates/category-korean.png";
 import chinese from "../../../templates/category-chinese.png";
