@@ -82,7 +82,7 @@ const Textarea = styled.textarea`
 
   font-size: 16px;
 `;
-function AddRestaurantModal({ handleClickAddRestaurant }) {
+function AddRestaurantModal({ setIsAddModal, handleClickAddRestaurant }) {
   const nameRef = useRef();
   const categoryRef = useRef();
   const descriptionRef = useRef();
@@ -100,7 +100,7 @@ function AddRestaurantModal({ handleClickAddRestaurant }) {
     handleClickAddRestaurant(newRestaurant);
   };
   return (
-    <Modal>
+    <Modal onClose={() => setIsAddModal(false)}>
       <ModalTitle>음식점 추가하기</ModalTitle>
       <form>
         <FormItem className="form-item form-item--required">
@@ -151,5 +151,6 @@ function AddRestaurantModal({ handleClickAddRestaurant }) {
 }
 AddRestaurantModal.propTypes = {
   handleClickAddRestaurant: PropTypes.func.isRequired,
+  setIsAddModal: PropTypes.func.isRequired,
 };
 export default AddRestaurantModal;

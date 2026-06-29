@@ -26,7 +26,6 @@ function App() {
     fetchRestaurants();
   }, []);
   // 파생값
-  
 
   const selectedRestaurant = totalRestaurants.find(
     (r) => r.id === selectedRestaurantId,
@@ -61,6 +60,7 @@ function App() {
         )}
         {isAddModal && (
           <AddRestaurantModal
+            setIsAddModal={setIsAddModal}
             handleClickAddRestaurant={handleClickAddRestaurant}
           />
         )}
