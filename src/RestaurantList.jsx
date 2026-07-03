@@ -1,6 +1,5 @@
-import React from "react";
 import styled from "styled-components";
-import { useRestaurantUI } from "./contexts/RestaurantContext";
+import { useRestaurantStore } from "./stores/useRestaurantStore.js";
 
 const CATEGORY_ICON_MAP = {
   한식: "/category-korean.png",
@@ -72,8 +71,55 @@ const RestaurantDescription = styled.p`
   font-weight: 400;
 `;
 
+const ErrorState = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  padding: 48px 16px;
+  text-align: center;
+  color: var(--grey-400);
+`;
+
+const RetryButton = styled.button`
+  padding: 8px 16px;
+  border: 1px solid var(--primary-color, #ec4a0a);
+  border-radius: 8px;
+  background: transparent;
+  color: var(--primary-color, #ec4a0a);
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+`;
+
 export default function RestaurantList() {
-  const { filteredRestaurants, setSelectedRestaurant } = useRestaurantUI();
+  const restaurants = useRestaurantStore((state) => state.restaurants);
+  const category = useRestaurantStore((state) => state.category);
+  const error = useRestaurantStore((state) => state.error);
+  const fetchRestaurants = useRestaurantStore(
+    (state) => state.fetchRestaurants,
+  );
+  const setSelectedRestaurant = useRestaurantStore(
+    (state) => state.setSelectedRestaurant,
+  );
+
+  const filteredRestaurants =
+    category === "전체"
+      ? restaurants
+      : restaurants.filter((r) => r.category === category);
+
+  if (error) {
+    return (
+      <Container>
+        <ErrorState>
+          <p>{error}</p>
+          <RetryButton type="button" onClick={fetchRestaurants}>
+            다시 시도
+          </RetryButton>
+        </ErrorState>
+      </Container>
+    );
+  }
 
   return (
     <Container>

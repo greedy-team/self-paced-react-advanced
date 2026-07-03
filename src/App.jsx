@@ -1,9 +1,7 @@
+import { useEffect } from "react";
 import "./App.css";
 import styled from "styled-components";
-import {
-  RestaurantProvider,
-  useRestaurantUI,
-} from "./contexts/RestaurantContext.jsx";
+import { useRestaurantStore } from "./stores/useRestaurantStore.js";
 
 import Header from "./Header.jsx";
 import CategoryFilter from "./CategoryFilter.jsx";
@@ -14,14 +12,23 @@ import AddRestaurantModal from "./AddRestaurantModal.jsx";
 const MainContainer = styled.main`
   display: flex;
   flex-direction: column;
-  max-width: 600px;
-  margin: 0 auto;
+  margin: 0;
   background-color: var(--grey-100);
   min-height: 100vh;
 `;
 
-function AppContent() {
-  const { selectedRestaurant, isAddModalOpen } = useRestaurantUI();
+function App() {
+  const selectedRestaurant = useRestaurantStore(
+    (state) => state.selectedRestaurant,
+  );
+  const isAddModalOpen = useRestaurantStore((state) => state.isAddModalOpen);
+  const fetchRestaurants = useRestaurantStore(
+    (state) => state.fetchRestaurants,
+  );
+
+  useEffect(() => {
+    fetchRestaurants();
+  }, [fetchRestaurants]);
 
   return (
     <>
@@ -35,14 +42,6 @@ function AppContent() {
         {isAddModalOpen && <AddRestaurantModal />}
       </aside>
     </>
-  );
-}
-
-function App() {
-  return (
-    <RestaurantProvider>
-      <AppContent />
-    </RestaurantProvider>
   );
 }
 
