@@ -1,8 +1,9 @@
 import styled from "styled-components";
 import Modal from "./Modal";
 import { ALL_CATEGORIES } from "../constants/categories";
-import { useAddRestaurant } from "../store/useRestaurantStore";
 import { useCloseModal } from "../store/useModalStore";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { BASE_URL } from "../constants/api.js";
 
 const Title = styled.h2`
   margin-bottom: 36px;
@@ -106,25 +107,46 @@ const PrimaryButton = styled(Button)`
   color: var(--grey-100);
 `;
 
-export default function AddRestaurantModal() {
-  const addRestaurant = useAddRestaurant();
-  const closeModal = useCloseModal();
+const createRestaurant = async (restaurant) => {
+  const response = await fetch(BASE_URL, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(restaurant),
+  });
+  if (!response.ok) throw response;
+  return response.json();
+};
 
-  async function handleSubmit(e) {
+export default function AddRestaurantModal() {
+  const queryClient = useQueryClient();
+  const closeModal = useCloseModal();
+  const mutation = useMutation({
+    mutationFn: createRestaurant,
+    onSuccess() {
+      // 목록 재조회를 return해서 끝날 때까지 mutation을 pending으로 유지 (중복 등록 방지)
+      return queryClient.invalidateQueries({ queryKey: ["restaurants"] });
+    },
+    onError() {
+      // 실패하면 모달을 닫지 않고 유지
+      alert("음식점 추가에 실패했습니다. 잠시 후 다시 시도해 주세요.");
+    },
+  });
+
+  function handleSubmit(e) {
     e.preventDefault();
     const formData = new FormData(e.target);
-    const restaurant = {
-      id: crypto.randomUUID(),
-      category: formData.get("category"),
-      name: formData.get("name"),
-      description: formData.get("description"),
-    };
-    try {
-      await addRestaurant(restaurant);
-      closeModal();
-    } catch {
-      // 실패 alert는 App에서 처리하므로 모달은 닫지 않고 유지
-    }
+    mutation.mutate(
+      {
+        id: crypto.randomUUID(),
+        category: formData.get("category"),
+        name: formData.get("name"),
+        description: formData.get("description"),
+      },
+      // UI 동작은 재조회가 끝난 뒤 실행되는 mutate의 onSuccess에 둠
+      { onSuccess: closeModal },
+    );
   }
 
   return (
@@ -159,7 +181,9 @@ export default function AddRestaurantModal() {
         </FormItem>
 
         <ButtonContainer>
-          <PrimaryButton type="submit">추가하기</PrimaryButton>
+          <PrimaryButton type="submit" disabled={mutation.isPending}>
+            추가하기
+          </PrimaryButton>
         </ButtonContainer>
       </form>
     </Modal>
