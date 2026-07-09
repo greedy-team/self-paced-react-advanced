@@ -1,10 +1,11 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Header from "./components/Header/Header";
 import CategoryFilter from "./components/Main/CategoryFilter";
 import RestaurantList from "./components/Main/RestaurantList";
 import RestaurantDetailModal from "./components/Aside/RestaurantDetailModal";
 import AddRestaurantModal from "./components/Aside/AddRestaurantModal";
-
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { useCategory } from "./categoryStore";
 function App() {
   // 상태값
   const [isDetailModal, setIsDetailModal] = useState(false);
@@ -13,19 +14,27 @@ function App() {
 
   const [isAddModal, setIsAddModal] = useState(false);
 
-  const [totalRestaurants, setTotalRestaurants] = useState([]);
+  const client = useQueryClient();
 
-  useEffect(() => {
-    async function fetchRestaurants() {
-      const res = await fetch("http://localhost:3000/restaurants");
-      const data = await res.json();
+  async function fetchRestaurants() {
+    const url =
+      category === "전체"
+        ? "http://localhost:3000/restaurants"
+        : `http://localhost:3000/restaurants?category=${category}`;
+    const res = await fetch(url);
+    const data = await res.json();
+    return data;
+  }
+  const category = useCategory((state) => state.category);
 
-      setTotalRestaurants(data);
-    }
-
-    fetchRestaurants();
-  }, []);
-  // 파생값
+  const {
+    data: totalRestaurants = [],
+    isLoading,
+    isError,
+  } = useQuery({
+    queryKey: ["restaurants", category],
+    queryFn: fetchRestaurants,
+  });
 
   const selectedRestaurant = totalRestaurants.find(
     (r) => r.id === selectedRestaurantId,
@@ -37,28 +46,74 @@ function App() {
     setSelectedRestaurantId(r.id);
   };
 
-  const handleClickAddRestaurant = async (newRestaurant) => {
-    const res = await fetch("http://localhost:3000/restaurants", {
+  const addRestaurant = async (newRestaurant) => {
+    await fetch(`http://localhost:3000/restaurants`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(newRestaurant),
     });
-
-    const savedRestaurant = await res.json();
-    setIsAddModal(false);
-    setTotalRestaurants((prev) => [...prev, savedRestaurant]);
   };
+  const { mutate } = useMutation({
+    mutationFn: addRestaurant,
+
+    onMutate: async (newRestaurant) => {
+      await client.cancelQueries({
+        queryKey: ["restaurants"],
+      });
+      const previousRestaurants = client.getQueryData([
+        "restaurants",
+        category,
+      ]);
+      const showOptimisticUpdate =
+        category === "전체" || category === newRestaurant.category;
+      if (showOptimisticUpdate) {
+        client.setQueryData(["restaurants", category], (old) => [
+          ...old,
+          newRestaurant,
+        ]);
+      }
+      return { previousRestaurants };
+    },
+
+    onError: (err, newRestaurant, onMutateResult) => {
+      client.setQueryData(
+        ["restaurants", category],
+        onMutateResult.previousRestaurants,
+      );
+    },
+
+    onSettled: (data, err) => {
+      client.invalidateQueries({
+        queryKey: ["restaurants"],
+      });
+      if (err) {
+        alert("음식점 추가 중 오류가 발생했습니다. 다시 시도해주세요.");
+      }
+    },
+  });
+
+  const handleClickAddRestaurant = async (newRestaurant) => {
+    mutate({ ...newRestaurant, id: crypto.randomUUID() });
+    setIsAddModal(false);
+  };
+
   return (
     <>
       <Header setIsAddModal={setIsAddModal} />
       <main>
         <CategoryFilter />
-        <RestaurantList
-          totalRestaurants={totalRestaurants}
-          handleClickRestaurantList={handleClickRestaurantList}
-        />
+        {isLoading ? (
+          <div>로딩중입니다...</div>
+        ) : isError ? (
+          <div>데이터를 불러오는 중 오류가 발생했습니다.</div>
+        ) : (
+          <RestaurantList
+            totalRestaurants={totalRestaurants}
+            handleClickRestaurantList={handleClickRestaurantList}
+          />
+        )}
       </main>
       <aside>
         {isDetailModal && (
